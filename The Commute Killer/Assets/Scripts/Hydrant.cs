@@ -6,7 +6,9 @@ public class Hydrant : MonoBehaviour, Interactable
 {
     private int State = 0; // [ 0 - Full | 1 - Spouting | 2 - Empty]
 
-    public int Liters = 10 * 60;
+    private float StartTime;
+
+    public float Duration = 2 * 60;
 
     public ParticleSystem WaterSpout;
 
@@ -25,9 +27,7 @@ public class Hydrant : MonoBehaviour, Interactable
                 break;
 
             case 1: // Spouting
-                Liters -= 1;
-
-                if(Liters <= 0)
+                if(StartTime + Duration <= Time.time)
                 {
                     State = 2;
 
@@ -49,6 +49,8 @@ public class Hydrant : MonoBehaviour, Interactable
             State = 1;
 
             WaterSpout.Play();
+
+            StartTime = Time.time;
         }
 
         return false;
