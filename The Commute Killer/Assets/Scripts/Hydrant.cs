@@ -63,7 +63,7 @@ public class Hydrant : MonoBehaviour, Interactable
 
     public bool CanInteract(GameObject Interactor)
     {
-        if(State == 0 && Vector3.Distance(gameObject.transform.position, Interactor.transform.position) < 30)
+        if(State == 0 && Vector3.Distance(this.transform.position, Interactor.transform.position) < 30)
         {
             return true;
         }
