@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.62703323, g: 0.7086396, b: 0.7482247, a: 1}
+  m_IndirectSpecularColor: {r: 0.35349065, g: 0.46929225, b: 0.53482276, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3874,6 +3874,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 159058316008620148, guid: 757b4925eb2ddd04da145c3cfa13f313,
+        type: 3}
+      propertyPath: Interactor
+      value: 
+      objectReference: {fileID: 398962372}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 757b4925eb2ddd04da145c3cfa13f313, type: 3}
 --- !u!4 &234176779 stripped
@@ -6351,6 +6356,26 @@ Transform:
   m_Father: {fileID: 500940835}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &385341807 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 159058316283517798, guid: 757b4925eb2ddd04da145c3cfa13f313,
+    type: 3}
+  m_PrefabInstance: {fileID: 159058315605381118}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &385341808
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385341807}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: e929ac57e943d3c489f18cb67b6b4ac2, type: 3}
 --- !u!1 &398837833
 GameObject:
   m_ObjectHideFlags: 0
@@ -15446,6 +15471,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 947050626}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &953034801 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 159058316283517798, guid: 757b4925eb2ddd04da145c3cfa13f313,
+    type: 3}
+  m_PrefabInstance: {fileID: 234176778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &953034802
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953034801}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: e929ac57e943d3c489f18cb67b6b4ac2, type: 3}
 --- !u!1 &954742505
 GameObject:
   m_ObjectHideFlags: 0
@@ -19778,6 +19823,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 159058316008620148, guid: 757b4925eb2ddd04da145c3cfa13f313,
+        type: 3}
+      propertyPath: Interactor
+      value: 
+      objectReference: {fileID: 398962372}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 757b4925eb2ddd04da145c3cfa13f313, type: 3}
 --- !u!4 &1273592249 stripped
@@ -30196,6 +30246,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1944617162 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 159058316283517798, guid: 757b4925eb2ddd04da145c3cfa13f313,
+    type: 3}
+  m_PrefabInstance: {fileID: 1273592248}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1944617163
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944617162}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: e929ac57e943d3c489f18cb67b6b4ac2, type: 3}
 --- !u!1001 &1947758404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33913,5 +33983,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 159058316008620148, guid: 757b4925eb2ddd04da145c3cfa13f313,
+        type: 3}
+      propertyPath: Interactor
+      value: 
+      objectReference: {fileID: 398962372}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 757b4925eb2ddd04da145c3cfa13f313, type: 3}
