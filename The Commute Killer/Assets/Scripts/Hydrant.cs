@@ -12,9 +12,16 @@ public class Hydrant : MonoBehaviour, Interactable
 
     public ParticleSystem WaterSpout;
 
+    public GameObject Interactor;
+
     // Start is called before the first frame update
     void Start()
     {
+    }
+
+    void OnMouseDown()
+    {
+        this.Interact(this.Interactor);
     }
 
     // Update is called once per frame
