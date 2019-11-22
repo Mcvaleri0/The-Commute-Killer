@@ -3987,9 +3987,9 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.3
-  m_Range: 11.48
-  m_SpotAngle: 70.15
+  m_Intensity: 1.49
+  m_Range: 4.37
+  m_SpotAngle: 62
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -4009,7 +4009,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 4
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -4807,8 +4807,60 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
+  m_Size: {x: 0.023239933, y: 0.0021678633, z: 0.021770941}
+  m_Center: {x: 0.0005509901, y: -0.010351875, z: -0.0030726676}
+--- !u!65 &1535924029
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535924024}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
   m_Size: {x: 0.018047744, y: 0.01999999, z: 0.0041069654}
   m_Center: {x: 0.0003658161, y: 6.5801953e-18, z: -0.011886837}
+--- !u!65 &1535924030
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535924024}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.023239933, y: 0.0015843782, z: 0.021770941}
+  m_Center: {x: 0.0005509901, y: 0.010859061, z: -0.0030726676}
+--- !u!65 &1535924031
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535924024}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0022371646, y: 0.023095643, z: 0.02180109}
+  m_Center: {x: -0.009982042, y: 0.000103449245, z: -0.0030877374}
+--- !u!65 &1535924032
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535924024}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0026407717, y: 0.023095643, z: 0.02180109}
+  m_Center: {x: 0.010850575, y: 0.000103449245, z: -0.0030877374}
 --- !u!1 &1762962792
 GameObject:
   m_ObjectHideFlags: 0
