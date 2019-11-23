@@ -5,21 +5,21 @@ using UnityEngine;
 public class PickUp : MonoBehaviour
 {
     public Transform newPos;
-    private Transform oldParent;
 
-    void OnMouseDown()
+
+    private void OnMouseDown()
     {
-        GetComponent<Collider>().enabled = false;
+        GetComponent<BoxCollider>().enabled = false;
         GetComponent<Rigidbody>().useGravity = false;
         this.transform.position = newPos.position;
-        this.oldParent = this.transform.parent;
         this.transform.parent = GameObject.Find("hand").transform;
     }
 
-    void OnMouseUp()
+
+    private void OnMouseUp()
     {
-        this.transform.parent = this.oldParent;
+        this.transform.parent = null;
         GetComponent<Rigidbody>().useGravity = true;
-        GetComponent<Collider>().enabled = true;
+        GetComponent<BoxCollider>().enabled = true;
     }
 }
