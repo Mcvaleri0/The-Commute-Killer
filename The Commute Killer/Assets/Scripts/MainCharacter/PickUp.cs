@@ -7,6 +7,12 @@ public class PickUp : MonoBehaviour
     public Transform newPos;
 
 
+    private void OnMouseOver()
+    {
+        
+    }
+
+
     private void OnMouseDown()
     {
         GetComponent<BoxCollider>().enabled = false;
