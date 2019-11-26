@@ -5,8 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - Selectable
-  tags:
-  - MapNode
   layers:
   - Default
   - TransparentFX
