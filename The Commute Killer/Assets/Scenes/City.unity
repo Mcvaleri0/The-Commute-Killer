@@ -567,7 +567,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &21243882
 MonoBehaviour:
@@ -26414,7 +26414,7 @@ PrefabInstance:
     - target: {fileID: 6857243859152791553, guid: fe34ca4daabd2ac4c87b319981f4538f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 6857243859152791553, guid: fe34ca4daabd2ac4c87b319981f4538f,
         type: 3}
@@ -27508,7 +27508,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_RootOrder
-      value: 21
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -29572,11 +29572,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1315597982}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88dded9399d4d154cb32cdbbf7cf1a6c, type: 3}
+  m_Script: {fileID: 11500000, guid: 742a2e12514a96f4d96159a35b8cd22c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Interactor: {fileID: 1679627812}
   newPos: {fileID: 72817429}
+  nAttackFrames: 6
 --- !u!65 &1315597986
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -35175,7 +35176,7 @@ Transform:
   - {fileID: 1008851793}
   - {fileID: 188880482}
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1001 &1557869736
 PrefabInstance:
@@ -35770,7 +35771,7 @@ Transform:
   m_LocalScale: {x: 0.25, y: 1.5, z: 0.25}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1578213792
 PrefabInstance:
@@ -42504,7 +42505,7 @@ RectTransform:
   - {fileID: 626446965}
   - {fileID: 1319965437}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -45294,7 +45295,7 @@ PrefabInstance:
         type: 3}
       propertyPath: AdjacentNodes.Array.data[2]
       value: 
-      objectReference: {fileID: 1834023117}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe34ca4daabd2ac4c87b319981f4538f, type: 3}
 --- !u!1001 &2066955898
