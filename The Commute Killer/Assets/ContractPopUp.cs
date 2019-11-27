@@ -4,30 +4,41 @@ using UnityEngine;
 
 public class ContractPopUp : MonoBehaviour
 {
+
+    public RectTransform contract;
+    private int state = 0;
+
     // Start is called before the first frame update
     void Update()
     {
-        
+        switch (state)
+        {
+            case 0:
+            break;
+
+            //open
+            case 1:
+                contract.gameObject.SetActive(true);
+                state = 0;
+            break;
+
+            //close
+            case 2:
+                contract.gameObject.SetActive(false);
+                state = 0;
+            break;
+
+
+        }
     }
 
     void OnMouseDown()
     {
-        openNotebook();
+        state = 1;
     }
 
-    public void openNotebook()
+    void OnMouseUp()
     {
-        var NoteBook = GameObject.Find("Canvas").GetComponent<NotebookController>();
-
-        NoteBook.gameObject.SetActive(true);
-
-    }
-
-    public void closeNotebook()
-    {
-        var NoteBook = this.transform.Find("Notebook");
-
-        NoteBook.gameObject.SetActive(false);
-
+        state = 2;
     }
 }

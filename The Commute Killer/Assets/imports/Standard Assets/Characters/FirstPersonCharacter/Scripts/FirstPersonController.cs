@@ -79,7 +79,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-
         private void FixedUpdate()
         {
             float speed;
@@ -119,7 +118,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_MouseLook.UpdateCursorLock();
         }
-
 
 
         private void ProgressStepCycle(float speed)
