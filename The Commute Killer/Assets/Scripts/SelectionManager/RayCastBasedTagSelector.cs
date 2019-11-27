@@ -5,6 +5,17 @@ public class RayCastBasedTagSelector : MonoBehaviour, ISelector
     [SerializeField] public string selectableTag = "Selectable";
     public Transform _selection;
 
+    [Range(1f, 10f)]
+    public float maxDistance = 4;
+
+    private GameObject player;
+
+
+    public void Start()
+    {
+        player = GameObject.Find("mainCharacterController");
+    }
+
 
     public void Check(Ray ray)
     {
@@ -13,7 +24,8 @@ public class RayCastBasedTagSelector : MonoBehaviour, ISelector
         if (Physics.Raycast(ray, out var hit))
         {
             var selection = hit.transform;
-            if (selection.CompareTag(this.selectableTag))
+            if (selection.CompareTag(this.selectableTag) && 
+                Vector3.Distance(selection.transform.position, player.transform.position) <= maxDistance)
             {
                 this._selection = selection;
             }

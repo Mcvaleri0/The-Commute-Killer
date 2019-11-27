@@ -6,6 +6,8 @@ public class NotebookController : MonoBehaviour
 {
     private int State = 0; //[ 0 - Closed | 1- Open ]
 
+    private bool unlocked = false;
+
     public void Start()
     {
     }
