@@ -17,7 +17,7 @@ public class ContractPopUp : MonoBehaviour
 
     public void openNotebook()
     {
-        var NoteBook = GameObject.Find("Canvas").GetComponent<NotebookController>();
+        var NoteBook = GameObject.Find("Canvas").transform.Find("NotebookController");
 
         NoteBook.gameObject.SetActive(true);
 
