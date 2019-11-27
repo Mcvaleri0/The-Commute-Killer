@@ -24,7 +24,7 @@ public class PickUpAble : MonoBehaviour, Interactable
     /// <summary>
     /// Is true if the object is being picked up
     /// </summary>
-    public bool BeingPicked;
+    public bool BeingPicked { get; set; }
 
 
     #region === Unity Events ===

@@ -8,6 +8,17 @@ public class Equipable : PickUpAble
 {
     public bool IsEquiped { get; set; }
 
+    /// <summary>
+    /// local position used when the object is equiped
+    /// </summary>
+    public Vector3 PosRelative { get; set; }
+
+
+    public void Start()
+    {
+        this.PosRelative = new Vector3(1f, -0.5f, 0.25f);
+    }
+
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -26,7 +37,8 @@ public class Equipable : PickUpAble
 
     public void Equipe()
     {
-        this.transform.localPosition = new Vector3(0, 0, 0.5f);
+        this.transform.localPosition = this.PosRelative;
+        this.transform.localRotation = Quaternion.Euler(-90, 90, 90);
 
         this.BeingPicked = false;
         this.IsEquiped = true;
