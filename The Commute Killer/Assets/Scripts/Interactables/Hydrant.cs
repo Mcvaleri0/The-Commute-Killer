@@ -14,6 +14,8 @@ public class Hydrant : MonoBehaviour, Interactable
 
     public GameObject Interactor;
 
+    public EventManager EventManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +41,8 @@ public class Hydrant : MonoBehaviour, Interactable
                     State = 2;
 
                     WaterSpout.Stop();
+
+                    this.EventManager.TriggerEvent(gameObject.name + "_OFF");
                 }
 
                 break;
@@ -58,6 +62,8 @@ public class Hydrant : MonoBehaviour, Interactable
             WaterSpout.Play();
 
             StartTime = Time.time;
+
+            this.EventManager.TriggerEvent(gameObject.name + "_ON");
         }
 
         return false;

@@ -37,29 +37,16 @@ public class MapController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F12))
-        {
-            var start = new Vector3(19f, 1, -15);
-            var end   = new Vector3(11.5f, 1, -44.5f);
-
-            this.TestPath = GetPath(start, end);
-        }
+        
     }
 
 
-    public Vector3[] GetPath(Vector3 start, Vector3 end)
+    public MapNode[] GetPath(Vector3 start, Vector3 end)
     {
         var startNode = FindClosestNode(start);
         var goalNode  = FindClosestNode(end);
 
-        var pathStack = BFSPathSearch(startNode, goalNode);
-
-        pathStack.Push(start);
-
-        var path = new Vector3[pathStack.Count + 1];
-
-        pathStack.ToArray().CopyTo(path, 0);
-        path[path.Length - 1] = end;
+        var path = BFSPathSearch(startNode, goalNode);
 
         return path;
     }
@@ -86,16 +73,16 @@ public class MapController : MonoBehaviour
         return closestNode;
     }
 
-    private Stack<Vector3> BFSPathSearch(MapNode start, MapNode goal)
+    private MapNode[] BFSPathSearch(MapNode start, MapNode goal)
     {
         this.SearchState = true;
 
-        Stack<Vector3> path = null;
+        Stack<MapNode> path = null;
 
         if(start != null && goal != null)
         {
-            path = new Stack<Vector3>();
-            path.Push(goal.transform.position);
+            path = new Stack<MapNode>();
+            path.Push(goal);
 
             var toVisit = new Queue<MapNode>();
             toVisit.Enqueue(start);
@@ -105,11 +92,13 @@ public class MapController : MonoBehaviour
             while(toVisit.Count != 0 && !goalFound) {
                 var node = toVisit.Dequeue();
                 
-                var adjNodes = node.GetComponent<MapNode>().AdjacentNodes;
+                var adjNodes = node.AdjacentNodes;
+
+                var ind = 0;
 
                 foreach (MapNode childNode in adjNodes)
                 {
-                    if (childNode.State == 0) {
+                    if (childNode.State == 0 && !node.BlockedArc[ind]) {
                         childNode.Previous = node;
 
                         if(childNode == goal)
@@ -121,6 +110,8 @@ public class MapController : MonoBehaviour
                         childNode.State = 1; // To be visited
                         toVisit.Enqueue(childNode);
                     }
+
+                    ind++;
                 }
 
                 node.GetComponent<MapNode>().State = 2;
@@ -130,15 +121,30 @@ public class MapController : MonoBehaviour
 
             while(prev != null)
             {
-                path.Push(prev.transform.position);
+                path.Push(prev);
 
                 prev = prev.Previous;
             }
         }
 
-        return path;
+        return path.ToArray();
     }
 
+    public bool BlockArc(int id_1, int id_2, bool value)
+    {
+        var start = this.Nodes[id_1];
+        var end = this.Nodes[id_2];
+
+        return start.BlockArc(end, value) && end.BlockArc(start, value);
+    }
+
+    public bool PathBlocked(int id_1, int id_2)
+    {
+        var startNode = this.Nodes[id_1];
+        var endNode   = this.Nodes[id_2];
+
+        return startNode.ArcBlocked(endNode);
+    }
 
     private void OnDrawGizmos()
     {
@@ -150,23 +156,6 @@ public class MapController : MonoBehaviour
             {
                 Gizmos.DrawLine(this.TestPath[i], this.TestPath[i+1]);
             }
-        }
-        
-        
-        Gizmos.color = Color.blue;
-
-        foreach(MapNode node in this.Nodes)
-        {
-            Gizmos.DrawSphere(node.transform.position, 0.1f);
-
-            foreach(MapNode child in node.AdjacentNodes)
-            {
-                if(node.id < child.id)
-                {
-                    Gizmos.DrawLine(node.transform.position, child.transform.position);
-                }
-            }
-        }
-        
+        }        
     }
 }
