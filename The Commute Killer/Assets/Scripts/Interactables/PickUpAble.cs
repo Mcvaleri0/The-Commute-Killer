@@ -12,9 +12,19 @@ public class PickUpAble : MonoBehaviour, Interactable
     public GameObject Interactor;
 
     /// <summary>
+    /// position that the object has while is being picked up
+    /// </summary>
+    public GameObject newPos;
+
+    /// <summary>
     /// parent of this object while this object is not being picked
     /// </summary>
     public Transform OldParent { get; set; }
+
+    /// <summary>
+    /// Is true if the object is being picked up
+    /// </summary>
+    public bool BeingPicked;
 
 
     #region === Unity Events ===
@@ -27,10 +37,7 @@ public class PickUpAble : MonoBehaviour, Interactable
 
     private void OnMouseUp()
     {
-        this.transform.parent = this.OldParent;
-
-        GetComponent<Rigidbody>().useGravity = true;
-        GetComponent<Collider>().enabled = true;
+        this.Release();
     }
 
     #endregion
@@ -47,7 +54,7 @@ public class PickUpAble : MonoBehaviour, Interactable
     {
         if (this.CanInteract(interactor))
         {
-            this.PickUp(interactor);
+            this.PickUp();
             return true;
         }
 
@@ -62,7 +69,9 @@ public class PickUpAble : MonoBehaviour, Interactable
     /// <returns></returns>
     public bool CanInteract(GameObject interactor)
     {
-        return (Vector3.Distance(this.transform.position, interactor.transform.position) < 2);
+        var dist = Vector3.Distance(this.transform.position, interactor.transform.position);
+        Debug.Log(dist);
+        return (dist < 5);
     }
 
     #endregion
@@ -70,15 +79,31 @@ public class PickUpAble : MonoBehaviour, Interactable
 
     #region === Pick Up Methods ===
 
-    private void PickUp(GameObject interactor)
+    public void PickUp()
     {
         this.GetComponent<Collider>().enabled = false;
         this.GetComponent<Rigidbody>().useGravity = false;
 
-        this.transform.position = interactor.transform.position;
+        this.transform.position = this.newPos.transform.position;
 
         this.OldParent = this.transform.parent;
-        this.transform.parent = interactor.transform;
+        this.transform.parent = this.newPos.transform;
+    
+        this.BeingPicked = true;
+    }
+
+    
+    public void Release()
+    {
+        if (this.BeingPicked)
+        {
+            this.transform.parent = this.OldParent;
+
+            GetComponent<Rigidbody>().useGravity = true;
+            GetComponent<Collider>().enabled = true;
+
+            this.BeingPicked = false;
+        }
     }
 
     #endregion
