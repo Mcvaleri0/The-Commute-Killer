@@ -8,6 +8,8 @@ public class DoorKnob : MonoBehaviour, Interactable
     public GameObject Interactor;
     public GameObject targetDoor;
 
+    public float maxDistance = 3;
+
     void OnMouseDown()
     {
         this.Interact(this.Interactor);
@@ -18,11 +20,23 @@ public class DoorKnob : MonoBehaviour, Interactable
     {
         if (CanInteract(Interactor))
         {
-            Vector3 targetPos = new Vector3(0, 0, 0);
-            targetPos = targetDoor.transform.position;
-            targetPos.y += 2;
 
-            //var heading = Atan2(transform.right.z, transform.right.x) * Mathf.Rad2Deg;
+            //targetPos = targetDoor.transform.position;
+
+            //Debug.Log(newRotation.ToString("F4"));
+
+            Vector3 doorPos = targetDoor.transform.position;
+
+            float angle = targetDoor.transform.eulerAngles.y * Mathf.Deg2Rad;
+            int distance = 2;
+
+            float xx = Mathf.Cos(angle);
+            float zz = Mathf.Sin(angle);
+
+            Vector3 dirVec = new Vector3(xx, 00, zz);
+
+            Vector3 targetPos = doorPos + (dirVec.normalized * distance);
+            targetPos.y += 1;
 
             Interactor.transform.position = targetPos;
         }
@@ -32,7 +46,7 @@ public class DoorKnob : MonoBehaviour, Interactable
 
     public bool CanInteract(GameObject Interactor)
     {
-        if (Vector3.Distance(this.transform.position, Interactor.transform.position) < 30)
+        if (Vector3.Distance(this.transform.position, Interactor.transform.position) < maxDistance)
         {
             return true;
         }
