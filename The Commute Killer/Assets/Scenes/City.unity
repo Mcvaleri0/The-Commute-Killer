@@ -27758,6 +27758,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.42312515
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 3edeaded0fde22e40a0494705a96f3cf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f49d3ffb0168fcc46811cfa7f95e82d3, type: 2}
+    - target: {fileID: 2300002, guid: 3edeaded0fde22e40a0494705a96f3cf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2ddf289a4996f1d44a089e86081db7ca, type: 2}
     - target: {fileID: 400004, guid: 3edeaded0fde22e40a0494705a96f3cf, type: 3}
       propertyPath: m_LocalScale.z
       value: 5.9958477
@@ -27774,14 +27782,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 2.458
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 3edeaded0fde22e40a0494705a96f3cf, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f49d3ffb0168fcc46811cfa7f95e82d3, type: 2}
-    - target: {fileID: 2300002, guid: 3edeaded0fde22e40a0494705a96f3cf, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2ddf289a4996f1d44a089e86081db7ca, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3edeaded0fde22e40a0494705a96f3cf, type: 3}
 --- !u!1001 &1267949391
@@ -29176,8 +29176,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &1315597984
-BoxCollider:
+--- !u!64 &1315597984
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -29186,9 +29186,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.031663954, y: 0.056677625, z: 0.00817662}
-  m_Center: {x: 0.01769872, y: -0.009138369, z: -0.0004581282}
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 75317c3efc6062c4582ef3875a5d2850, type: 3}
 --- !u!114 &1315597985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32655,6 +32656,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Interactor: {fileID: 1178790817}
   targetDoor: {fileID: 593410461}
+  maxDistance: 3
 --- !u!135 &1457647184
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -45775,6 +45777,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Interactor: {fileID: 1178790817}
   targetDoor: {fileID: 192540467}
+  maxDistance: 3
 --- !u!135 &2105900585
 SphereCollider:
   m_ObjectHideFlags: 0

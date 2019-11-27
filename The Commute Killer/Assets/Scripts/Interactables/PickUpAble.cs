@@ -30,7 +30,7 @@ public class PickUpAble : MonoBehaviour, Interactable
         this.transform.parent = this.OldParent;
 
         GetComponent<Rigidbody>().useGravity = true;
-        GetComponent<BoxCollider>().enabled = true;
+        GetComponent<Collider>().enabled = true;
     }
 
     #endregion
