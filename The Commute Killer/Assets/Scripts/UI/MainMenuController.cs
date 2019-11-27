@@ -5,9 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
+    public void Start()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
     public void PlayButton()
     {
-        SceneManager.LoadScene("Office", LoadSceneMode.Single);
+        SceneManager.LoadScene("City", LoadSceneMode.Single);
     }
 
     public void QuitButton()

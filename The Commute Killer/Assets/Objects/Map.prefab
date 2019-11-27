@@ -1,5 +1,102 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2647424801688691648
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8123333645444759074}
+  - component: {fileID: 6041585256168875}
+  - component: {fileID: 540996190016900}
+  - component: {fileID: 6247512890081074951}
+  m_Layer: 0
+  m_Name: MapNode (35)
+  m_TagString: MapNode
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8123333645444759074
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2647424801688691648}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.6, y: 46.55, z: -7.42}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_Children: []
+  m_Father: {fileID: 6857243859152791553}
+  m_RootOrder: 35
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &6041585256168875
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2647424801688691648}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &540996190016900
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2647424801688691648}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 29bfd3218d9a43d4895905e1549d1e41, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &6247512890081074951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2647424801688691648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7991e751e4c3dfa4a82b713564458aac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  State: 0
+  Previous: {fileID: 0}
+  AdjacentNodes:
+  - {fileID: 6857243857525122275}
+  - {fileID: 6857243859058949960}
+  BlockedArc: 
 --- !u!1 &6857243857385586082
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,6 +194,7 @@ MonoBehaviour:
   - {fileID: 6857243858831318888}
   - {fileID: 6857243858128542298}
   - {fileID: 6857243858338573531}
+  BlockedArc: 
 --- !u!1 &6857243857471419389
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,6 +292,7 @@ MonoBehaviour:
   - {fileID: 6857243858338573531}
   - {fileID: 6857243857768454415}
   - {fileID: 6857243857608119514}
+  BlockedArc: 
 --- !u!1 &6857243857525122274
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,7 +388,8 @@ MonoBehaviour:
   Previous: {fileID: 0}
   AdjacentNodes:
   - {fileID: 6857243857654892295}
-  - {fileID: 6857243859058949960}
+  - {fileID: 6247512890081074951}
+  BlockedArc: 
 --- !u!1 &6857243857608119513
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,6 +487,7 @@ MonoBehaviour:
   - {fileID: 6857243858062136422}
   - {fileID: 6857243857471419390}
   - {fileID: 6857243858232561960}
+  BlockedArc: 
 --- !u!1 &6857243857653768826
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,6 +584,7 @@ MonoBehaviour:
   AdjacentNodes:
   - {fileID: 6857243858989838762}
   - {fileID: 6857243859260142173}
+  BlockedArc: 
 --- !u!1 &6857243857654892294
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,6 +682,7 @@ MonoBehaviour:
   - {fileID: 6857243858437564225}
   - {fileID: 6857243859064849030}
   - {fileID: 6857243858148029363}
+  BlockedArc: 
 --- !u!1 &6857243857768454414
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,6 +780,7 @@ MonoBehaviour:
   - {fileID: 6857243857471419390}
   - {fileID: 6857243857385586083}
   - {fileID: 6857243859118888757}
+  BlockedArc: 
 --- !u!1 &6857243857809608957
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,6 +877,7 @@ MonoBehaviour:
   AdjacentNodes:
   - {fileID: 6857243859260142173}
   - {fileID: 6857243858875077028}
+  BlockedArc: 
 --- !u!1 &6857243858048852233
 GameObject:
   m_ObjectHideFlags: 0
@@ -869,6 +974,7 @@ MonoBehaviour:
   AdjacentNodes:
   - {fileID: 6857243858967032811}
   - {fileID: 6857243858483531080}
+  BlockedArc: 
 --- !u!1 &6857243858062136421
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,6 +1072,7 @@ MonoBehaviour:
   - {fileID: 6857243858338573531}
   - {fileID: 6857243858276888236}
   - {fileID: 6857243857608119514}
+  BlockedArc: 
 --- !u!1 &6857243858128542297
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,6 +1170,7 @@ MonoBehaviour:
   - {fileID: 6857243859400936908}
   - {fileID: 6857243857385586083}
   - {fileID: 6857243859355639960}
+  BlockedArc: 
 --- !u!1 &6857243858148029362
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,6 +1268,7 @@ MonoBehaviour:
   - {fileID: 6857243857654892295}
   - {fileID: 6857243859149686918}
   - {fileID: 6857243859435743189}
+  BlockedArc: 
 --- !u!1 &6857243858232561967
 GameObject:
   m_ObjectHideFlags: 0
@@ -1258,6 +1367,7 @@ MonoBehaviour:
   - {fileID: 6857243859019583345}
   - {fileID: 6857243859149686918}
   - {fileID: 6857243857385586083}
+  BlockedArc: 
 --- !u!1 &6857243858276888243
 GameObject:
   m_ObjectHideFlags: 0
@@ -1355,6 +1465,7 @@ MonoBehaviour:
   - {fileID: 6857243858967032811}
   - {fileID: 6857243859082889099}
   - {fileID: 6857243858062136422}
+  BlockedArc: 
 --- !u!1 &6857243858277651979
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,6 +1562,7 @@ MonoBehaviour:
   AdjacentNodes:
   - {fileID: 6857243859263666927}
   - {fileID: 6857243858875077028}
+  BlockedArc: 
 --- !u!1 &6857243858316194053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1548,6 +1660,7 @@ MonoBehaviour:
   - {fileID: 6857243858437564225}
   - {fileID: 6857243858442189198}
   - {fileID: 6857243857525122275}
+  BlockedArc: 
 --- !u!1 &6857243858338573530
 GameObject:
   m_ObjectHideFlags: 0
@@ -1644,6 +1757,7 @@ MonoBehaviour:
   AdjacentNodes:
   - {fileID: 6857243857471419390}
   - {fileID: 6857243858062136422}
+  BlockedArc: 
 --- !u!1 &6857243858437564224
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,6 +1855,7 @@ MonoBehaviour:
   - {fileID: 6857243859263666927}
   - {fileID: 6857243858316194054}
   - {fileID: 6857243857654892295}
+  BlockedArc: 
 --- !u!1 &6857243858442189197
 GameObject:
   m_ObjectHideFlags: 0
@@ -1838,6 +1953,7 @@ MonoBehaviour:
   - {fileID: 6857243858316194054}
   - {fileID: 6857243859058949960}
   - {fileID: 6857243858831318888}
+  BlockedArc: 
 --- !u!1 &6857243858483531087
 GameObject:
   m_ObjectHideFlags: 0
@@ -1935,6 +2051,7 @@ MonoBehaviour:
   - {fileID: 6857243858048852234}
   - {fileID: 6857243859058949960}
   - {fileID: 6857243859082889099}
+  BlockedArc: 
 --- !u!1 &6857243858831318895
 GameObject:
   m_ObjectHideFlags: 0
@@ -2033,6 +2150,7 @@ MonoBehaviour:
   - {fileID: 6857243858442189198}
   - {fileID: 6857243857385586083}
   - {fileID: 6857243859019583345}
+  BlockedArc: 
 --- !u!1 &6857243858875077035
 GameObject:
   m_ObjectHideFlags: 0
@@ -2130,6 +2248,7 @@ MonoBehaviour:
   - {fileID: 6857243858277651972}
   - {fileID: 6857243857809608958}
   - {fileID: 6857243857385586083}
+  BlockedArc: 
 --- !u!1 &6857243858967032810
 GameObject:
   m_ObjectHideFlags: 0
@@ -2227,6 +2346,7 @@ MonoBehaviour:
   - {fileID: 6857243859260142173}
   - {fileID: 6857243858048852234}
   - {fileID: 6857243858276888236}
+  BlockedArc: 
 --- !u!1 &6857243858989838761
 GameObject:
   m_ObjectHideFlags: 0
@@ -2278,6 +2398,7 @@ MonoBehaviour:
   AdjacentNodes:
   - {fileID: 6857243859263666927}
   - {fileID: 6857243857653768827}
+  BlockedArc: 
 --- !u!33 &659222501480172361
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2420,6 +2541,7 @@ MonoBehaviour:
   - {fileID: 6857243859082889099}
   - {fileID: 6857243858831318888}
   - {fileID: 6857243858232561960}
+  BlockedArc: 
 --- !u!1 &6857243859058949967
 GameObject:
   m_ObjectHideFlags: 0
@@ -2514,9 +2636,10 @@ MonoBehaviour:
   State: 0
   Previous: {fileID: 0}
   AdjacentNodes:
-  - {fileID: 6857243857525122275}
+  - {fileID: 6247512890081074951}
   - {fileID: 6857243858483531080}
   - {fileID: 6857243858442189198}
+  BlockedArc: 
 --- !u!1 &6857243859064849029
 GameObject:
   m_ObjectHideFlags: 0
@@ -2614,6 +2737,7 @@ MonoBehaviour:
   - {fileID: 6857243857654892295}
   - {fileID: 6857243858831318888}
   - {fileID: 6857243859149686918}
+  BlockedArc: 
 --- !u!1 &6857243859082889098
 GameObject:
   m_ObjectHideFlags: 0
@@ -2711,6 +2835,7 @@ MonoBehaviour:
   - {fileID: 6857243858276888236}
   - {fileID: 6857243858483531080}
   - {fileID: 6857243859019583345}
+  BlockedArc: 
 --- !u!1 &6857243859118888763
 GameObject:
   m_ObjectHideFlags: 0
@@ -2809,6 +2934,7 @@ MonoBehaviour:
   - {fileID: 6857243858232561960}
   - {fileID: 6857243859149686918}
   - {fileID: 6857243858831318888}
+  BlockedArc: 
 --- !u!1 &6857243859149686917
 GameObject:
   m_ObjectHideFlags: 0
@@ -2907,6 +3033,7 @@ MonoBehaviour:
   - {fileID: 6857243858148029363}
   - {fileID: 6857243859355639960}
   - {fileID: 6857243858232561960}
+  BlockedArc: 
 --- !u!1 &6857243859152791559
 GameObject:
   m_ObjectHideFlags: 0
@@ -2970,6 +3097,7 @@ Transform:
   - {fileID: 6857243857768454410}
   - {fileID: 6857243857608119509}
   - {fileID: 6857243859118888756}
+  - {fileID: 8123333645444759074}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3083,6 +3211,7 @@ MonoBehaviour:
   - {fileID: 6857243857653768827}
   - {fileID: 6857243858967032811}
   - {fileID: 6857243857809608958}
+  BlockedArc: 
 --- !u!1 &6857243859263666926
 GameObject:
   m_ObjectHideFlags: 0
@@ -3180,6 +3309,7 @@ MonoBehaviour:
   - {fileID: 6857243858989838762}
   - {fileID: 6857243858437564225}
   - {fileID: 6857243858277651972}
+  BlockedArc: 
 --- !u!1 &6857243859355639967
 GameObject:
   m_ObjectHideFlags: 0
@@ -3277,6 +3407,7 @@ MonoBehaviour:
   - {fileID: 6857243859149686918}
   - {fileID: 6857243859435743189}
   - {fileID: 6857243858128542298}
+  BlockedArc: 
 --- !u!1 &6857243859400936915
 GameObject:
   m_ObjectHideFlags: 0
@@ -3373,6 +3504,7 @@ MonoBehaviour:
   AdjacentNodes:
   - {fileID: 6857243859435743189}
   - {fileID: 6857243858128542298}
+  BlockedArc: 
 --- !u!1 &6857243859435743188
 GameObject:
   m_ObjectHideFlags: 0
@@ -3470,3 +3602,4 @@ MonoBehaviour:
   - {fileID: 6857243858148029363}
   - {fileID: 6857243859355639960}
   - {fileID: 6857243859400936908}
+  BlockedArc: 
