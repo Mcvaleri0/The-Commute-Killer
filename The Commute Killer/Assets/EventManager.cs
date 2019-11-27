@@ -18,8 +18,8 @@ public class EventManager : MonoBehaviour
 
         this.Victim = GameObject.Find("Victim");
 
-        this.VictimStartPosition = new Vector3(19.375f, 1, -15.225f);
-        this.VictimEndPosition   = new Vector3(11f, 1, -45f);
+        this.VictimStartPosition = new Vector3(19.375f, 0.3f, -15.225f);
+        this.VictimEndPosition   = new Vector3(11f, 0.3f, -45f);
 
         this.Victim.SetActive(false);
     }
