@@ -46,7 +46,7 @@ public class EventManager : MonoBehaviour
             this.Victim.SetActive(true);
 
             this.Victim.transform.position = this.VictimStartPosition;
-            this.Victim.GetComponent<VictimController>().GoalPosition = this.VictimEndPosition;
+            this.Victim.GetComponent<Agent>().GoalPosition = this.VictimEndPosition;
         }
 
         if (Input.GetKeyDown(KeyCode.O))
@@ -54,7 +54,7 @@ public class EventManager : MonoBehaviour
             this.Victim.SetActive(true);
 
             this.Victim.transform.position = this.VictimEndPosition;
-            this.Victim.GetComponent<VictimController>().GoalPosition = this.VictimStartPosition;
+            this.Victim.GetComponent<Agent>().GoalPosition = this.VictimStartPosition;
         }
     }
 }

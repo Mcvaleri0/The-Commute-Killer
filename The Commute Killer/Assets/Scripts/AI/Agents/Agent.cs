@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.IAJ.Unity.Movement.DynamicMovement;
 
-public class VictimController : MonoBehaviour
+public class Agent : MonoBehaviour
 {
     public Vector3 GoalPosition;
 
@@ -11,7 +11,7 @@ public class VictimController : MonoBehaviour
 
     private int State = 0; //[ 0 - Stopped | 1 - Moving | 2 - Stopped at Goal ]
 
-    private Vector3 PreviousGoalPosition;    
+    private Vector3 PreviousGoalPosition;
 
     private MapNode[] Path;
 
@@ -19,7 +19,9 @@ public class VictimController : MonoBehaviour
 
     private DynamicCharacter DCharacter;
 
-    private 
+    public Item OnHand;
+
+    public List<Item> Inventory;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +33,8 @@ public class VictimController : MonoBehaviour
             MaxSpeed = 10f,
             Drag = 0.5f
         };
+
+        this.Inventory = new List<Item>();
     }
 
     // Update is called once per frame
@@ -138,5 +142,36 @@ public class VictimController : MonoBehaviour
         }
 
         return true;
+    }
+
+    public void Equip(Item toEquip)
+    {
+        var ind = 0;
+
+        foreach(Item item in this.Inventory)
+        {
+            if(item == toEquip)
+            {
+                this.Unequip();
+
+                this.OnHand = item;
+
+                this.Inventory.RemoveAt(ind);
+
+                return;
+            }
+
+            ind++;
+        }
+    }
+
+    public void Unequip()
+    {
+        if(this.OnHand != null)
+        {
+            this.Inventory.Add(this.OnHand);
+
+            this.OnHand = null;
+        }
     }
 }
