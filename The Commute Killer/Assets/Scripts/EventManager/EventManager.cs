@@ -24,21 +24,21 @@ public class EventManager : MonoBehaviour
         this.Victim.SetActive(false);
     }
 
-    public bool TriggerEvent(string name)
+    public bool TriggerEvent(Event e)
     {
-        switch(name)
+        switch(e)
         {
-            case "Hydrant_0_ON":
+            case Event.Hydrant_0_ON:
                 return this.Map.GetComponent<MapController>().BlockArc(25, 16, true);
 
-            case "Hydrant_0_OFF":
+            case Event.Hydrant_0_OFF:
                 return this.Map.GetComponent<MapController>().BlockArc(25, 16, false);
 
-            case "VictimStartEnd":
+            case Event.VictimStartEnd:
                 this.VictimMovement(this.VictimStartPosition, this.VictimEndPosition);
                 return true;
 
-            case "VictimEndStart":
+            case Event.VictimEndStart:
                 this.VictimMovement(this.VictimEndPosition, this.VictimStartPosition);
                 return true;
 
@@ -53,12 +53,12 @@ public class EventManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.P))
         {
-            this.TriggerEvent("VictimStartEnd");
+            this.TriggerEvent(Event.VictimStartEnd);
         }
 
         if (Input.GetKeyDown(KeyCode.O))
         {
-            this.TriggerEvent("VictimEndStart");
+            this.TriggerEvent(Event.VictimEndStart);
         }
     }
 

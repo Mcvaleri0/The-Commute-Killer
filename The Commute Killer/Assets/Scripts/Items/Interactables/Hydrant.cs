@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,7 +38,8 @@ public class Hydrant : MonoBehaviour, Interactable
 
                     WaterSpout.Stop();
 
-                    this.EventManager.TriggerEvent(gameObject.name + "_OFF");
+                    var ev = (Event)Enum.Parse(typeof(Event), gameObject.name + "_OFF");
+                    this.EventManager.TriggerEvent(ev);
                 }
 
                 break;
@@ -58,7 +60,9 @@ public class Hydrant : MonoBehaviour, Interactable
 
             StartTime = Time.time;
 
-            this.EventManager.TriggerEvent(gameObject.name + "_ON");
+            var ev = (Event)Enum.Parse(typeof(Event), gameObject.name + "_ON");
+            this.EventManager.TriggerEvent(ev);
+
         }
 
         return false;
