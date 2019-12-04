@@ -33,28 +33,41 @@ public class EventManager : MonoBehaviour
 
             case "Hydrant_0_OFF":
                 return this.Map.GetComponent<MapController>().BlockArc(25, 16, false);
+
+            case "VictimStartEnd":
+                this.VictimMovement(this.VictimStartPosition, this.VictimEndPosition);
+                return true;
+
+            case "VictimEndStart":
+                this.VictimMovement(this.VictimEndPosition, this.VictimStartPosition);
+                return true;
+
         }
 
         return false;
     }
+
 
     // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.P))
         {
-            this.Victim.SetActive(true);
-
-            this.Victim.transform.position = this.VictimStartPosition;
-            this.Victim.GetComponent<Agent>().GoalPosition = this.VictimEndPosition;
+            this.TriggerEvent("VictimStartEnd");
         }
 
         if (Input.GetKeyDown(KeyCode.O))
         {
-            this.Victim.SetActive(true);
-
-            this.Victim.transform.position = this.VictimEndPosition;
-            this.Victim.GetComponent<Agent>().GoalPosition = this.VictimStartPosition;
+            this.TriggerEvent("VictimEndStart");
         }
+    }
+
+
+    public void VictimMovement(Vector3 start, Vector3 end)
+    {
+        this.Victim.SetActive(true);
+
+        this.Victim.transform.position = start;
+        this.Victim.GetComponent<Agent>().GoalPosition = end;
     }
 }

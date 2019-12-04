@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
 public class TimeManager : MonoBehaviour
 {
     /// <summary>
@@ -38,6 +40,8 @@ public class TimeManager : MonoBehaviour
         if (!this.Pause)
         {
             this.UpdateCurrentTime();
+
+
         }
     }
 
