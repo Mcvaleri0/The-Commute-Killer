@@ -5,173 +5,182 @@ using Assets.Scripts.IAJ.Unity.Movement.DynamicMovement;
 
 public class Agent : MonoBehaviour
 {
-    public Vector3 GoalPosition;
-
-    public MapController Map;
-
-    private int State = 0; //[ 0 - Stopped | 1 - Moving | 2 - Stopped at Goal ]
-
-    private Vector3 PreviousGoalPosition;
-
-    private MapNode[] Path;
-
-    private int NextInd;
-
-    private DynamicCharacter DCharacter;
-
+    /* Items */
     public Item OnHand;
 
+    public int InventorySize;
+
+    private int FirstFree = -1;
+
     public List<Item> Inventory;
+
+    public Vector3 HandPosition;
+
+    /* Attributes */
+    public enum Attribute
+    {
+        MaxHP,
+        HP,
+        Speed
+    }
+
+    public Dictionary<Attribute, float> Attributes;
+
+    /* Actions */
+    public List<Action> AvailableActions;
+
+    public List<Action> PerformedActions;
+
+    /* Movement */
+    private DynamicCharacter DynamicC;
+
+    public Vector3 GoalPosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        this.PreviousGoalPosition = this.GoalPosition;
+        this.Attributes[Attribute.MaxHP] = 10;
+        this.Attributes[Attribute.HP]    = 10;
+        this.Attributes[Attribute.Speed] = 10;
 
-        this.DCharacter = new DynamicCharacter(this.gameObject)
+        if(this.Inventory == null)
         {
-            MaxSpeed = 10f,
-            Drag = 0.5f
-        };
+            this.Inventory = new List<Item>(this.InventorySize);
 
-        this.Inventory = new List<Item>();
+            this.FirstFree = 0;
+        }
+        else
+        {
+            this.FirstFree = this.Inventory.FindIndex(x => x == null);
+        }
+
+        this.AvailableActions = new List<Action>();
+        this.PerformedActions = new List<Action>();
+
+        this.DynamicC = new DynamicCharacter(this.gameObject)
+        {
+            MaxSpeed = 10f
+        };
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch(this.State)
-        {
-            case 0: // Stopped
-                if(this.GoalPosition != null)
-                {
-                    InitializeMovement();
-
-                    if(this.Path != null) this.State = 1; // Path was found -> Walk toward it
-                }
-                break;
-
-            case 1: // Moving to Target
-                if(MoveToTarget())
-                {
-                    if(Vector3.Distance(this.transform.position, this.GoalPosition) < 1f)
-                    {
-                        this.State = 0; // Path completed -> Goal Reached
-
-                        this.gameObject.SetActive(false);
-                    }
-                }
-                else
-                {
-                    this.State = 0; // Path was blocked -> Recalculate
-                }
-                break;
-        }
+        
     }
 
-    private void InitializeMovement()
+    #region === Pick Up Methods ===
+    public bool PickUp(Item item)
     {
-        var start = transform.position;
-        var goal  = this.GoalPosition;
-
-        if(this.Map != null)
+        if(this.OnHand == null)
         {
-            this.Path = this.Map.GetPath(start, goal);
+            this.OnHand = item;
+
+            item.PickUp(this);
+
+            return true;
         }
 
-        if (this.Path != null)
+        if (this.Inventory.Count < this.Inventory.Capacity)
         {
-            this.NextInd = 0;
+            this.Inventory.Insert(this.FirstFree, item);
 
-            this.DCharacter.Movement = new DynamicArrive()
-            {
-                Character = this.DCharacter.KinematicData,
-                Target = new Assets.Scripts.IAJ.Unity.Movement.KinematicData()
-                {
-                    position = this.Path[0].transform.position
-                },
-                MaxAcceleration = 1f,
-                MaxSpeed = 10f,
-                TargetRadius = 1f,
-                SlowRadius = 3f
-            };
+            this.FirstFree = this.Inventory.FindIndex(x => x == null);
+
+            item.PickUp(this);
+
+            return true;
         }
+
+        return false;
     }
 
-    private bool MoveToTarget()
+
+    public void Drop(int itemIndex)
     {
-        this.DCharacter.Update();
-
-        // If the path through the grid is not finished
-        if (this.NextInd < this.Path.Length)
+        if(itemIndex != -1)
         {
-            var nextNode = this.Path[this.NextInd];
+            var item = this.Inventory[itemIndex];
 
-            var distance = Vector3.Distance(this.transform.position, nextNode.transform.position);
+            item.Drop();
 
-            // If we are close to the current next node
-            if (distance <= 0.5f)
+            this.Inventory.RemoveAt(itemIndex);
+
+            if(this.FirstFree == -1 || itemIndex < this.FirstFree)
             {
-                if (this.NextInd != this.Path.Length - 1)
-                {
-                    // If the path to the potential next node is not blocked
-                    if (!this.Map.PathBlocked(nextNode.id, this.Path[this.NextInd + 1].id))
-                    {
-                        this.NextInd++; // New next node
-
-                        this.DCharacter.Movement.Target = new Assets.Scripts.IAJ.Unity.Movement.KinematicData()
-                        {
-                            position = this.Path[this.NextInd].transform.position
-                        };
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    this.NextInd++;
-
-                    this.DCharacter.Movement.Target = new Assets.Scripts.IAJ.Unity.Movement.KinematicData()
-                    {
-                        position = this.GoalPosition
-                    };
-                }
+                this.FirstFree = itemIndex;
             }
         }
-
-        return true;
     }
 
-    public void Equip(Item toEquip)
+    #endregion
+
+    #region === Equipping Methods ===
+    public void Equip(int itemIndex)
     {
-        var ind = 0;
-
-        foreach(Item item in this.Inventory)
+        if (this.OnHand == null)
         {
-            if(item == toEquip)
+            if (itemIndex != -1)
             {
-                this.Unequip();
+                this.OnHand = this.Inventory[itemIndex];
 
-                this.OnHand = item;
-
-                this.Inventory.RemoveAt(ind);
-
-                return;
+                this.Inventory.RemoveAt(itemIndex);
             }
-
-            ind++;
         }
+        else
+        {
+            var current = this.OnHand;
+
+            this.OnHand.Unequip();
+
+            this.OnHand = this.Inventory[itemIndex];
+
+            this.Inventory[itemIndex] = current;
+        }
+
+        this.OnHand.Equip();
     }
 
     public void Unequip()
     {
         if(this.OnHand != null)
         {
-            this.Inventory.Add(this.OnHand);
+            this.OnHand.Unequip();
 
-            this.OnHand = null;
+            if (this.Inventory.Count < this.Inventory.Capacity)
+            {
+                this.Inventory.Insert(this.FirstFree, this.OnHand);
+
+                this.FirstFree = this.Inventory.FindIndex(x => x == null);
+            }
+            else
+            {
+                var prev = this.OnHand;
+
+                this.OnHand = this.Inventory[this.Inventory.Capacity - 1];
+
+                this.OnHand.Equip();
+
+                for (var i = 0; i < this.Inventory.Count; i++)
+                {
+                    var nPrev = this.Inventory[i];
+
+                    this.Inventory[i] = prev;
+
+                    prev = nPrev;
+                }
+            }
         }
+    }
+    #endregion
+
+    public bool ExecuteAction(Action action)
+    {
+        if(action.CanExecute())
+        {
+            action.Execute();
+        }
+
+        return false;
     }
 }

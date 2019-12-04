@@ -10,13 +10,7 @@ public class DoorKnob : MonoBehaviour, Interactable
 
     public float maxDistance = 3;
 
-    void OnMouseDown()
-    {
-        this.Interact(this.Interactor);
-    }
-
-
-    public bool Interact(GameObject Interactor)
+    public bool Interact(Agent Interactor)
     {
         if (CanInteract(Interactor))
         {
@@ -44,7 +38,7 @@ public class DoorKnob : MonoBehaviour, Interactable
         return false;
     }
 
-    public bool CanInteract(GameObject Interactor)
+    public bool CanInteract(Agent Interactor)
     {
         if (Vector3.Distance(this.transform.position, Interactor.transform.position) < maxDistance)
         {

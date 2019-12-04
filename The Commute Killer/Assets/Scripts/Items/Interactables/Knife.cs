@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-public class Knife : Equipable
+public class Knife : Item
 {
 
     /// <summary>
@@ -17,7 +17,7 @@ public class Knife : Equipable
     public bool Attacking { get; set; }
 
 
-    public override void Start()
+    new public void Start()
     {
         base.Start();
 
@@ -25,9 +25,9 @@ public class Knife : Equipable
     }
 
 
-    public override void Update()
+    public void Update()
     {
-        if (this.Attacking)
+        if (this.AnimationState == 1)
         {
             if (this.CurrentAttackFrames > (this.nAttackFrames / 2))
             {
@@ -43,23 +43,18 @@ public class Knife : Equipable
             }
             else
             {
-                this.Attacking = false;
+                this.AnimationState = 2;
                 this.CurrentAttackFrames = this.nAttackFrames;
             }
         }
-        else
-        {
-            base.Update();
-        }
     }
 
 
-    public override void Attack()
+    override public void Animate()
     {
-        if (this.IsEquiped)
+        if(this.AnimationState == 0)
         {
-            this.Attacking = true;
+            this.AnimationState = 1;
         }
     }
-
 }

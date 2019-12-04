@@ -10,22 +10,21 @@ public abstract class Action
 
     protected Item Instrument { get; set; }
 
-    protected List<Agent> Targets { get; set; }
+    protected List<GameObject> Targets { get; set; }
 
     protected float Duration { get; set; }
 
     protected Vector3 TargetPosition { get; set; }
 
+    public int State = 0; // [ 0 - To Start | 1 - In Progress | 2 - Finished ]
+
     public Action(Agent agent) {
         this.Agent = agent;
     }
 
-    public virtual bool CanExecute()
-    {
-        return false;
-    }
+    public virtual void Update() { }
+
+    public virtual bool CanExecute() { return false; }
 
     public virtual void Execute() { }
-
-    public virtual void ChangeWorld() { }
 }

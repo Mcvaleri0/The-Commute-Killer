@@ -21,11 +21,6 @@ public class Hydrant : MonoBehaviour, Interactable
     {
     }
 
-    void OnMouseDown()
-    {
-        this.Interact(this.Interactor);
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -53,7 +48,7 @@ public class Hydrant : MonoBehaviour, Interactable
         }
     }
 
-    public bool Interact(GameObject Interactor)
+    public bool Interact(Agent Interactor)
     {
         if(CanInteract(Interactor))
         {
@@ -69,7 +64,7 @@ public class Hydrant : MonoBehaviour, Interactable
         return false;
     }
 
-    public bool CanInteract(GameObject Interactor)
+    public bool CanInteract(Agent Interactor)
     {
         if(State == 0 && Vector3.Distance(this.transform.position, Interactor.transform.position) < 30)
         {
