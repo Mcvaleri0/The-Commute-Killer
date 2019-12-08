@@ -4,6 +4,18 @@ using UnityEngine;
 
 public abstract class Action
 {
+    public enum IDs
+    {
+        None,
+        PickUp,
+        Drop,
+        Stab,
+        Sabotage,
+        Use
+    }
+
+    public IDs ID;
+
     protected Agent Agent { get; set; }
 
     protected List<Agent> Experiencers { get; set; }
@@ -24,7 +36,7 @@ public abstract class Action
 
     public virtual void Update() { }
 
-    public virtual bool CanExecute() { return false; }
+    public virtual bool CanExecute(Agent agent, GameObject target) { return false; }
 
     public virtual void Execute() { }
 }

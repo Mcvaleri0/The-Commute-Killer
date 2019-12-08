@@ -5,71 +5,79 @@ using UnityEngine.UI;
 
 public class Recticle : MonoBehaviour {
 
-    private RectTransform recticle;
-    private Transform circle;
-    private Transform point;
-    private Transform grab;
+    private RectTransform RTransform;
 
-    int state = 0;
-    Transform _current;
+    public enum Mode
+    {
+        Circle,
+        Point,
+        Grab
+    }
+
+    private Dictionary<Mode, Transform> ModeTransforms;
+
+    Mode Current;
+
+    int State = 0;
 
     [Range(10f, 250f)]
-    public float size = 20f;
+    public float Size = 20f;
 
-    private SelectionManager selectionManager;
-    private Transform selected;
+    private Player Player;
+    private Transform Selected;
 
     private void Start() {
 
-        recticle = GetComponent<RectTransform>();
-        circle = this.transform.Find("Circle");
-        point  = this.transform.Find("Point");
-        grab   = this.transform.Find("Grab");
-        _current = circle;
+        this.RTransform = GetComponent<RectTransform>();
 
-        selectionManager = GameObject.Find("Selection Manager").GetComponent<SelectionManager>();
+        this.ModeTransforms = new Dictionary<Mode, Transform>()
+        {
+            [Mode.Circle] = this.transform.Find("Circle"),
+            [Mode.Point]  = this.transform.Find("Point"),
+            [Mode.Grab]   = this.transform.Find("Grab")
+        };
+
+        this.Current = Mode.Circle;
+
+        this.Player = GameObject.Find("PlayerCharacter").GetComponent<Player>();
     }
 
-    private void switchRecticle(Transform newRect) {
-        _current.gameObject.SetActive(false);
-        newRect.gameObject.SetActive(true);
-        _current = newRect;
+    private void SwitchRecticle(Mode mode) {
+        this.ModeTransforms[this.Current].gameObject.SetActive(false);
+
+        this.ModeTransforms[mode].gameObject.SetActive(true);
+
+        this.Current = mode;
     }
 
     private void Update() {
+        var currentTransform = this.ModeTransforms[this.Current];
 
-        _current.GetComponent<RectTransform>().sizeDelta = new Vector2(size, size);
-        selected = selectionManager.getSelection();
+        currentTransform.GetComponent<RectTransform>().sizeDelta = new Vector2(this.Size, this.Size);
 
-        switch (state)
+        var actionId = this.Player.DeterminedAction;
+        var rectMode = Mode.Circle;
+
+        switch (actionId)
         {
-            case 0://Normal
-                if(selected != null) {
-                    switchRecticle(point);
-                    state = 1;
-                }
+            // --- Normal
+            default:
+            case Action.IDs.None:
             break;
 
-            case 1://Point
-                if (selected == null)
-                {
-                    switchRecticle(circle);
-                    state = 0;
-                }
-                if (Input.GetMouseButtonDown(0)) //if mb1 is clicked
-                {
-                    switchRecticle(grab);
-                    state = 2;
-                }
-            break;
+            // --- Point
+            case Action.IDs.Use:
+            case Action.IDs.PickUp: // FIXME: This should be in Grab when we have another recticle
+                rectMode = Mode.Point;
+                break;
 
-            case 2://Grab
-                if (Input.GetMouseButtonUp(0)) //if mb1 is vo longer down
-                {
-                    switchRecticle(circle);
-                    state = 0;
-                }
-            break;
+            // --- Grab
+            
+        }
+
+        if (this.Current != rectMode)
+        {
+            SwitchRecticle(rectMode);
         }
     }
 }

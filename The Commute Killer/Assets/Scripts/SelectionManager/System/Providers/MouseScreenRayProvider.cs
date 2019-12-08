@@ -6,4 +6,10 @@ public class MouseScreenRayProvider : MonoBehaviour, IRayProvider
     {
         return Camera.main.ScreenPointToRay(Input.mousePosition);
     }
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.black;
+        Gizmos.DrawRay(CreateRay());
+    }
 }

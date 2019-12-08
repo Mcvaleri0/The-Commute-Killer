@@ -5,23 +5,23 @@ using UnityEngine;
 public class PickUp : Action
 {
     public PickUp(Agent agent, GameObject target) : base(agent) {
+        this.ID = IDs.PickUp;
+
         this.Targets = new List<GameObject>()
         {
             target
         };
     }
 
-    public static bool CanExecute(GameObject agent, GameObject target)
+    override public bool CanExecute(Agent agent, GameObject target)
     {
-        if (agent.GetComponent<Agent>() == null) { return false; } // Action must be executed by an agent
-        if (target.GetComponent<Agent>() == null) { return false; } // Target must be an agent
+        if (target.GetComponent<Item>() == null) { return false; } // Target must be an item
 
-        var aPos = agent.transform.position;
-        var tPos = target.transform.position;
+        var agentComp = agent.GetComponent<Agent>();
 
-        if (Vector3.Distance(aPos, tPos) < 1.5f)
+        if (agentComp.FirstFree != -1 || agentComp.OnHand == null)
         {
-            return true;
+            return target.GetComponent<Item>().CanInteract(Action.IDs.PickUp);
         }
 
         return false;
@@ -29,6 +29,6 @@ public class PickUp : Action
 
     override public void Execute() 
     {
-        this.Agent.PickUp(this.Instrument);
+        this.Agent.PickUp(this.Targets[0].GetComponent<Item>());
     }
 }

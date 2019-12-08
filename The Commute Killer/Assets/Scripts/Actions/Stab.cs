@@ -5,6 +5,8 @@ using UnityEngine;
 public class Stab : Action
 {
     public Stab(Agent agent, GameObject target) : base(agent) {
+        this.ID = IDs.Stab;
+
         base.Targets = new List<GameObject>() 
         { 
             target
@@ -34,9 +36,8 @@ public class Stab : Action
         }
     }
 
-    public static bool CanExecute(GameObject agent, GameObject target)
+    override public bool CanExecute(Agent agent, GameObject target)
     {
-        if(agent.GetComponent<Agent>()  == null) { return false; } // Action must be executed by an agent
         if(target.GetComponent<Agent>() == null) { return false; } // Target must be an agent
 
         var aPos = agent.transform.position;

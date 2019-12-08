@@ -2,31 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class Knife : Item
 {
-
-    /// <summary>
-    /// Number of frames that the attack takes
-    /// </summary>
     public int nAttackFrames;
 
     public int CurrentAttackFrames { get; set; }
-
-    public bool Attacking { get; set; }
-
 
     new public void Start()
     {
         base.Start();
 
+        this.Name = "Knife";
+
         this.CurrentAttackFrames = this.nAttackFrames;
+
+        this.Types.Add(ItemType.SharpWeapon);
+
+        this.EnabledActions = new List<Action.IDs>()
+        {
+            Action.IDs.Stab
+        };
     }
 
-
-    public void Update()
+    new public void Update()
     {
+        base.Update();
+
         if (this.AnimationState == 1)
         {
             if (this.CurrentAttackFrames > (this.nAttackFrames / 2))
@@ -43,12 +44,11 @@ public class Knife : Item
             }
             else
             {
-                this.AnimationState = 2;
+                this.AnimationState = 0;
                 this.CurrentAttackFrames = this.nAttackFrames;
             }
         }
     }
-
 
     override public void Animate()
     {

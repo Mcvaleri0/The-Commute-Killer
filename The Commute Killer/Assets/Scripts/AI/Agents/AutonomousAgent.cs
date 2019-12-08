@@ -10,8 +10,6 @@ public class AutonomousAgent : Agent
 
     private int State = 0; //[ 0 - Stopped | 1 - Moving | 2 - Stopped at Goal ]
 
-    public Vector3 GoalPosition;
-
     private Vector3 PreviousGoalPosition;
 
     private MapNode[] Path;
@@ -21,8 +19,10 @@ public class AutonomousAgent : Agent
     private DynamicCharacter DCharacter;
 
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
+        base.Start();
+
         this.Map = GameObject.Find("Map").GetComponent<MapController>();
 
         this.PreviousGoalPosition = this.GoalPosition;

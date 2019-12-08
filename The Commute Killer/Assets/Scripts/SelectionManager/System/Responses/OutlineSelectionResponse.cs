@@ -7,10 +7,12 @@ public class OutlineSelectionResponse : MonoBehaviour, ISelectionResponse
     public void OnSelect(Transform selection)
     {
         var outline = selection.GetComponent<Outline>();
+
         if(outline == null)
         {
             var outln = selection.gameObject.AddComponent<Outline>();
-            outln.OutlineMode = Outline.Mode.OutlineAll;
+
+            outln.OutlineMode  = Outline.Mode.OutlineAll;
             outln.OutlineColor = Color.white;
             outln.OutlineWidth = 10;
         }
@@ -23,6 +25,7 @@ public class OutlineSelectionResponse : MonoBehaviour, ISelectionResponse
     public void OnDeselect(Transform selection)
     {
         var outline = selection.GetComponent<Outline>();
+
         if (outline != null)
         {
             outline.OutlineWidth = 0;

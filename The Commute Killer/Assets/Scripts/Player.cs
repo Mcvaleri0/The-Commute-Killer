@@ -5,22 +5,54 @@ using Assets.Scripts.IAJ.Unity.Movement.DynamicMovement;
 
 public class Player : Agent
 {
-    public SelectionManager Select;
+    public ISelector Selector;
+
+    private Transform PrevSelection;
+
+    public Action.IDs DeterminedAction { get; private set; }
 
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
-        this.Select = GameObject.Find("Selection Manager").GetComponent<SelectionManager>();
+        base.Start();
+
+        this.Selector = GameObject.Find("Selection Manager").GetComponent<ISelector>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        var selection = this.Selector.GetSelection();
+
+        if (selection != this.PrevSelection) 
         {
-            var selection = this.Select.getSelection();
+            this.PrevSelection = selection;
 
+            if (selection != null)
+            {
+                this.DeterminedAction = DetermineAction(GetPossibleActions(selection.gameObject));
+            }
+            else
+            {
+                this.DeterminedAction = Action.IDs.None;
+            }
+        }
 
+        // Drop Key
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            ExecuteAction(Action.IDs.Drop, this.OnHand.gameObject);
+            return;
+        }
+
+        if (Input.GetMouseButtonDown(0)) 
+        {
+            if (this.DeterminedAction != Action.IDs.None)
+            {
+                ExecuteAction(this.DeterminedAction, selection.gameObject);
+
+                return;
+            }
         }
     }
 }
