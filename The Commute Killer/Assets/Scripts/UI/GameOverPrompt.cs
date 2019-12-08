@@ -21,4 +21,9 @@ public class GameOverPrompt : MonoBehaviour
 
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
+
+    public void ResetButton()
+    {
+        Debug.Log("Resart");
+    }
 }

@@ -913,7 +913,7 @@ MonoBehaviour:
   StoryYear: 1989
   WakeUpHour: 8
   WakeUpMinute: 30
-  DaysToKill: 2
+  DaysToKill: 3
 --- !u!4 &40945300
 Transform:
   m_ObjectHideFlags: 0
@@ -9578,7 +9578,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 396978545}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2022853490}
+        m_MethodName: ResetButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &396978545
 MonoBehaviour:
   m_ObjectHideFlags: 0

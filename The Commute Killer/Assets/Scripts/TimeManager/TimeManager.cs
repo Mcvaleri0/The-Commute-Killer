@@ -109,22 +109,22 @@ public class TimeManager : MonoBehaviour
         this.NextDay = new DateTime(this.CurrentTime.Year, this.CurrentTime.Month, this.CurrentTime.Day + 1, 0, 0, 0);
     }
 
+    private void NewDay()
+    {
+        this.DrawDayPrompt();
+        this.UpdateNextDay();
+    }
+
     private void VerifyEvents()
     {
-        // Game Over
         if (this.CurrentTime >= this.TimeLimit)
         {
-            this.PauseUnpauseGame();
-            this.DrawGameOverPrompt();
-            this.TurnCursorVisible();
-            //this.ResetCurrentTime();
+            this.GameOver();
         }
 
-        // New Day
         else if (this.CurrentTime >= this.NextDay)
         {
-            this.DrawDayPrompt();
-            this.UpdateNextDay();
+            this.NewDay();
         }
 
         // Time to close day prompt
@@ -190,6 +190,13 @@ public class TimeManager : MonoBehaviour
     private void PauseUnpauseGame()
     {
         this.Pause = !this.Pause;
+    }
+
+    private void GameOver()
+    {
+        this.PauseUnpauseGame();
+        this.DrawGameOverPrompt();
+        this.TurnCursorVisible();
     }
 
     private void TurnCursorVisible()
