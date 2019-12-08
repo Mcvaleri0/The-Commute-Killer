@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
-
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class TimeManager : MonoBehaviour
 {
@@ -117,6 +116,7 @@ public class TimeManager : MonoBehaviour
         {
             this.PauseUnpauseGame();
             this.DrawGameOverPrompt();
+            this.TurnCursorVisible();
             //this.ResetCurrentTime();
         }
 
@@ -190,6 +190,13 @@ public class TimeManager : MonoBehaviour
     private void PauseUnpauseGame()
     {
         this.Pause = !this.Pause;
+    }
+
+    private void TurnCursorVisible()
+    {
+        var playerController = GameObject.Find("PlayerCharacter").GetComponent<FirstPersonController>();
+
+        playerController.m_MouseLook.SetCursorLock(false);
     }
 
     #endregion
