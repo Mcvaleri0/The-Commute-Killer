@@ -6,10 +6,10 @@ using Assets.Scripts.IAJ.Unity.Movement.DynamicMovement;
 public class Player : Agent
 {
     public ISelector Selector;
-
     private Transform PrevSelection;
 
     public Action.IDs DeterminedAction { get; private set; }
+
 
     // Start is called before the first frame update
     new void Start()
@@ -18,6 +18,7 @@ public class Player : Agent
 
         this.Selector = GameObject.Find("Selection Manager").GetComponent<ISelector>();
     }
+
 
     // Update is called once per frame
     void Update()

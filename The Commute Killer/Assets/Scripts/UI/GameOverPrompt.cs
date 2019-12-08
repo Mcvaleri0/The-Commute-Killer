@@ -24,6 +24,10 @@ public class GameOverPrompt : MonoBehaviour
 
     public void ResetButton()
     {
-        Debug.Log("Resart");
+        this.Hide();
+
+        GameObject.Find("TimeManager").GetComponent<TimeManager>().ResetTime();
+
+        //GameObject.Find("PlayerCharacter").GetComponent<Player>().GoToInitialPosition();
     }
 }

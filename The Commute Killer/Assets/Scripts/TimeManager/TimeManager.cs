@@ -199,6 +199,15 @@ public class TimeManager : MonoBehaviour
         this.TurnCursorVisible();
     }
 
+    public void ResetTime()
+    {
+        this.CurrentTime = this.InitialTime;
+        this.UpdateNextDay();
+        this.TimeLimit = this.CurrentTime.AddDays(this.DaysToKill);
+
+        this.PauseUnpauseGame();
+    }
+
     private void TurnCursorVisible()
     {
         var playerController = GameObject.Find("PlayerCharacter").GetComponent<FirstPersonController>();

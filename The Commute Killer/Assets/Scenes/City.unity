@@ -913,7 +913,7 @@ MonoBehaviour:
   StoryYear: 1989
   WakeUpHour: 8
   WakeUpMinute: 30
-  DaysToKill: 3
+  DaysToKill: 5
 --- !u!4 &40945300
 Transform:
   m_ObjectHideFlags: 0

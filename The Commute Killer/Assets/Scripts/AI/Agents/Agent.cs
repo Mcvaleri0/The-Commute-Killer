@@ -40,6 +40,9 @@ public class Agent : MonoBehaviour
     public Vector3 GoalPosition;
     #endregion
 
+    private Vector3 InitialPos { get; set; }
+
+
     // Start is called before the first frame update
     protected void Start()
     {
@@ -66,7 +69,10 @@ public class Agent : MonoBehaviour
         {
             MaxSpeed = 10f
         };
+
+        this.InitialPos = this.transform.position;
     }
+
 
     #region === Pick Up Methods ===
     public bool PickUp(Item item)
@@ -382,4 +388,10 @@ public class Agent : MonoBehaviour
         return null;
     }
     #endregion
+
+
+    public void GoToInitialPosition()
+    {
+        this.transform.position = this.InitialPos;
+    }
 }
