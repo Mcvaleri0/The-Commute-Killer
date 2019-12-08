@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hydrant : MonoBehaviour, Interactable
+public class Hydrant : Interactable
 {
-    private int State = 0; // [ 0 - Full | 1 - Spouting | 2 - Empty]
+    private int State = 0; // [ 0 - Closed | 1 - Open | 2 - Empty ]
 
     private float StartTime;
 
@@ -12,18 +12,17 @@ public class Hydrant : MonoBehaviour, Interactable
 
     public ParticleSystem WaterSpout;
 
-    public GameObject Interactor;
-
     public EventManager EventManager;
 
-    // Start is called before the first frame update
-    void Start()
+    #region === MonoBehaviour Methods ===
+    new void Start()
     {
-    }
+        base.Start();
 
-    void OnMouseDown()
-    {
-        this.Interact(this.Interactor);
+        this.PossibleActions = new List<Action.IDs>()
+        {
+            Action.IDs.Sabotage
+        };
     }
 
     // Update is called once per frame
@@ -31,18 +30,19 @@ public class Hydrant : MonoBehaviour, Interactable
     {
         switch(State)
         {
-            case 0: // Full
+            case 0: // Closed
 
                 break;
 
-            case 1: // Spouting
+            case 1: // Open
                 if(StartTime + Duration <= Time.time)
                 {
-                    State = 2;
+                    this.State = 2; // Go to empty
 
-                    WaterSpout.Stop();
+                    this.WaterSpout.Stop(); // Stop particles
 
-                    this.EventManager.TriggerEvent(gameObject.name + "_OFF");
+                    var ev = (Event)Enum.Parse(typeof(Event), gameObject.name + "_OFF");
+                    this.EventManager.TriggerEvent(ev);
                 }
 
                 break;
@@ -52,30 +52,67 @@ public class Hydrant : MonoBehaviour, Interactable
                 break;
         }
     }
+    #endregion
 
-    public bool Interact(GameObject Interactor)
+    #region === Interactable Methods
+    override public bool Interact(Action.IDs id)
     {
-        if(CanInteract(Interactor))
+        switch (id)
         {
-            State = 1;
+            default:
+                break;
 
-            WaterSpout.Play();
-
-            StartTime = Time.time;
-
-            this.EventManager.TriggerEvent(gameObject.name + "_ON");
+            case Action.IDs.Sabotage:
+                Sabotage();
+                return true;
         }
 
         return false;
     }
 
-    public bool CanInteract(GameObject Interactor)
+    override public bool CanInteract(Agent Interactor, Action.IDs id)
     {
-        if(State == 0 && Vector3.Distance(this.transform.position, Interactor.transform.position) < 30)
+        if (this.State != 2 && id == Action.IDs.Sabotage && this.ActionAvailable(id))
         {
             return true;
         }
 
         return false;
     }
+    #endregion
+
+    #region === Possible Action Methods ===
+    private void Sabotage()
+    {
+        Activate();
+    }
+    #endregion
+
+    #region === Object Behaviour ===
+    private void Activate()
+    {
+        this.State = 1; // Open the Hydrant
+
+        this.WaterSpout.Play(); // Start particles
+
+        this.StartTime = Time.time; // Start timer
+
+        var ev = (Event)Enum.Parse(typeof(Event), gameObject.name + "_ON");
+        this.EventManager.TriggerEvent(ev);
+    }
+
+    private void Deactivate()
+    {
+        this.State = 0; // Close the Hydrant
+
+        this.WaterSpout.Stop(); // Stop particles
+
+        var timeSpent = Time.time - this.StartTime; // Time it was on
+
+        this.Duration -= timeSpent; // Decrement timer
+
+        var ev = (Event)Enum.Parse(typeof(Event), gameObject.name + "_OFF");
+        this.EventManager.TriggerEvent(ev);
+    }
+    #endregion
 }

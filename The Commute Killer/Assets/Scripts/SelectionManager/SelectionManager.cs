@@ -4,43 +4,39 @@ using UnityEngine;
 
 public class SelectionManager : MonoBehaviour
 {
-    [SerializeField] private string selectableTag = "Selectable";
+    public string Tag = "Selectable";
 
-    private IRayProvider _rayProvider;
-    private ISelector _selector;
-    private ISelectionResponse _selectionResponse;
+    private IRayProvider       RayProvider;
+    private ISelector          Selector;
+    private ISelectionResponse SelectionResponse;
 
-    private Transform _currentSelection;
-    private Transform _selection;
+    private Transform CurrentSelection;
 
-    private void Awake()
+    public Transform Selection { get; private set; }
+
+    private void Start()
     {
-        _rayProvider = GetComponent<IRayProvider>();
-        _selector = GetComponent<ISelector>();
-        _selectionResponse = GetComponent<ISelectionResponse>();
+        this.RayProvider       = this.GetComponent<IRayProvider>();
+        this.Selector          = this.GetComponent<ISelector>();
+        this.SelectionResponse = this.GetComponent<ISelectionResponse>();
     }
 
     private void Update()
     {
         //Deselection/Selectinon Response
-        if (_currentSelection != null)
+        if (this.CurrentSelection != null)
         {
-            _selectionResponse.OnDeselect(_currentSelection);
+            this.SelectionResponse.OnDeselect(this.CurrentSelection);
         }
 
         //Selection Determination
-        _selector.Check(_rayProvider.CreateRay());
-        _currentSelection = _selector.GetSelection();
+        this.Selector.Check(this.RayProvider.CreateRay());
+        this.CurrentSelection = this.Selector.GetSelection();
 
         //Deselection/Selectinon Response
-        if (_currentSelection != null)
+        if (this.CurrentSelection != null)
         {
-            _selectionResponse.OnSelect(_currentSelection);
+            this.SelectionResponse.OnSelect(this.CurrentSelection);
         }
-    }
-
-    public Transform getSelection()
-    {
-        return _currentSelection;
     }
 }
