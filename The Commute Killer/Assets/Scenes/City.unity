@@ -909,10 +909,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af4cde13b72c5a14c8d75119b4a81250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeMultiplier: 100
+  TimeMultiplier: 2
   StoryYear: 1989
-  WakeUpHour: 23
-  WakeUpMinute: 20
+  WakeUpHour: 8
+  WakeUpMinute: 30
   DaysToKill: 5
 --- !u!4 &40945300
 Transform:
@@ -30558,6 +30558,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.42312515
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 3edeaded0fde22e40a0494705a96f3cf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f49d3ffb0168fcc46811cfa7f95e82d3, type: 2}
+    - target: {fileID: 2300002, guid: 3edeaded0fde22e40a0494705a96f3cf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2ddf289a4996f1d44a089e86081db7ca, type: 2}
     - target: {fileID: 400004, guid: 3edeaded0fde22e40a0494705a96f3cf, type: 3}
       propertyPath: m_LocalScale.z
       value: 5.9958477
@@ -30574,14 +30582,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 2.458
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 3edeaded0fde22e40a0494705a96f3cf, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f49d3ffb0168fcc46811cfa7f95e82d3, type: 2}
-    - target: {fileID: 2300002, guid: 3edeaded0fde22e40a0494705a96f3cf, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2ddf289a4996f1d44a089e86081db7ca, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3edeaded0fde22e40a0494705a96f3cf, type: 3}
 --- !u!1001 &1267949391
