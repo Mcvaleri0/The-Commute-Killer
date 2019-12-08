@@ -34,7 +34,7 @@ public class TimeManager : MonoBehaviour
     #region Prompt Variables
 
     private DayPrompt DayPrompt { get; set; }
-    //private GameOverPrompt GameOverPrompt { get; set; }
+    private GameOverPrompt GameOverPrompt { get; set; }
     private bool PromptOpen { get; set; }
     private DateTime TimeToClosePrompt { get; set; }
 
@@ -115,9 +115,9 @@ public class TimeManager : MonoBehaviour
         // Game Over
         if (this.CurrentTime >= this.TimeLimit)
         {
-            //this.PauseUnpauseGame();
-            //this.DrawGameOverPrompt();
-            this.ResetCurrentTime();
+            this.PauseUnpauseGame();
+            this.DrawGameOverPrompt();
+            //this.ResetCurrentTime();
         }
 
         // New Day
@@ -154,7 +154,7 @@ public class TimeManager : MonoBehaviour
         var canvas = this.transform.Find("Canvas");
         this.DayPrompt = canvas.Find("DayPrompt").GetComponent<DayPrompt>();
 
-        //this.GameOverPrompt = canvas.Find("GameOverPrompt").GetComponent<GameOverPrompt>();
+        this.GameOverPrompt = canvas.Find("GameOverPrompt").GetComponent<GameOverPrompt>();
 
         this.DayPrompt.Initialize();
         this.DrawDayPrompt();
@@ -173,7 +173,7 @@ public class TimeManager : MonoBehaviour
 
     private void DrawGameOverPrompt()
     {
-        //this.GameOverPrompt.Draw();
+        this.GameOverPrompt.Draw();
     }
 
     private void HidePrompt()
