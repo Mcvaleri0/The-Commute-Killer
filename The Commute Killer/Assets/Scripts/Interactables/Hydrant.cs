@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,8 +15,10 @@ public class Hydrant : Interactable
     public EventManager EventManager;
 
     #region === MonoBehaviour Methods ===
-    void Start()
+    new void Start()
     {
+        base.Start();
+
         this.PossibleActions = new List<Action.IDs>()
         {
             Action.IDs.Sabotage
@@ -39,7 +41,8 @@ public class Hydrant : Interactable
 
                     this.WaterSpout.Stop(); // Stop particles
 
-                    this.EventManager.TriggerEvent(gameObject.name + "_OFF"); // Tell Event manager
+                    var ev = (Event)Enum.Parse(typeof(Event), gameObject.name + "_OFF");
+                    this.EventManager.TriggerEvent(ev);
                 }
 
                 break;
@@ -94,7 +97,8 @@ public class Hydrant : Interactable
 
         this.StartTime = Time.time; // Start timer
 
-        this.EventManager.TriggerEvent(gameObject.name + "_ON"); // Tell Event Manager
+        var ev = (Event)Enum.Parse(typeof(Event), gameObject.name + "_ON");
+        this.EventManager.TriggerEvent(ev);
     }
 
     private void Deactivate()
@@ -107,7 +111,8 @@ public class Hydrant : Interactable
 
         this.Duration -= timeSpent; // Decrement timer
 
-        this.EventManager.TriggerEvent(gameObject.name + "_OFF"); // Tell Event Manager
+        var ev = (Event)Enum.Parse(typeof(Event), gameObject.name + "_OFF");
+        this.EventManager.TriggerEvent(ev);
     }
     #endregion
 }
