@@ -20,6 +20,8 @@ public class TimeManager : MonoBehaviour
 
     public double DaysToKill;
 
+    public int VictimWorkHours;
+
     #endregion
 
     #region Time Variables
@@ -28,7 +30,7 @@ public class TimeManager : MonoBehaviour
     private DateTime CurrentTime { get; set; }
     private DateTime NextDay { get; set; }
     private DateTime TimeLimit { get; set; }
-    private DateTime TimeVictimMove { get; set; }
+    private DateTime TimeForVictimToMove { get; set; }
 
     #endregion
 
@@ -98,7 +100,7 @@ public class TimeManager : MonoBehaviour
         this.TimeLimit = this.CurrentTime.AddDays(this.DaysToKill);
 
         // Time when victim goes home after work
-        this.TimeVictimMove = this.InitialTime.AddHours(8);
+        this.TimeForVictimToMove = DateTime.MaxValue;
     }
 
     private void UpdateCurrentTime()
@@ -115,6 +117,27 @@ public class TimeManager : MonoBehaviour
     private void UpdateNextDay()
     {
         this.NextDay = new DateTime(this.CurrentTime.Year, this.CurrentTime.Month, this.CurrentTime.Day + 1, 0, 0, 0);
+    }
+
+    public void UpdateTimeForVictimToMove()
+    {
+        if (VictimController.GoalHome)
+        {
+            // If the victim got home then his next action will be in the next
+            // day when he has to go to work
+            this.TimeForVictimToMove = new DateTime(this.NextDay.Year, this.NextDay.Month, this.NextDay.Day,
+                                                    this.InitialTime.Hour, this.InitialTime.Minute, this.InitialTime.Second);
+        }
+        else
+        {
+            // If the victim got at his work place then his next action will be 
+            // after 8 hours when he has to go home
+            this.TimeForVictimToMove = this.CurrentTime.AddHours(this.VictimWorkHours);
+        }
+
+        Debug.Log("TimeManager -> Time For Victim To Move: " + this.TimeForVictimToMove.ToString());
+
+        this.FastFoward();
     }
 
     private void NewDay()
@@ -141,11 +164,11 @@ public class TimeManager : MonoBehaviour
             this.HidePrompt();
         }
 
-        if (this.CurrentTime >= this.TimeVictimMove)
+        if (this.TimeForVictimToMove != DateTime.MaxValue &&    // If TimeForVictimToMove is set
+            this.CurrentTime >= this.TimeForVictimToMove)       // and the time has come
         {
             this.MoveVictim();
         }
-
     }
 
     private void DrawTime()
@@ -156,6 +179,16 @@ public class TimeManager : MonoBehaviour
 
         GUI.Box(new Rect(Screen.width - width - padding, padding / 2, width, height), 
                 this.CurrentTime.ToString("dd'-'MM'-'yy'\n'H':'mm':'ss"));
+    }
+
+    private void FastFoward()
+    {
+        this.TimeMultiplier = 2000;
+    }
+
+    private void NormalSpeed()
+    {
+        this.TimeMultiplier = 10;
     }
 
     #endregion
@@ -231,24 +264,11 @@ public class TimeManager : MonoBehaviour
 
     private void MoveVictim()
     {
-        if (VictimController.GoalHome)
-        {
-            // If the victim is at home then he goes to work and his next movement will be after 8 hours
-            
-            // The victim leaves work all days at the same hour
-            // devia de ser 8 horas depois de chegar ao trabalho
-            this.TimeVictimMove = new DateTime(this.CurrentTime.Year, this.CurrentTime.Month, this.CurrentTime.Day,
-                                               this.InitialTime.Hour + 8, this.InitialTime.Minute, this.InitialTime.Second);
-            this.VictimController.ToogleGoalPosition();
-        }
-        else
-        {
-            // the victim is at his work place and goes home. His next movement will be at next day in the morning
+        Debug.Log("TimeManger -> Victim Move!!!");
 
-            this.TimeVictimMove = new DateTime(this.NextDay.Year, this.NextDay.Month, this.NextDay.Day,
-                                               this.InitialTime.Hour, this.InitialTime.Minute, this.InitialTime.Second);
-            this.VictimController.ToogleGoalPosition();
-        }
+        this.NormalSpeed();
+        this.TimeForVictimToMove = DateTime.MaxValue;
+        this.VictimController.ToogleGoalPosition();
     }
 
     #endregion

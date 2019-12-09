@@ -909,11 +909,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af4cde13b72c5a14c8d75119b4a81250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeMultiplier: 500
+  TimeMultiplier: 10
   StoryYear: 1989
   StoryMonth: 9
   StoryDay: 6
   DaysToKill: 5
+  VictimWorkHours: 8
 --- !u!4 &40945300
 Transform:
   m_ObjectHideFlags: 0
@@ -3385,7 +3386,7 @@ PrefabInstance:
         type: 3}
       propertyPath: EventManager
       value: 
-      objectReference: {fileID: 980604707}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7aa79e08174a2544ea9585dc812409af, type: 3}
 --- !u!4 &140906214 stripped
@@ -24084,6 +24085,7 @@ GameObject:
   m_Component:
   - component: {fileID: 980604708}
   - component: {fileID: 980604707}
+  - component: {fileID: 980604709}
   m_Layer: 0
   m_Name: EventManager
   m_TagString: Untagged
@@ -24103,6 +24105,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e58b153d1d17bb944b82d96c12b05c07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &980604708
 Transform:
   m_ObjectHideFlags: 0
@@ -24117,6 +24151,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &980604709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980604706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c505492ffce58ab47833710fc22b6843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &980740100
 GameObject:
   m_ObjectHideFlags: 0
@@ -35885,7 +35931,7 @@ PrefabInstance:
         type: 3}
       propertyPath: EventManager
       value: 
-      objectReference: {fileID: 980604707}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7aa79e08174a2544ea9585dc812409af, type: 3}
 --- !u!4 &1433851959 stripped
@@ -38037,6 +38083,10 @@ PrefabInstance:
     - target: {fileID: 100116, guid: 2c449f6ee7a72114a96700eddd066510, type: 3}
       propertyPath: m_Name
       value: Walking (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100116, guid: 2c449f6ee7a72114a96700eddd066510, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: 2c449f6ee7a72114a96700eddd066510, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52024,7 +52074,7 @@ PrefabInstance:
         type: 3}
       propertyPath: EventManager
       value: 
-      objectReference: {fileID: 980604707}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7aa79e08174a2544ea9585dc812409af, type: 3}
 --- !u!1 &2108652067
@@ -53421,6 +53471,6 @@ PrefabInstance:
         type: 3}
       propertyPath: EventManager
       value: 
-      objectReference: {fileID: 980604707}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7aa79e08174a2544ea9585dc812409af, type: 3}
