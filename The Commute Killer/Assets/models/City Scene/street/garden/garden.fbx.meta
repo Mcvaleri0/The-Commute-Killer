@@ -1,0 +1,301 @@
+fileFormatVersion: 2
+guid: 18c7d68dd1b9f964ba3a67e3cc5b6fb7
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: garden gate 1 l.001
+    100002: garden gate 1 r.001
+    100004: garden wall fence
+    100006: garden wall fence.001
+    100008: garden wall fence.002
+    100010: garden wall fence.003
+    100012: garden wall fence.004
+    100014: garden wall fence.005
+    100016: garden wall fence.006
+    100018: garden wall fence.007
+    100020: garden wall fence.008
+    100022: garden wall fence.009
+    100024: garden wall fence.010
+    100026: garden wall fence.011
+    100028: garden wall fence.012
+    100030: garden wall fence.013
+    100032: garden wall fence.015
+    100034: garden wall fence.016
+    100036: garden wall pilar 1
+    100038: garden wall pilar 1.001
+    100040: garden wall pilar 1.002
+    100042: garden wall pilar 1.003
+    100044: garden wall pilar 1.004
+    100046: garden wall pilar 1.005
+    100048: garden wall pilar 1.006
+    100050: garden wall pilar 1.007
+    100052: garden wall pilar 1.008
+    100054: garden wall pilar 1.010
+    100056: garden wall pilar 1.011
+    100058: garden wall pilar 2
+    100060: garden wall pilar 2.001
+    100062: garden wall pilar 2.002
+    100064: garden wall pilar 2.003
+    100066: garden wall pilar 2.004
+    100068: garden wall pilar 2.005
+    100070: garden wall pilar 2.006
+    100072: garden wall pilar 2.007
+    100074: grass
+    100076: //RootNode
+    400000: garden gate 1 l.001
+    400002: garden gate 1 r.001
+    400004: garden wall fence
+    400006: garden wall fence.001
+    400008: garden wall fence.002
+    400010: garden wall fence.003
+    400012: garden wall fence.004
+    400014: garden wall fence.005
+    400016: garden wall fence.006
+    400018: garden wall fence.007
+    400020: garden wall fence.008
+    400022: garden wall fence.009
+    400024: garden wall fence.010
+    400026: garden wall fence.011
+    400028: garden wall fence.012
+    400030: garden wall fence.013
+    400032: garden wall fence.015
+    400034: garden wall fence.016
+    400036: garden wall pilar 1
+    400038: garden wall pilar 1.001
+    400040: garden wall pilar 1.002
+    400042: garden wall pilar 1.003
+    400044: garden wall pilar 1.004
+    400046: garden wall pilar 1.005
+    400048: garden wall pilar 1.006
+    400050: garden wall pilar 1.007
+    400052: garden wall pilar 1.008
+    400054: garden wall pilar 1.010
+    400056: garden wall pilar 1.011
+    400058: garden wall pilar 2
+    400060: garden wall pilar 2.001
+    400062: garden wall pilar 2.002
+    400064: garden wall pilar 2.003
+    400066: garden wall pilar 2.004
+    400068: garden wall pilar 2.005
+    400070: garden wall pilar 2.006
+    400072: garden wall pilar 2.007
+    400074: grass
+    400076: //RootNode
+    2100000: Material.003
+    2100002: black metal
+    2100004: No Name
+    2100006: black metal.005
+    2100008: black metal.004
+    2100010: black metal.006
+    2100012: black metal.008
+    2100014: black metal.009
+    2100016: black metal.007
+    2100018: black metal.010
+    2100020: black metal.011
+    2100022: black metal.015
+    2100024: black metal.012
+    2100026: black metal.013
+    2100028: black metal.014
+    2100030: black metal.016
+    2100032: black metal.021
+    2100034: black metal.022
+    2300000: garden gate 1 l.001
+    2300002: garden gate 1 r.001
+    2300004: garden wall fence
+    2300006: garden wall fence.001
+    2300008: garden wall fence.002
+    2300010: garden wall fence.003
+    2300012: garden wall fence.004
+    2300014: garden wall fence.005
+    2300016: garden wall fence.006
+    2300018: garden wall fence.007
+    2300020: garden wall fence.008
+    2300022: garden wall fence.009
+    2300024: garden wall fence.010
+    2300026: garden wall fence.011
+    2300028: garden wall fence.012
+    2300030: garden wall fence.013
+    2300032: garden wall fence.015
+    2300034: garden wall fence.016
+    2300036: garden wall pilar 1
+    2300038: garden wall pilar 1.001
+    2300040: garden wall pilar 1.002
+    2300042: garden wall pilar 1.003
+    2300044: garden wall pilar 1.004
+    2300046: garden wall pilar 1.005
+    2300048: garden wall pilar 1.006
+    2300050: garden wall pilar 1.007
+    2300052: garden wall pilar 1.008
+    2300054: garden wall pilar 1.010
+    2300056: garden wall pilar 1.011
+    2300058: garden wall pilar 2
+    2300060: garden wall pilar 2.001
+    2300062: garden wall pilar 2.002
+    2300064: garden wall pilar 2.003
+    2300066: garden wall pilar 2.004
+    2300068: garden wall pilar 2.005
+    2300070: garden wall pilar 2.006
+    2300072: garden wall pilar 2.007
+    2300074: grass
+    3300000: garden gate 1 l.001
+    3300002: garden gate 1 r.001
+    3300004: garden wall fence
+    3300006: garden wall fence.001
+    3300008: garden wall fence.002
+    3300010: garden wall fence.003
+    3300012: garden wall fence.004
+    3300014: garden wall fence.005
+    3300016: garden wall fence.006
+    3300018: garden wall fence.007
+    3300020: garden wall fence.008
+    3300022: garden wall fence.009
+    3300024: garden wall fence.010
+    3300026: garden wall fence.011
+    3300028: garden wall fence.012
+    3300030: garden wall fence.013
+    3300032: garden wall fence.015
+    3300034: garden wall fence.016
+    3300036: garden wall pilar 1
+    3300038: garden wall pilar 1.001
+    3300040: garden wall pilar 1.002
+    3300042: garden wall pilar 1.003
+    3300044: garden wall pilar 1.004
+    3300046: garden wall pilar 1.005
+    3300048: garden wall pilar 1.006
+    3300050: garden wall pilar 1.007
+    3300052: garden wall pilar 1.008
+    3300054: garden wall pilar 1.010
+    3300056: garden wall pilar 1.011
+    3300058: garden wall pilar 2
+    3300060: garden wall pilar 2.001
+    3300062: garden wall pilar 2.002
+    3300064: garden wall pilar 2.003
+    3300066: garden wall pilar 2.004
+    3300068: garden wall pilar 2.005
+    3300070: garden wall pilar 2.006
+    3300072: garden wall pilar 2.007
+    3300074: grass
+    4300000: grass
+    4300002: garden wall fence
+    4300004: garden wall pilar 1
+    4300006: garden wall pilar 2
+    4300008: garden wall pilar 2.002
+    4300010: garden wall pilar 1.002
+    4300012: garden wall fence.003
+    4300014: garden wall fence.002
+    4300016: garden wall fence.004
+    4300018: garden wall pilar 1.003
+    4300020: garden wall pilar 1.004
+    4300022: garden wall fence.006
+    4300024: garden wall fence.007
+    4300026: garden wall pilar 1.006
+    4300028: garden wall pilar 1.007
+    4300030: garden wall fence.005
+    4300032: garden wall pilar 1.005
+    4300034: garden wall fence.008
+    4300036: garden wall fence.009
+    4300038: garden wall pilar 1.008
+    4300040: garden wall pilar 2.003
+    4300042: garden wall pilar 2.004
+    4300044: garden gate 1 l.001
+    4300046: garden gate 1 r.001
+    4300048: garden wall fence.001
+    4300050: garden wall fence.010
+    4300052: garden wall fence.011
+    4300054: garden wall fence.012
+    4300056: garden wall pilar 1.001
+    4300058: garden wall pilar 1.010
+    4300060: garden wall pilar 1.011
+    4300062: garden wall pilar 2.001
+    4300064: garden wall fence.013
+    4300066: garden wall pilar 2.006
+    4300068: garden wall pilar 2.005
+    4300070: garden wall fence.016
+    4300072: garden wall pilar 2.007
+    4300074: garden wall fence.015
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
