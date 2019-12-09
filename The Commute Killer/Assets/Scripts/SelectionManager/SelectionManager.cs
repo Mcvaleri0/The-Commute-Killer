@@ -10,9 +10,7 @@ public class SelectionManager : MonoBehaviour
     private ISelector          Selector;
     private ISelectionResponse SelectionResponse;
 
-    private Transform CurrentSelection;
-
-    public Transform Selection { get; private set; }
+    public Transform CurrentSelection { get; private set; }
 
     private void Start()
     {
@@ -23,20 +21,29 @@ public class SelectionManager : MonoBehaviour
 
     private void Update()
     {
-        //Deselection/Selectinon Response
-        if (this.CurrentSelection != null)
-        {
-            this.SelectionResponse.OnDeselect(this.CurrentSelection);
-        }
-
         //Selection Determination
-        this.Selector.Check(this.RayProvider.CreateRay());
-        this.CurrentSelection = this.Selector.GetSelection();
+        var selection = GetSelection();
 
-        //Deselection/Selectinon Response
-        if (this.CurrentSelection != null)
+        //Deselection Response
+        if (selection != this.CurrentSelection)
         {
-            this.SelectionResponse.OnSelect(this.CurrentSelection);
-        }
+            if(this.CurrentSelection != null)
+            {
+                this.SelectionResponse.OnDeselect(this.CurrentSelection);
+            }
+
+            this.CurrentSelection = selection;
+
+            //Selection Response
+            if (this.CurrentSelection != null)
+            {
+                this.SelectionResponse.OnSelect(this.CurrentSelection);
+            }
+        }        
+    }
+
+    private Transform GetSelection()
+    {
+        return this.Selector.Check(this.RayProvider.CreateRay());
     }
 }

@@ -28,7 +28,7 @@ public abstract class Action
 
     protected Vector3 TargetPosition { get; set; }
 
-    public int State = 0; // [ 0 - To Start | 1 - In Progress | 2 - Finished ]
+    public int State { get; protected set; } = 0; // [ 0 - To Start | 1 - In Progress | 2 - Finished ]
 
     public Action(Agent agent) {
         this.Agent = agent;
@@ -36,7 +36,7 @@ public abstract class Action
 
     public virtual void Update() { }
 
-    public virtual bool CanExecute(Agent agent, GameObject target) { return false; }
+    public virtual bool CanExecute() { return false; }
 
     public virtual void Execute() { }
 }

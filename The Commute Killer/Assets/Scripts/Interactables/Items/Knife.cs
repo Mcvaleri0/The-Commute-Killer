@@ -20,8 +20,9 @@ public class Knife : Item
 
         this.EnabledActions = new List<Action.IDs>()
         {
-            Action.IDs.Stab
         };
+
+        this.DefaultAction = Action.IDs.Stab;
     }
 
     new public void Update()
