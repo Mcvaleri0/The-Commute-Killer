@@ -909,7 +909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af4cde13b72c5a14c8d75119b4a81250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeMultiplier: 2
+  TimeMultiplier: 500
   StoryYear: 1989
   StoryMonth: 9
   StoryDay: 6
@@ -39398,7 +39398,7 @@ MonoBehaviour:
   Inventory: []
   HandPosition: {x: 0, y: 0, z: 0}
   AvailableActions: 
-  GoalPosition: {x: 11.5, y: 1, z: -44.5}
+  GoalPosition: {x: 11.5, y: 0.1, z: -44.5}
   Map: {fileID: 772810131}
 --- !u!95 &1576838654
 Animator:
@@ -39426,15 +39426,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1576838652}
-  m_LocalRotation: {x: 0.97369564, y: -0.026987264, z: -0.2246962, w: -0.026460748}
-  m_LocalPosition: {x: 23.13, y: 5.61, z: -31.2}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 16.72, y: 1.2, z: -14.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 239337994}
   - {fileID: 1301275907}
   m_Father: {fileID: 0}
   m_RootOrder: 36
-  m_LocalEulerAnglesHint: {x: -3.65, y: -154.08601, z: -177.66501}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1578213792
 PrefabInstance:
   m_ObjectHideFlags: 0

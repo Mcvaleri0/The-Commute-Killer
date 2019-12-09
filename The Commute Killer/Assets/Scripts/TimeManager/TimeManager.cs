@@ -28,6 +28,7 @@ public class TimeManager : MonoBehaviour
     private DateTime CurrentTime { get; set; }
     private DateTime NextDay { get; set; }
     private DateTime TimeLimit { get; set; }
+    private DateTime TimeVictimMove { get; set; }
 
     #endregion
 
@@ -44,6 +45,8 @@ public class TimeManager : MonoBehaviour
 
     private bool Pause { get; set; }
 
+    private AutonomousAgent VictimController { get; set; }
+
     #endregion
 
 
@@ -53,7 +56,9 @@ public class TimeManager : MonoBehaviour
     private void Start()
     {
         this.InitializeTime();
-        
+
+        this.VictimController = GameObject.Find("Victim").GetComponent<AutonomousAgent>();
+
         this.Pause = false;
 
         this.InitializePrompt();
@@ -91,6 +96,9 @@ public class TimeManager : MonoBehaviour
         this.CurrentTime = this.InitialTime;
         this.UpdateNextDay();
         this.TimeLimit = this.CurrentTime.AddDays(this.DaysToKill);
+
+        // Time when victim goes home after work
+        this.TimeVictimMove = this.InitialTime.AddHours(8);
     }
 
     private void UpdateCurrentTime()
@@ -128,10 +136,16 @@ public class TimeManager : MonoBehaviour
         }
 
         // Time to close day prompt
-        else if (this.PromptOpen && (this.CurrentTime >= this.TimeToClosePrompt))
+        if (this.PromptOpen && (this.CurrentTime >= this.TimeToClosePrompt))
         {
             this.HidePrompt();
         }
+
+        if (this.CurrentTime >= this.TimeVictimMove)
+        {
+            this.MoveVictim();
+        }
+
     }
 
     private void DrawTime()
@@ -213,6 +227,28 @@ public class TimeManager : MonoBehaviour
         var playerController = GameObject.Find("PlayerCharacter").GetComponent<FirstPersonController>();
 
         playerController.m_MouseLook.SetCursorLock(false);
+    }
+
+    private void MoveVictim()
+    {
+        if (VictimController.GoalHome)
+        {
+            // If the victim is at home then he goes to work and his next movement will be after 8 hours
+            
+            // The victim leaves work all days at the same hour
+            // devia de ser 8 horas depois de chegar ao trabalho
+            this.TimeVictimMove = new DateTime(this.CurrentTime.Year, this.CurrentTime.Month, this.CurrentTime.Day,
+                                               this.InitialTime.Hour + 8, this.InitialTime.Minute, this.InitialTime.Second);
+            this.VictimController.ToogleGoalPosition();
+        }
+        else
+        {
+            // the victim is at his work place and goes home. His next movement will be at next day in the morning
+
+            this.TimeVictimMove = new DateTime(this.NextDay.Year, this.NextDay.Month, this.NextDay.Day,
+                                               this.InitialTime.Hour, this.InitialTime.Minute, this.InitialTime.Second);
+            this.VictimController.ToogleGoalPosition();
+        }
     }
 
     #endregion

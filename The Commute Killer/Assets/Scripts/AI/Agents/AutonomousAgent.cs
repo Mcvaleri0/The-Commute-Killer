@@ -10,13 +10,16 @@ public class AutonomousAgent : Agent
 
     private int State = 0; //[ 0 - Stopped | 1 - Moving | 2 - Stopped at Goal ]
 
-    private Vector3 PreviousGoalPosition;
-
     private MapNode[] Path;
 
     private int NextInd;
 
     private DynamicCharacter DCharacter;
+
+    private Vector3 InitialGoalPosition { get; set; }
+    private Vector3 InitialPosition { get; set; }
+    public bool GoalHome {  get; private set; }
+
 
     // Start is called before the first frame update
     new void Start()
@@ -25,20 +28,24 @@ public class AutonomousAgent : Agent
 
         this.Map = GameObject.Find("Map").GetComponent<MapController>();
 
-        this.PreviousGoalPosition = this.GoalPosition;
-
         this.DCharacter = new DynamicCharacter(this.gameObject)
         {
             MaxSpeed = this.Attributes[Attribute.Speed],
             Drag     = 0.5f
         };
+
+        this.InitialGoalPosition = this.GoalPosition;
+        this.InitialPosition = this.transform.position;
+        this.GoalHome = false;
     }
+
 
     // Update is called once per frame
     void Update()
     {
         MovementStateMachine();
     }
+
 
     private void MovementStateMachine()
     {
@@ -70,6 +77,7 @@ public class AutonomousAgent : Agent
                 break;
         }
     }
+
 
     private void InitializeMovement()
     {
@@ -110,6 +118,7 @@ public class AutonomousAgent : Agent
             };
         }
     }
+
 
     private bool MoveToTarget()
     {
@@ -155,5 +164,22 @@ public class AutonomousAgent : Agent
         }
 
         return true;
+    }
+
+
+    public void ToogleGoalPosition()
+    {
+        if (this.GoalHome)
+        {
+            this.GoalPosition = this.InitialGoalPosition;
+            this.GoalHome = false;
+        }
+        else
+        {
+            this.GoalPosition = this.InitialPosition;
+            this.GoalHome = true;
+        }
+
+        this.InitializeMovement();
     }
 }
