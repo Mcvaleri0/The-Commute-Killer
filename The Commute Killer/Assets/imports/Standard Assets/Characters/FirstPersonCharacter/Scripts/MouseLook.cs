@@ -77,6 +77,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if(Input.GetKeyUp(KeyCode.Escape))
             {
                 m_cursorIsLocked = false;
+                //this.toogleCursorLock();
             }
             else if(Input.GetMouseButtonUp(0))
             {
@@ -86,7 +87,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (m_cursorIsLocked)
             {
                 Cursor.lockState = CursorLockMode.Locked;
-                //Cursor.visible = false;
                 Cursor.visible = false;
             }
             else if (!m_cursorIsLocked)
@@ -110,6 +110,22 @@ namespace UnityStandardAssets.Characters.FirstPerson
             q.x = Mathf.Tan (0.5f * Mathf.Deg2Rad * angleX);
 
             return q;
+        }
+
+        private void toogleCursorLock()
+        {
+            if (this.m_cursorIsLocked)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                this.m_cursorIsLocked = false;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                this.m_cursorIsLocked = true;
+            }
         }
 
     }

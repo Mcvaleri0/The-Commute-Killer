@@ -1,15 +1,24 @@
 fileFormatVersion: 2
 guid: 5bb97b332176ae0499af0f666e4f5828
-timeCreated: 1517417420
-licenseType: Store
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Camera
+    100004: Cube.001
+    100006: Light
     400000: //RootNode
+    400002: Camera
+    400004: Cube.001
+    400006: Light
+    2000000: Camera
     2300000: //RootNode
+    2300002: Cube.001
     3300000: //RootNode
+    3300002: Cube.001
     4300000: Cube
+    4300002: Cube.001
+    10800000: Light
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -40,7 +49,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Metal
-    second: {fileID: 2100000, guid: a6cf11d2325d406479bd977a94ff0b11, type: 2}
+    second: {fileID: 2100000, guid: 40f06c87f07448f448b3da37ce8f5d01, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -50,22 +59,22 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Pole
-    second: {fileID: 2100000, guid: ecc4c5f60f0e14143a4f9e895e334bec, type: 2}
+    second: {fileID: 2100000, guid: 3b341aaf485b4b341a5b7f8c55d552d9, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Roof_01
-    second: {fileID: 2100000, guid: 98bdd990a4918d143b37d81b77341b30, type: 2}
+    second: {fileID: 2100000, guid: 3b75cd3c68a535e46a9c0c07ce2be953, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Roof_02
-    second: {fileID: 2100000, guid: b47dc011f37ef4541a163ea52ead8aed, type: 2}
+    second: {fileID: 2100000, guid: 4df414d761768e042bc04d75d1558666, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Roof_03
-    second: {fileID: 2100000, guid: 921d32db52b426a4d802a36f03b74798, type: 2}
+    second: {fileID: 2100000, guid: 6c05e88e133aa8246b0c2e303282e536, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -75,17 +84,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Stone_01
-    second: {fileID: 2100000, guid: fa2eeae0edf43d5438622b1c53f34be5, type: 2}
+    second: {fileID: 2100000, guid: d20418e2ea76cb141befc44a2d8c1d89, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Stone_02
-    second: {fileID: 2100000, guid: 5a4184550db114648b50cb1aa4d7c4e7, type: 2}
+    second: {fileID: 2100000, guid: 2553e23fffd8e154fb93101a827b4442, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Texture
-    second: {fileID: 2100000, guid: bc47f324d1ed9d84cb8b0d39e26d33e1, type: 2}
+    second: {fileID: 2100000, guid: 0155d5768bf352946a2c28e52f7d6dd8, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -114,6 +123,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -128,6 +138,7 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -138,16 +149,23 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
@@ -162,7 +180,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

@@ -1,0 +1,398 @@
+fileFormatVersion: 2
+guid: 1cb196181187d1a40b33cb8b6bc5b67b
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: AirConditioning_Cube.037
+    100002: Anttena_Cube
+    100004: Building base
+    100006: Door.001_Cube.000
+    100008: Door.001_Cube.001
+    100010: Door.001_Cube.002
+    100012: Door.001_Cube.003
+    100014: Door.001_Cube.004
+    100016: Door.001_Cube.005
+    100018: Door.001_Cube.006
+    100020: Door.001_Cube.007
+    100022: Fence.001_Cube.000
+    100024: Fence.001_Cube.001
+    100026: Fence.001_Cube.002
+    100028: Fence.001_Cube.027
+    100030: Fence.003_Cube.001
+    100032: Fence_Cube.028
+    100034: ground.004
+    100036: //RootNode
+    100038: Pipe.001_Circle.001
+    100040: Pipe_Circle
+    100042: Window.011_Cube.000
+    100044: Window.011_Cube.015
+    100046: Window.014_Cube.017
+    100048: Window.019_Cube.023
+    100050: Window.020_Cube.025
+    100052: Window.021_Cube.000
+    100054: Window.021_Cube.031
+    100056: Window.024_Cube.000
+    100058: Window.024_Cube.035
+    100060: Window.025_Cube.000
+    100062: Window.025_Cube.001
+    100064: Window.025_Cube.002
+    100066: Window.025_Cube.004
+    100068: Window.025_Cube.005
+    100070: Window.025_Cube.006
+    100072: Window.025_Cube.007
+    100074: Window.025_Cube.024
+    100076: Window.025_Cube.026
+    100078: Window.025_Cube.027
+    100080: Window.025_Cube.028
+    100082: Window.027_Cube.000
+    100084: Window.027_Cube.001
+    100086: Window.027_Cube.002
+    100088: Window.027_Cube.003
+    100090: Window.027_Cube.004
+    100092: Window.027_Cube.005
+    100094: Window.027_Cube.024
+    100096: Window.027_Cube.038
+    400000: AirConditioning_Cube.037
+    400002: Anttena_Cube
+    400004: Building base
+    400006: Door.001_Cube.000
+    400008: Door.001_Cube.001
+    400010: Door.001_Cube.002
+    400012: Door.001_Cube.003
+    400014: Door.001_Cube.004
+    400016: Door.001_Cube.005
+    400018: Door.001_Cube.006
+    400020: Door.001_Cube.007
+    400022: Fence.001_Cube.000
+    400024: Fence.001_Cube.001
+    400026: Fence.001_Cube.002
+    400028: Fence.001_Cube.027
+    400030: Fence.003_Cube.001
+    400032: Fence_Cube.028
+    400034: ground.004
+    400036: //RootNode
+    400038: Pipe.001_Circle.001
+    400040: Pipe_Circle
+    400042: Window.011_Cube.000
+    400044: Window.011_Cube.015
+    400046: Window.014_Cube.017
+    400048: Window.019_Cube.023
+    400050: Window.020_Cube.025
+    400052: Window.021_Cube.000
+    400054: Window.021_Cube.031
+    400056: Window.024_Cube.000
+    400058: Window.024_Cube.035
+    400060: Window.025_Cube.000
+    400062: Window.025_Cube.001
+    400064: Window.025_Cube.002
+    400066: Window.025_Cube.004
+    400068: Window.025_Cube.005
+    400070: Window.025_Cube.006
+    400072: Window.025_Cube.007
+    400074: Window.025_Cube.024
+    400076: Window.025_Cube.026
+    400078: Window.025_Cube.027
+    400080: Window.025_Cube.028
+    400082: Window.027_Cube.000
+    400084: Window.027_Cube.001
+    400086: Window.027_Cube.002
+    400088: Window.027_Cube.003
+    400090: Window.027_Cube.004
+    400092: Window.027_Cube.005
+    400094: Window.027_Cube.024
+    400096: Window.027_Cube.038
+    2100000: Material.001
+    2100002: Material.002
+    2100004: wood
+    2100006: window pane
+    2100008: black metal
+    2100010: pipe
+    2100012: darkwood
+    2100014: wood.019
+    2100016: window pane.019
+    2100018: wood.015
+    2100020: window pane.015
+    2100022: wood.016
+    2100024: window pane.016
+    2100026: wood.017
+    2100028: window pane.017
+    2100030: wood.020
+    2100032: window pane.020
+    2100034: wood.014
+    2100036: window pane.014
+    2100038: wood.018
+    2100040: window pane.018
+    2100042: darkwood.001
+    2100044: window pane.021
+    2100046: wood.001
+    2100048: window pane.001
+    2100050: wood.002
+    2100052: window pane.002
+    2100054: wood.003
+    2100056: window pane.003
+    2100058: wood.007
+    2100060: window pane.007
+    2100062: wood.009
+    2100064: window pane.009
+    2100066: wood.010
+    2100068: window pane.010
+    2100070: wood.004
+    2100072: window pane.004
+    2100074: wood.005
+    2100076: window pane.005
+    2100078: wood.008
+    2100080: window pane.008
+    2100082: wood.011
+    2100084: window pane.011
+    2100086: wood.012
+    2100088: window pane.012
+    2100090: wood.013
+    2100092: window pane.013
+    2100094: darkwood.002
+    2100096: window pane.022
+    2100098: wood.023
+    2100100: window pane.026
+    2100102: black metal.001
+    2100104: wood.059
+    2100106: window pane.072
+    2100108: wood.058
+    2100110: window pane.071
+    2100112: wood.057
+    2100114: window pane.070
+    2100116: wood.060
+    2100118: window pane.073
+    2100120: wall
+    2100122: stone
+    2100124: brick
+    2100126: Pavement
+    2300000: AirConditioning_Cube.037
+    2300002: Anttena_Cube
+    2300004: Building base
+    2300006: Door.001_Cube.000
+    2300008: Door.001_Cube.001
+    2300010: Door.001_Cube.002
+    2300012: Door.001_Cube.003
+    2300014: Door.001_Cube.004
+    2300016: Door.001_Cube.005
+    2300018: Door.001_Cube.006
+    2300020: Door.001_Cube.007
+    2300022: Fence.001_Cube.000
+    2300024: Fence.001_Cube.001
+    2300026: Fence.001_Cube.002
+    2300028: Fence.001_Cube.027
+    2300030: Fence.003_Cube.001
+    2300032: Fence_Cube.028
+    2300034: ground.004
+    2300036: Pipe.001_Circle.001
+    2300038: Pipe_Circle
+    2300040: Window.011_Cube.000
+    2300042: Window.011_Cube.015
+    2300044: Window.014_Cube.017
+    2300046: Window.019_Cube.023
+    2300048: Window.020_Cube.025
+    2300050: Window.021_Cube.000
+    2300052: Window.021_Cube.031
+    2300054: Window.024_Cube.000
+    2300056: Window.024_Cube.035
+    2300058: Window.025_Cube.000
+    2300060: Window.025_Cube.001
+    2300062: Window.025_Cube.002
+    2300064: Window.025_Cube.004
+    2300066: Window.025_Cube.005
+    2300068: Window.025_Cube.006
+    2300070: Window.025_Cube.007
+    2300072: Window.025_Cube.024
+    2300074: Window.025_Cube.026
+    2300076: Window.025_Cube.027
+    2300078: Window.025_Cube.028
+    2300080: Window.027_Cube.000
+    2300082: Window.027_Cube.001
+    2300084: Window.027_Cube.002
+    2300086: Window.027_Cube.003
+    2300088: Window.027_Cube.004
+    2300090: Window.027_Cube.005
+    2300092: Window.027_Cube.024
+    2300094: Window.027_Cube.038
+    3300000: AirConditioning_Cube.037
+    3300002: Anttena_Cube
+    3300004: Building base
+    3300006: Door.001_Cube.000
+    3300008: Door.001_Cube.001
+    3300010: Door.001_Cube.002
+    3300012: Door.001_Cube.003
+    3300014: Door.001_Cube.004
+    3300016: Door.001_Cube.005
+    3300018: Door.001_Cube.006
+    3300020: Door.001_Cube.007
+    3300022: Fence.001_Cube.000
+    3300024: Fence.001_Cube.001
+    3300026: Fence.001_Cube.002
+    3300028: Fence.001_Cube.027
+    3300030: Fence.003_Cube.001
+    3300032: Fence_Cube.028
+    3300034: ground.004
+    3300036: Pipe.001_Circle.001
+    3300038: Pipe_Circle
+    3300040: Window.011_Cube.000
+    3300042: Window.011_Cube.015
+    3300044: Window.014_Cube.017
+    3300046: Window.019_Cube.023
+    3300048: Window.020_Cube.025
+    3300050: Window.021_Cube.000
+    3300052: Window.021_Cube.031
+    3300054: Window.024_Cube.000
+    3300056: Window.024_Cube.035
+    3300058: Window.025_Cube.000
+    3300060: Window.025_Cube.001
+    3300062: Window.025_Cube.002
+    3300064: Window.025_Cube.004
+    3300066: Window.025_Cube.005
+    3300068: Window.025_Cube.006
+    3300070: Window.025_Cube.007
+    3300072: Window.025_Cube.024
+    3300074: Window.025_Cube.026
+    3300076: Window.025_Cube.027
+    3300078: Window.025_Cube.028
+    3300080: Window.027_Cube.000
+    3300082: Window.027_Cube.001
+    3300084: Window.027_Cube.002
+    3300086: Window.027_Cube.003
+    3300088: Window.027_Cube.004
+    3300090: Window.027_Cube.005
+    3300092: Window.027_Cube.024
+    3300094: Window.027_Cube.038
+    4300000: AirConditioning_Cube.037
+    4300002: Anttena_Cube
+    4300004: Door.001_Cube.002
+    4300006: Fence.001_Cube.027
+    4300008: Fence.003_Cube.001
+    4300010: Fence_Cube.028
+    4300012: Pipe.001_Circle.001
+    4300014: Pipe_Circle
+    4300016: Window.011_Cube.015
+    4300018: Window.014_Cube.017
+    4300020: Window.019_Cube.023
+    4300022: Window.020_Cube.025
+    4300024: Window.021_Cube.031
+    4300026: Window.024_Cube.035
+    4300028: Window.025_Cube.024
+    4300030: Window.027_Cube.038
+    4300032: Fence.001_Cube.000
+    4300034: Fence.001_Cube.001
+    4300036: Door.001_Cube.000
+    4300038: Door.001_Cube.001
+    4300040: Door.001_Cube.003
+    4300042: Door.001_Cube.004
+    4300044: Door.001_Cube.005
+    4300046: Door.001_Cube.006
+    4300048: Window.011_Cube.000
+    4300050: Window.021_Cube.000
+    4300052: Window.024_Cube.000
+    4300054: Window.025_Cube.000
+    4300056: Window.025_Cube.001
+    4300058: Window.025_Cube.002
+    4300060: Window.025_Cube.004
+    4300062: Window.025_Cube.005
+    4300064: Window.025_Cube.006
+    4300066: Window.027_Cube.000
+    4300068: Window.027_Cube.001
+    4300070: Window.027_Cube.002
+    4300072: Window.027_Cube.003
+    4300074: Window.027_Cube.004
+    4300076: Window.027_Cube.005
+    4300078: Door.001_Cube.007
+    4300080: Window.025_Cube.007
+    4300082: Fence.001_Cube.002
+    4300084: Window.025_Cube.028
+    4300086: Window.025_Cube.027
+    4300088: Window.025_Cube.026
+    4300090: Window.027_Cube.024
+    4300092: Building base
+    4300094: ground.004
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
