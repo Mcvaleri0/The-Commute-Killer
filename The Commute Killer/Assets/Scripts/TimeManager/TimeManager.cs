@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
 
+
+
 public class TimeManager : MonoBehaviour
 {
     #region Variables setted in Unity Editor
@@ -13,9 +15,8 @@ public class TimeManager : MonoBehaviour
     public float TimeMultiplier;
 
     public int StoryYear;
-
-    public int WakeUpHour;
-    public int WakeUpMinute;
+    public int StoryMonth;
+    public int StoryDay;
 
     public double DaysToKill;
 
@@ -85,8 +86,7 @@ public class TimeManager : MonoBehaviour
 
     private void InitializeTime()
     {
-        this.InitialTime = new DateTime(this.StoryYear, DateTime.Now.Month, DateTime.Now.Day,
-                                        this.WakeUpHour, this.WakeUpMinute, 0);
+        this.InitialTime = new DateTime(this.StoryYear, this.StoryMonth, this.StoryDay, 8, 30, 0);    // 6/9/1989  8:30
 
         this.CurrentTime = this.InitialTime;
         this.UpdateNextDay();
