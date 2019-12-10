@@ -28,8 +28,9 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
         public DynamicCharacter(GameObject gameObject)
         {
             this.KinematicData = new KinematicData(new StaticData(gameObject.transform.position));
+            this.KinematicData.velocity = new Vector3(1, 1, 1);
             this.GameObject = gameObject;
-            this.Drag = 0.5f;
+            this.Drag = 0.1f;
             this.MaxSpeed = 50.0f;
         }
 	
@@ -41,7 +42,11 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
             if (this.Movement != null) 
             {
                 MovementOutput steering = this.Movement.GetMovement();
-                steering.linear += vGravity;
+
+                if (this.Collider.Move(vGravity) != CollisionFlags.CollidedBelow)
+                {
+                    steering.linear += vGravity;
+                }
 
                 this.KinematicData.Integrate(steering,this.Drag,Time.deltaTime);
                 this.KinematicData.SetOrientationFromVelocity();
