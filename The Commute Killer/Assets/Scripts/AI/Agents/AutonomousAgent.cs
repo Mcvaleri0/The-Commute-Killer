@@ -5,12 +5,11 @@ using Assets.Scripts.IAJ.Unity.Movement.DynamicMovement;
 
 public class AutonomousAgent : Agent
 {
-    /* Movement */
+    #region /* Movement */
+    
     public MapController Map;
 
     private int State = 0; //[ 0 - Stopped | 1 - Moving | 2 - Stopped at Goal ]
-
-    private Vector3 PreviousGoalPosition;
 
     private MapNode[] Path;
 
@@ -18,7 +17,21 @@ public class AutonomousAgent : Agent
 
     private DynamicCharacter DCharacter;
 
-    // Start is called before the first frame update
+    #endregion
+
+    #region /* Moviment Targets */
+    
+    private Vector3 InitialGoalPosition { get; set; }
+    private Vector3 InitialPosition { get; set; }
+    public bool GoalHome {  get; private set; } // True if it's current goal is the initial position
+
+    private EventManager EventManager { get; set; }
+
+    #endregion
+
+
+    #region === Unity Events ===
+
     new void Start()
     {
         base.Start();
@@ -28,7 +41,7 @@ public class AutonomousAgent : Agent
             this.Map = GameObject.Find("Map").GetComponent<MapController>();
         }
 
-        this.PreviousGoalPosition = this.GoalPosition;
+        this.EventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
 
         this.DCharacter = new DynamicCharacter(this.gameObject)
         {
@@ -36,9 +49,12 @@ public class AutonomousAgent : Agent
             Drag = 0.5f,
             Collider = GetComponent<CharacterController>()
         };
+
+        this.InitialGoalPosition = this.GoalPosition;
+        this.InitialPosition = this.transform.position;
+        this.GoalHome = false;
     }
 
-    // Update is called once per frame
     new void Update()
     {
         base.Update();
@@ -51,6 +67,10 @@ public class AutonomousAgent : Agent
         MovementStateMachine();
     }
 
+    #endregion
+
+
+    #region === Moviment Functions ===
     private void MovementStateMachine()
     {
         this.DCharacter.Update();
@@ -74,6 +94,8 @@ public class AutonomousAgent : Agent
                         this.State = 0; // Path completed -> Goal Reached
 
                         this.gameObject.SetActive(false);
+
+                        this.EventManager.TriggerEvent(Event.VictimAtGoal);
                     }
                 }
                 else
@@ -88,6 +110,8 @@ public class AutonomousAgent : Agent
     {
         var start = this.transform.position;
         var goal  = this.GoalPosition;
+
+        Debug.Log("AutonomousAgent -> Calculating path...");
 
         if(this.Map != null)
         {
@@ -110,6 +134,8 @@ public class AutonomousAgent : Agent
             this.Path = this.Map.GetPath(start, goal);
         }
 
+        Debug.Log("AutonomousAgent -> path calculated!!!");
+
         if (this.Path != null)
         {
             this.NextInd = 0;
@@ -126,6 +152,8 @@ public class AutonomousAgent : Agent
                 TargetRadius    = 1f,
                 SlowRadius      = 3f
             };
+
+            this.gameObject.SetActive(true);
         }
     }
 
@@ -172,4 +200,24 @@ public class AutonomousAgent : Agent
 
         return true;
     }
+
+    public void ToogleGoalPosition()
+    {
+        if (this.GoalHome)
+        {
+            this.GoalPosition = this.InitialGoalPosition;
+            this.GoalHome = false;
+        }
+        else
+        {
+            this.GoalPosition = this.InitialPosition;
+            this.GoalHome = true;
+        }
+
+        Debug.Log("AutonomousAgent -> New Goal: " + this.GoalPosition);
+
+        this.InitializeMovement();
+    }
+
+    #endregion
 }
