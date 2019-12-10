@@ -13,6 +13,7 @@ public class DoorKnob : Interactable
     #region === MonoBehaviour Methods ===
     void Start()
     {
+
         this.PossibleActions = new List<Action.IDs>()
         {
             Action.IDs.Use
@@ -45,10 +46,9 @@ public class DoorKnob : Interactable
     override public bool CanInteract(Agent Interactor, Action.IDs id)
     {
         if (!this.Locked) {
-            if (Vector3.Distance(this.transform.position, Interactor.transform.position) < 1.5f)
-            {
-                return true;
-            }
+            
+             return true;
+       
         }
         return false;
     }
@@ -59,7 +59,7 @@ public class DoorKnob : Interactable
     {
         Vector3 doorPos = this.TargetDoor.transform.position;
 
-        float angle = this.TargetDoor.transform.eulerAngles.y * Mathf.Deg2Rad;
+        float angle = (this.TargetDoor.transform.eulerAngles.y * Mathf.Deg2Rad);
         int distance = 2;
 
         float xx = Mathf.Cos(angle);
@@ -68,9 +68,9 @@ public class DoorKnob : Interactable
         Vector3 dirVec = new Vector3(xx, 00, zz);
 
         Vector3 targetPos = doorPos + (dirVec.normalized * distance);
-        targetPos.y += 1;
+        targetPos.y += 2;
 
-        this.Interactor.transform.position = targetPos;
+        this.Interactor.GetComponent<Player>().Teleport(targetPos, this.TargetDoor.transform.eulerAngles);
     }
     #endregion
 }
