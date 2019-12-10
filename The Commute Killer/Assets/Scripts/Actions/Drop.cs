@@ -13,15 +13,16 @@ public class Drop : Action
         };
     }
 
-    override public bool CanExecute(Agent agent, GameObject target)
+    override public bool CanExecute()
     {
-        if (target.GetComponent<Item>() == null) { return false; } // Target must be an agent
+        var target = this.Targets[0];
 
-        var agentComp = agent.GetComponent<Agent>();
+        if (target == null || target.GetComponent<Item>() == null) { return false; } // Target must be an item
+
         var itemComp  = target.GetComponent<Item>();
 
-        var invInd = agentComp.FindInInventory(itemComp);
-        var inHand = agentComp.OnHand == itemComp;
+        var invInd = this.Agent.FindInInventory(itemComp);
+        var inHand = this.Agent.OnHand == itemComp;
 
         if (invInd != -1 || inHand)
         {

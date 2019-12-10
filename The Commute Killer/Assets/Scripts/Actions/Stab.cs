@@ -36,30 +36,20 @@ public class Stab : Action
         }
     }
 
-    override public bool CanExecute(Agent agent, GameObject target)
+    override public bool CanExecute()
     {
-        if(target.GetComponent<Agent>() == null) { return false; } // Target must be an agent
-
-        var aPos = agent.transform.position;
-        var tPos = target.transform.position;
-
-        // Agents must be at least this close
-        if (Vector3.Distance(aPos, tPos) < 1.5f)
-        {
-            // Agent must have a Sharp Weapon on hand
-            if(agent.GetComponent<Agent>().OnHand.Types.FindIndex(x => x == Item.ItemType.SharpWeapon) != -1)
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return true;
     }
 
     override public void Execute() 
     {
-        var target = this.Targets[0].GetComponent<Agent>();
+        this.Instrument.Animate();
 
-        target.Attributes[Agent.Attribute.HP] -= 10;
+        var target = this.Agent.GetInFront();
+
+        if (target != null) 
+        {
+            target.Attributes[Agent.Attribute.HP] -= 10;
+        }
     }
 }

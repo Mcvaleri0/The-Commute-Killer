@@ -5,10 +5,13 @@ using Assets.Scripts.IAJ.Unity.Movement.DynamicMovement;
 
 public class Player : Agent
 {
-    public ISelector Selector;
-    private Transform PrevSelection;
+    private SelectionManager SelectionM;
 
-    public Action.IDs DeterminedAction { get; private set; }
+    public GameObject DeterminedSelection { get; private set; }
+
+    public Action DeterminedAction { get; private set; }
+
+    public Action ExecutingAction { get; private set; }
 
 
     // Start is called before the first frame update
@@ -16,44 +19,115 @@ public class Player : Agent
     {
         base.Start();
 
-        this.Selector = GameObject.Find("Selection Manager").GetComponent<ISelector>();
+        this.SelectionM = GameObject.Find("Selection Manager").GetComponent<SelectionManager>();
     }
 
-
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
-        var selection = this.Selector.GetSelection();
-
-        if (selection != this.PrevSelection) 
+        if (this.Attributes[Attribute.HP] <= 0)
         {
-            this.PrevSelection = selection;
-
-            if (selection != null)
-            {
-                this.DeterminedAction = DetermineAction(GetPossibleActions(selection.gameObject));
-            }
-            else
-            {
-                this.DeterminedAction = Action.IDs.None;
-            }
-        }
-
-        // Drop Key
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            ExecuteAction(Action.IDs.Drop, this.OnHand.gameObject);
+            Die();
             return;
         }
 
-        if (Input.GetMouseButtonDown(0)) 
+        // If an action is being executed
+        if(this.ExecutingAction != null)
         {
-            if (this.DeterminedAction != Action.IDs.None)
-            {
-                ExecuteAction(this.DeterminedAction, selection.gameObject);
+            this.ExecutingAction.Update();
 
+            if(this.ExecutingAction.State == 2)
+            {
+                this.ExecutingAction = null;
+            }
+        }
+
+        // If no action is in execution
+        else
+        {
+            DetermineSelection();
+
+            DetermineAction();
+
+            #region Player Controls
+            // Drop Item On Hand
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                ExecuteAction(CreateAction(Action.IDs.Drop, this.DeterminedSelection));
+                return;
+            }
+
+            // General Actions
+            if (Input.GetMouseButtonDown(0))
+            {
+                ExecuteAction(this.DeterminedAction);
+            }
+            #endregion
+        }
+    }
+
+    protected void DetermineSelection()
+    {
+        GameObject selection = null;
+
+        var sT = this.SelectionM.CurrentSelection;
+
+        if (sT != null)
+        {
+            selection = sT.gameObject;
+        }
+
+        this.DeterminedSelection = selection; 
+    }
+
+    protected void DetermineAction()
+    {
+        var target = this.DeterminedSelection;
+
+       // Check Actions enabled by the On Hand Item
+        if(this.OnHand != null)
+        {
+            foreach (Action.IDs id in this.OnHand.EnabledActions)
+            {
+                var action = CreateAction(id, target);
+
+                if(action.CanExecute())
+                {
+                    this.DeterminedAction = action;
+                    return;
+                }
+            }
+        }
+
+        // Check Available Actions
+        foreach (Action.IDs id in this.AvailableActions)
+        {
+            var action = CreateAction(id, target);
+                
+            if (action.CanExecute())
+            {
+                this.DeterminedAction = action;
                 return;
             }
         }
+
+        // Check On Hand Item Fall Back Action
+        if(this.OnHand != null)
+        {
+            // If there is a Fall Back Action
+            if(this.OnHand.DefaultAction != Action.IDs.None)
+            {
+                var action = CreateAction(this.OnHand.DefaultAction);
+
+                if(action.CanExecute())
+                {
+                    this.DeterminedAction = action;
+                    return;
+                }
+            }
+        }
+
+        this.DeterminedAction = null;
+        return;
     }
 }

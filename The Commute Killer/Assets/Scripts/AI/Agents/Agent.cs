@@ -29,7 +29,7 @@ public class Agent : MonoBehaviour
     #endregion
 
     #region /* Actions */
-    public List<Action.IDs> AvailableActions;
+    public List<Action.IDs> AvailableActions; // Actions the Agent can perform
 
     public List<Action> PerformedActions;
     #endregion
@@ -58,6 +58,7 @@ public class Agent : MonoBehaviour
         this.AvailableActions = new List<Action.IDs>() 
         { 
             Action.IDs.PickUp,
+            Action.IDs.Drop,
             Action.IDs.Use
         };
 
@@ -69,6 +70,14 @@ public class Agent : MonoBehaviour
         };
     }
 
+    protected void Update()
+    {
+        if(this.Attributes[Attribute.HP] <= 0)
+        {
+            Die();
+            return;
+        }
+    }
 
     #region === Pick Up Methods ===
     public bool PickUp(Item item)
@@ -80,8 +89,6 @@ public class Agent : MonoBehaviour
             item.PickUp(this);
 
             item.Equip();
-
-            UpdateAvailableActions(item);
 
             return true;
         }
@@ -115,15 +122,7 @@ public class Agent : MonoBehaviour
 
                     RemoveFromInventory(itemIndex);
 
-                    if (this.FirstFree == -1 || itemIndex < this.FirstFree)
-                    {
-                        this.FirstFree = itemIndex;
-                    }
-
-                    if(this.AvailableActions.FindIndex(x => x == Action.IDs.PickUp) == -1)
-                    {
-                        this.AvailableActions.Add(Action.IDs.PickUp);
-                    }
+                    UpdInventoryFirstFree();
 
                     return true;
                 }
@@ -137,8 +136,6 @@ public class Agent : MonoBehaviour
                 if(item != null)
                 {
                     item.Drop();
-
-                    UpdateAvailableActions(null, item);
 
                     this.OnHand = null;
 
@@ -207,8 +204,6 @@ public class Agent : MonoBehaviour
             }
         }
 
-        this.AvailableActions.Remove(Action.IDs.PickUp);
-
         this.FirstFree = -1;
     }
 
@@ -222,8 +217,6 @@ public class Agent : MonoBehaviour
                 this.OnHand = this.Inventory[ind];
 
                 RemoveFromInventory(ind);
-
-                UpdateAvailableActions(this.OnHand);
             }
         }
 
@@ -237,8 +230,6 @@ public class Agent : MonoBehaviour
             this.OnHand = this.Inventory[ind];
 
             this.Inventory[ind] = current;
-
-            UpdateAvailableActions(this.OnHand, current);
         }
 
         this.OnHand.Equip();
@@ -278,34 +269,6 @@ public class Agent : MonoBehaviour
     #endregion
 
     #region === Action Methods ===
-    protected void UpdateAvailableActions(Item equipped, Item unequipped = null)
-    {
-        if(unequipped != null)
-        {
-            foreach(Action.IDs a in unequipped.EnabledActions)
-            {
-                this.AvailableActions.Remove(a);
-            }
-        }
-
-        if(equipped != null)
-        {
-            if(this.AvailableActions.FindIndex(x => x == Action.IDs.Drop) == -1)
-            {
-                this.AvailableActions.Add(Action.IDs.Drop);
-            }
-
-            foreach (Action.IDs a in equipped.EnabledActions)
-            {
-                this.AvailableActions.Add(a);
-            }
-        }
-        else
-        {
-            this.AvailableActions.Remove(Action.IDs.Drop);
-        }
-    }
-
     protected List<Action.IDs> GetPossibleActions(GameObject target)
     {
         Interactable interactable = target.GetComponent<Interactable>();
@@ -341,24 +304,19 @@ public class Agent : MonoBehaviour
         return Action.IDs.None;
     }
 
-    public bool ExecuteAction(Action.IDs actionId, GameObject target = null)
+    public bool ExecuteAction(Action action)
     {
-        var action = CreateAction(actionId, target);
-
         if(action != null)
         {
-            if (action.CanExecute(this, target))
-            {
-                action.Execute();
+            action.Execute();
 
-                this.PerformedActions.Add(action);
-            }
+            this.PerformedActions.Add(action);
         }
 
         return false;
     }
 
-    private Action CreateAction(Action.IDs actionId, GameObject target = null)
+    protected Action CreateAction(Action.IDs actionId, GameObject target = null)
     {
         switch (actionId)
         {
@@ -385,4 +343,23 @@ public class Agent : MonoBehaviour
     }
     #endregion
 
+    public Agent GetInFront()
+    {
+        Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 2f);
+
+        if(hit.transform != null)
+        {
+            return hit.transform.GetComponent<Agent>();
+        }
+
+        return null;
+    }
+
+    public void Die()
+    {
+        if (this.GetComponent<Animator>().enabled == true)
+        {
+            this.GetComponent<Animator>().enabled = false;
+        }
+    }
 }

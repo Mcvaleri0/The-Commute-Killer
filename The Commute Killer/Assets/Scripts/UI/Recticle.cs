@@ -55,10 +55,9 @@ public class Recticle : MonoBehaviour {
 
         currentTransform.GetComponent<RectTransform>().sizeDelta = new Vector2(this.Size, this.Size);
 
-        var actionId = this.Player.DeterminedAction;
         var rectMode = Mode.Circle;
 
-        switch (actionId)
+        switch (GetActionID())
         {
             // --- Normal
             default:
@@ -79,6 +78,19 @@ public class Recticle : MonoBehaviour {
         {
             SwitchRecticle(rectMode);
         }
+    }
+
+    private Action.IDs GetActionID()
+    {
+        var aID = Action.IDs.None;
+        var action = this.Player.DeterminedAction;
+
+        if (action != null)
+        {
+            aID = action.ID;
+        }
+
+        return aID;
     }
 }
 

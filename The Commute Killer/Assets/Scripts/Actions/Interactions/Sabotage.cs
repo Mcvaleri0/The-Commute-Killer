@@ -8,19 +8,19 @@ public class Sabotage : Interaction
         this.ID = IDs.Sabotage;
     }
 
-    override public bool CanExecute(Agent agent, GameObject target)
+    override public bool CanExecute()
     {
-        if(target.GetComponent<Interactable>() == null) { return false; } // Target must be an interactable
-        
-        var agentComp = agent.GetComponent<Agent>();
+        var target = this.Targets[0];
+
+        if(target == null || target.GetComponent<Interactable>() == null) { return false; } // Target must be an interactable
 
         // Agent must have a Wrench on hand
-        if (agentComp.OnHand != null && agentComp.OnHand.Name == "Wrench") 
+        if (this.Agent.OnHand != null && this.Agent.OnHand.Name == "Wrench") 
         {
             var interactable = target.GetComponent<Interactable>();
 
             // Interactable has to allow Sabotage
-            if (interactable.CanInteract(agent.GetComponent<Agent>(), Action.IDs.Sabotage))
+            if (interactable.CanInteract(this.Agent, Action.IDs.Sabotage))
             {
                 return true;
             }

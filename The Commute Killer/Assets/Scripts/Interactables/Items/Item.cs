@@ -34,6 +34,8 @@ public class Item : Interactable
     public string Name { get; protected set; }
 
     public List<Action.IDs> EnabledActions { get; protected set; }
+
+    public Action.IDs DefaultAction { get; protected set; } = Action.IDs.None;
     #endregion
 
     public int AnimationState = 0; // [ 0 - To Start | 1 - On Going | 2 - Finished ]
@@ -47,20 +49,11 @@ public class Item : Interactable
 
         if(this.transform.parent != null) this.OriginalParent = this.transform.parent.gameObject;
 
-        this.PossibleActions = new List<Action.IDs>()
-        {
-            Action.IDs.PickUp
-        };
-
         this.Types = new List<ItemType>();
     }
 
     public void Update()
     {
-        if (Input.GetMouseButtonDown(0) && this.Owner != null)
-        {
-            this.Animate();
-        }
     }
 
     //Add a way to tell it to animate and detect when it is done
@@ -76,14 +69,10 @@ public class Item : Interactable
 
             case Action.IDs.PickUp:
                 this.PickUp(interactor);
-                this.PossibleActions.Remove(Action.IDs.PickUp);
-                this.PossibleActions.Add(Action.IDs.Drop);
                 return true;
 
             case Action.IDs.Drop:
                 this.Drop();
-                this.PossibleActions.Remove(Action.IDs.Drop);
-                this.PossibleActions.Add(Action.IDs.PickUp);
                 return true;
         }
 
@@ -94,7 +83,6 @@ public class Item : Interactable
     {
         return true;
     }
-
     #endregion
 
     #region === Pick Up Methods ===
@@ -129,7 +117,6 @@ public class Item : Interactable
         this.GetComponent<Collider>().enabled     = true;
         this.GetComponent<Renderer>().enabled     = true;
     }
-
     #endregion
 
     #region === Equiping Methods ===

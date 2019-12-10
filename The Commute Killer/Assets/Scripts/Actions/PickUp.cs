@@ -13,13 +13,13 @@ public class PickUp : Action
         };
     }
 
-    override public bool CanExecute(Agent agent, GameObject target)
+    override public bool CanExecute()
     {
-        if (target.GetComponent<Item>() == null) { return false; } // Target must be an item
+        var target = Targets[0];
 
-        var agentComp = agent.GetComponent<Agent>();
+        if (target == null || target.GetComponent<Item>() == null) { return false; } // Target must be an item
 
-        if (agentComp.FirstFree != -1 || agentComp.OnHand == null)
+        if (this.Agent.FirstFree != -1 || this.Agent.OnHand == null)
         {
             return target.GetComponent<Item>().CanInteract(Action.IDs.PickUp);
         }

@@ -51,8 +51,15 @@ public class AutonomousAgent : Agent
         this.GoalHome = false;
     }
 
-    void Update()
+    new void Update()
     {
+        base.Update();
+
+        if(this.Attributes[Attribute.HP] <= 0)
+        {
+            return;
+        }
+
         MovementStateMachine();
     }
 
