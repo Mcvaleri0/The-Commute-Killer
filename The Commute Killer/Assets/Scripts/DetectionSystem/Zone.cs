@@ -3,9 +3,9 @@ using UnityEditor;
 
 public class Zone : MonoBehaviour
 {
-    public Vector3 StartPoint { get; set; }
+    public Vector3 StartPoint;
 
-    public Vector3 EndPoint { get; set; }
+    public Vector3 EndPoint;
 
     public enum Awareness
     {
@@ -33,9 +33,7 @@ public class Zone : MonoBehaviour
     public void OnDrawGizmos()
     {
         var size = this.EndPoint - this.StartPoint;
-        //size.x = Mathf.Abs(size.x);
         size.y = 1;
-        //size.z = Mathf.Abs(size.z);
 
         var center = this.StartPoint + size / 2;
 
@@ -58,6 +56,6 @@ public class Zone : MonoBehaviour
                 break;
         }
 
-        Gizmos.DrawCube(center, size);
+        Gizmos.DrawWireCube(center, size);
     }
 }

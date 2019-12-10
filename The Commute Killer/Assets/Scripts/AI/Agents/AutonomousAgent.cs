@@ -23,14 +23,18 @@ public class AutonomousAgent : Agent
     {
         base.Start();
 
-        this.Map = GameObject.Find("Map").GetComponent<MapController>();
+        if(GameObject.Find("Map") != null)
+        {
+            this.Map = GameObject.Find("Map").GetComponent<MapController>();
+        }
 
         this.PreviousGoalPosition = this.GoalPosition;
 
         this.DCharacter = new DynamicCharacter(this.gameObject)
         {
             MaxSpeed = this.Attributes[Attribute.Speed],
-            Drag     = 0.5f
+            Drag = 0.5f,
+            Collider = GetComponent<CharacterController>()
         };
     }
 
@@ -49,6 +53,8 @@ public class AutonomousAgent : Agent
 
     private void MovementStateMachine()
     {
+        this.DCharacter.Update();
+
         switch (this.State)
         {
             case 0: // Stopped
@@ -89,6 +95,11 @@ public class AutonomousAgent : Agent
         }
         else
         {
+            if(GameObject.Find("Map") == null)
+            {
+                return;
+            }
+
             this.Map = GameObject.Find("Map").GetComponent<MapController>();
 
             if(this.Map == null)
@@ -120,8 +131,6 @@ public class AutonomousAgent : Agent
 
     private bool MoveToTarget()
     {
-        this.DCharacter.Update();
-
         // If the path through the grid is not finished
         if (this.NextInd < this.Path.Length)
         {

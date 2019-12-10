@@ -66,10 +66,11 @@ public class Agent : MonoBehaviour
 
         this.PerformedActions = new List<Action>();
 
+
         this.DynamicC = new DynamicCharacter(this.gameObject)
         {
             MaxSpeed = 10f
-        };
+        };        
 
         this.InitialPos = this.transform.position;
     }
