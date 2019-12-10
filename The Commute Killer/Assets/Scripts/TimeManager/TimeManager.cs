@@ -198,7 +198,7 @@ public class TimeManager : MonoBehaviour
 
     private void InitializePrompt()
     {
-        var canvas = this.transform.Find("Canvas");
+        var canvas = GameObject.Find("Canvas").transform;
         this.DayPrompt = canvas.Find("DayPrompt").GetComponent<DayPrompt>();
 
         this.GameOverPrompt = canvas.Find("GameOverPrompt").GetComponent<GameOverPrompt>();
