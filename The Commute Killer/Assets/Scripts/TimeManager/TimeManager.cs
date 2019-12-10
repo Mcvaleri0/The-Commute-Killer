@@ -20,6 +20,8 @@ public class TimeManager : MonoBehaviour
 
     public double DaysToKill;
 
+    public int VictimWorkHours;
+
     #endregion
 
     #region Time Variables
@@ -28,6 +30,7 @@ public class TimeManager : MonoBehaviour
     private DateTime CurrentTime { get; set; }
     private DateTime NextDay { get; set; }
     private DateTime TimeLimit { get; set; }
+    private DateTime TimeForVictimToMove { get; set; }
 
     #endregion
 
@@ -42,7 +45,9 @@ public class TimeManager : MonoBehaviour
 
     #region Auxiliar Variables
 
-    private bool Pause { get; set; }
+    private LevelManager LevelManager { get; set; }
+
+    private AutonomousAgent VictimController { get; set; }
 
     #endregion
 
@@ -53,20 +58,16 @@ public class TimeManager : MonoBehaviour
     private void Start()
     {
         this.InitializeTime();
-        
-        this.Pause = false;
+
+        this.VictimController = GameObject.Find("Victim").GetComponent<AutonomousAgent>();
+        this.LevelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
 
         this.InitializePrompt();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            this.PauseUnpauseGame();
-        }
-
-        if (!this.Pause)
+        if (!this.LevelManager.Paused)
         {
             this.UpdateCurrentTime();
 
@@ -91,6 +92,9 @@ public class TimeManager : MonoBehaviour
         this.CurrentTime = this.InitialTime;
         this.UpdateNextDay();
         this.TimeLimit = this.CurrentTime.AddDays(this.DaysToKill);
+
+        // Time when victim goes home after work
+        this.TimeForVictimToMove = DateTime.MaxValue;
     }
 
     private void UpdateCurrentTime()
@@ -109,6 +113,25 @@ public class TimeManager : MonoBehaviour
         this.NextDay = new DateTime(this.CurrentTime.Year, this.CurrentTime.Month, this.CurrentTime.Day + 1, 0, 0, 0);
     }
 
+    public void UpdateTimeForVictimToMove()
+    {
+        if (VictimController.GoalHome)
+        {
+            // If the victim got home then his next action will be in the next
+            // day when he has to go to work
+            this.TimeForVictimToMove = new DateTime(this.NextDay.Year, this.NextDay.Month, this.NextDay.Day,
+                                                    this.InitialTime.Hour, this.InitialTime.Minute, this.InitialTime.Second);
+        }
+        else
+        {
+            // If the victim got at his work place then his next action will be 
+            // after 8 hours when he has to go home
+            this.TimeForVictimToMove = this.CurrentTime.AddHours(this.VictimWorkHours);
+        }
+
+        //this.FastFoward();
+    }
+
     private void NewDay()
     {
         this.DrawDayPrompt();
@@ -119,7 +142,7 @@ public class TimeManager : MonoBehaviour
     {
         if (this.CurrentTime >= this.TimeLimit)
         {
-            this.GameOver();
+            this.TimeLimitOver();
         }
 
         else if (this.CurrentTime >= this.NextDay)
@@ -128,9 +151,15 @@ public class TimeManager : MonoBehaviour
         }
 
         // Time to close day prompt
-        else if (this.PromptOpen && (this.CurrentTime >= this.TimeToClosePrompt))
+        if (this.PromptOpen && (this.CurrentTime >= this.TimeToClosePrompt))
         {
             this.HidePrompt();
+        }
+
+        if (this.TimeForVictimToMove != DateTime.MaxValue &&    // If TimeForVictimToMove is set
+            this.CurrentTime >= this.TimeForVictimToMove)       // and the time has come
+        {
+            this.MoveVictim();
         }
     }
 
@@ -144,6 +173,16 @@ public class TimeManager : MonoBehaviour
                 this.CurrentTime.ToString("dd'-'MM'-'yy'\n'H':'mm':'ss"));
     }
 
+    private void FastFoward()
+    {
+        this.TimeMultiplier = 2000;
+    }
+
+    private void NormalSpeed()
+    {
+        this.TimeMultiplier = 10;
+    }
+
     #endregion
 
 
@@ -151,7 +190,7 @@ public class TimeManager : MonoBehaviour
 
     private void InitializePrompt()
     {
-        var canvas = this.transform.Find("Canvas");
+        var canvas = GameObject.Find("Canvas").transform;
         this.DayPrompt = canvas.Find("DayPrompt").GetComponent<DayPrompt>();
 
         this.GameOverPrompt = canvas.Find("GameOverPrompt").GetComponent<GameOverPrompt>();
@@ -187,16 +226,9 @@ public class TimeManager : MonoBehaviour
 
     #region === Auxiliar Functions ===
 
-    private void PauseUnpauseGame()
+    private void TimeLimitOver()
     {
-        this.Pause = !this.Pause;
-    }
-
-    private void GameOver()
-    {
-        this.PauseUnpauseGame();
-        this.DrawGameOverPrompt();
-        this.TurnCursorVisible();
+        this.LevelManager.GameOver();
     }
 
     public void ResetTime()
@@ -205,7 +237,7 @@ public class TimeManager : MonoBehaviour
         this.UpdateNextDay();
         this.TimeLimit = this.CurrentTime.AddDays(this.DaysToKill);
 
-        this.PauseUnpauseGame();
+        //this.PauseUnpauseGame();
     }
 
     private void TurnCursorVisible()
@@ -213,6 +245,15 @@ public class TimeManager : MonoBehaviour
         var playerController = GameObject.Find("PlayerCharacter").GetComponent<FirstPersonController>();
 
         playerController.m_MouseLook.SetCursorLock(false);
+    }
+
+    private void MoveVictim()
+    {
+        Debug.Log("TimeManger -> Victim Move!!!");
+
+        this.NormalSpeed();
+        this.TimeForVictimToMove = DateTime.MaxValue;
+        this.VictimController.ToogleGoalPosition();
     }
 
     #endregion

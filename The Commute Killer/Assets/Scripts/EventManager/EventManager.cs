@@ -11,6 +11,10 @@ public class EventManager : MonoBehaviour
     private Vector3 VictimStartPosition;
     private Vector3 VictimEndPosition;
 
+    private TimeManager TimeManager { get; set; }
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,11 +22,29 @@ public class EventManager : MonoBehaviour
 
         this.Victim = GameObject.Find("Victim");
 
+        this.TimeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
+
         this.VictimStartPosition = new Vector3(19.375f, 0.3f, -15.225f);
         this.VictimEndPosition   = new Vector3(11f, 0.3f, -45f);
 
-        this.Victim.SetActive(false);
+        //this.Victim.SetActive(false);
     }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            this.TriggerEvent(Event.VictimStartEnd);
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            this.TriggerEvent(Event.VictimEndStart);
+        }
+    }
+
 
     public bool TriggerEvent(Event e)
     {
@@ -42,24 +64,12 @@ public class EventManager : MonoBehaviour
                 this.VictimMovement(this.VictimEndPosition, this.VictimStartPosition);
                 return true;
 
+            case Event.VictimAtGoal:
+                this.VictimAtGoal();
+                break;
         }
 
         return false;
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            this.TriggerEvent(Event.VictimStartEnd);
-        }
-
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            this.TriggerEvent(Event.VictimEndStart);
-        }
     }
 
 
@@ -69,5 +79,13 @@ public class EventManager : MonoBehaviour
 
         this.Victim.transform.position = start;
         this.Victim.GetComponent<Agent>().GoalPosition = end;
+    }
+
+
+    // Updates what is needed in the game after the victim reaches his target location
+    private void VictimAtGoal()
+    {
+        // Sets the alarm for the victim to change positons again
+        this.TimeManager.UpdateTimeForVictimToMove();
     }
 }

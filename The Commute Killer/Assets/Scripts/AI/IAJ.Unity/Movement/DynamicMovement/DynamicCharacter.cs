@@ -6,8 +6,13 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
     public class DynamicCharacter 
     {
         public GameObject GameObject { get; protected set; }
+
         public KinematicData KinematicData { get; protected set; }
+
         private DynamicMovement movement;
+
+        public CharacterController Collider;
+
         public DynamicMovement Movement 
         { 
             get { return this.movement; }
@@ -24,16 +29,19 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
         {
             this.KinematicData = new KinematicData(new StaticData(gameObject.transform.position));
             this.GameObject = gameObject;
-            this.Drag = 0.9f;
+            this.Drag = 0.5f;
             this.MaxSpeed = 50.0f;
         }
 	
         // Update is called once per frame
         public void Update ()
         {
+            var vGravity = Physics.gravity * Time.deltaTime;
+
             if (this.Movement != null) 
             {
                 MovementOutput steering = this.Movement.GetMovement();
+                steering.linear += vGravity;
 
                 this.KinematicData.Integrate(steering,this.Drag,Time.deltaTime);
                 this.KinematicData.SetOrientationFromVelocity();
@@ -41,6 +49,15 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
 
                 this.GameObject.transform.position = this.KinematicData.position;
                 this.GameObject.transform.rotation = Quaternion.AngleAxis(this.KinematicData.orientation * MathConstants.MATH_180_PI, Vector3.up);
+            }
+            else if(this.Collider.Move(vGravity) != CollisionFlags.CollidedBelow)
+            {
+                var grav = new MovementOutput() { linear = vGravity };
+
+                this.KinematicData.Integrate(grav, this.Drag, Time.deltaTime);
+                this.KinematicData.TrimMaxSpeed(this.MaxSpeed);
+
+                this.GameObject.transform.position = this.KinematicData.position;
             }
         }
     }
