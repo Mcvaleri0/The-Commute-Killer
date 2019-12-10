@@ -120,10 +120,11 @@ public class MapNode : MonoBehaviour
         GizmosUtils.DrawText(GUI.skin, this.name, pos, Color.blue, 12, 0.5f);
 
         //draw lines
-        var colors = new Color[3];
+        var colors = new Color[4];
         colors[0] = Color.blue;
         colors[1] = Color.red;
         colors[2] = Color.green;
+        colors[3] = Color.magenta;
 
         var off = 0.0f;
 
@@ -137,7 +138,7 @@ public class MapNode : MonoBehaviour
             var offvec  = Quaternion.AngleAxis(-45, Vector3.up) * linevec;
             offvec = Vector3.ClampMagnitude(offvec, off);
 
-            Gizmos.color = colors[ i%3 ];
+            Gizmos.color = colors[ i%4 ];
             Gizmos.DrawLine(p1 + offvec, p2 + offvec);
 
             off += 0.05f;
