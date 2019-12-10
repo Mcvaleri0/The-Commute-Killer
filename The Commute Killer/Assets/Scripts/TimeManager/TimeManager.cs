@@ -45,7 +45,7 @@ public class TimeManager : MonoBehaviour
 
     #region Auxiliar Variables
 
-    private bool Pause { get; set; }
+    private LevelManager LevelManager { get; set; }
 
     private AutonomousAgent VictimController { get; set; }
 
@@ -60,20 +60,14 @@ public class TimeManager : MonoBehaviour
         this.InitializeTime();
 
         this.VictimController = GameObject.Find("Victim").GetComponent<AutonomousAgent>();
-
-        this.Pause = false;
+        this.LevelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
 
         this.InitializePrompt();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            this.PauseUnpauseGame();
-        }
-
-        if (!this.Pause)
+        if (!this.LevelManager.Paused)
         {
             this.UpdateCurrentTime();
 
@@ -135,9 +129,7 @@ public class TimeManager : MonoBehaviour
             this.TimeForVictimToMove = this.CurrentTime.AddHours(this.VictimWorkHours);
         }
 
-        Debug.Log("TimeManager -> Time For Victim To Move: " + this.TimeForVictimToMove.ToString());
-
-        this.FastFoward();
+        //this.FastFoward();
     }
 
     private void NewDay()
@@ -150,7 +142,7 @@ public class TimeManager : MonoBehaviour
     {
         if (this.CurrentTime >= this.TimeLimit)
         {
-            this.GameOver();
+            this.TimeLimitOver();
         }
 
         else if (this.CurrentTime >= this.NextDay)
@@ -234,16 +226,9 @@ public class TimeManager : MonoBehaviour
 
     #region === Auxiliar Functions ===
 
-    private void PauseUnpauseGame()
+    private void TimeLimitOver()
     {
-        this.Pause = !this.Pause;
-    }
-
-    private void GameOver()
-    {
-        this.PauseUnpauseGame();
-        this.DrawGameOverPrompt();
-        this.TurnCursorVisible();
+        this.LevelManager.GameOver();
     }
 
     public void ResetTime()
@@ -252,7 +237,7 @@ public class TimeManager : MonoBehaviour
         this.UpdateNextDay();
         this.TimeLimit = this.CurrentTime.AddDays(this.DaysToKill);
 
-        this.PauseUnpauseGame();
+        //this.PauseUnpauseGame();
     }
 
     private void TurnCursorVisible()

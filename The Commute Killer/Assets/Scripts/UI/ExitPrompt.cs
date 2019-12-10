@@ -5,8 +5,6 @@ using UnityEngine.UI;
 public class ExitPrompt : MonoBehaviour
 {
     private Transform Prompt;
-    private Button Yes;
-    private Button No;
 
     private bool PromptActive;
 
@@ -14,14 +12,6 @@ public class ExitPrompt : MonoBehaviour
     void Start()
     {
         this.Prompt = transform.Find("ExitPromptWindow");
-
-        Button[] buttonObjects = GetComponentsInChildren<Button>();
-
-        this.No  = buttonObjects[0];
-        this.Yes = buttonObjects[1];
-
-        this.No.onClick.AddListener(()  => NoButton());
-        this.Yes.onClick.AddListener(() => YesButton());
 
         this.Prompt.gameObject.SetActive(false);
         this.PromptActive = false;
