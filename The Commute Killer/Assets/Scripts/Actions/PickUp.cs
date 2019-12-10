@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PickUp : Action
 {
+    private Item Item;
+
     public PickUp(Agent agent, GameObject target) : base(agent) {
         this.ID = IDs.PickUp;
 
@@ -11,17 +13,17 @@ public class PickUp : Action
         {
             target
         };
+
+        if(target != null) this.Item = target.GetComponent<Item>();
     }
 
     override public bool CanExecute()
     {
-        var target = Targets[0];
-
-        if (target == null || target.GetComponent<Item>() == null) { return false; } // Target must be an item
+        if (this.Item == null) { return false; } // Target must be an item
 
         if (this.Agent.FirstFree != -1 || this.Agent.OnHand == null)
         {
-            return target.GetComponent<Item>().CanInteract(Action.IDs.PickUp);
+            return this.Item.CanInteract(Action.IDs.PickUp);
         }
 
         return false;
@@ -29,6 +31,6 @@ public class PickUp : Action
 
     override public void Execute() 
     {
-        this.Agent.PickUp(this.Targets[0].GetComponent<Item>());
+        this.Agent.PickUp(this.Item);
     }
 }

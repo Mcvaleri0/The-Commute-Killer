@@ -11,17 +11,36 @@ public class Zone : MonoBehaviour
     {
         None,
         Passive,
-        Active,
         Surveiled
     }
 
     public Awareness AwarenessLevel;
-    
-    public bool In(Vector3 p)
+
+    public float In(Vector3 p)
     {
-        if(this.StartPoint.x < p.x && p.x < this.EndPoint.x)
+        if(Between(this.StartPoint.x, p.x, this.EndPoint.x))
         {
-            if (this.StartPoint.z < p.z && p.z < this.EndPoint.z)
+            if(Between(this.StartPoint.z, p.z, this.EndPoint.z))
+            {
+                return Mathf.Abs(p.y - this.StartPoint.y);
+            }
+        }
+
+        return Mathf.Infinity;
+    }
+
+    private bool Between(float bound1, float val, float bound2) 
+    {
+        if(bound1 < bound2)
+        {
+            if(bound1 <= val && val <= bound2)
+            {
+                return true;
+            }
+        }
+        else
+        {
+            if (bound2 <= val && val <= bound1)
             {
                 return true;
             }
@@ -45,10 +64,6 @@ public class Zone : MonoBehaviour
 
             case Awareness.Passive:
                 Gizmos.color = Color.green;
-                break;
-
-            case Awareness.Active:
-                Gizmos.color = Color.yellow;
                 break;
 
             case Awareness.Surveiled:

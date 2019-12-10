@@ -20,11 +20,9 @@ public class Use : Interaction
         var target = this.Targets[0];
 
         // Target must be an interactable
-        if (target == null || target.GetComponent<Interactable>() == null) { return false; }
+        if (this.Interactable == null) { return false; }
 
-        var interactable = target.GetComponent<Interactable>();
-
-        if(interactable.CanInteract(this.Agent.GetComponent<Agent>(), Action.IDs.Use))
+        if(this.Interactable.CanInteract(this.Agent, Action.IDs.Use))
         {
             return true;
         }
