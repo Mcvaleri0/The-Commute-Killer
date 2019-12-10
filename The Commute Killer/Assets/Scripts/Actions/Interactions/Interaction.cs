@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Interaction : Action
 {
+    protected Interactable Interactable;
+
     public Interaction(Agent agent, GameObject target) : base(agent) {
         base.Targets = new List<GameObject>() 
         { 
@@ -11,6 +13,8 @@ public abstract class Interaction : Action
         };
 
         this.Instrument = agent.OnHand;
+
+        if(target != null) this.Interactable = target.GetComponent<Interactable>();
     }
 
     public override void Update()
@@ -39,8 +43,6 @@ public abstract class Interaction : Action
 
     override public void Execute() 
     {
-        var target = this.Targets[0].GetComponent<Interactable>();
-
-        target.Interact(this.ID);
+        this.Interactable.Interact(this.ID);
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Drop : Action
 {
+    private Item Item;
+
     public Drop(Agent agent, GameObject target) : base(agent) {
         this.ID = IDs.Drop;
 
@@ -11,22 +13,22 @@ public class Drop : Action
         {
             target
         };
+
+        if(target != null) this.Item = target.GetComponent<Item>();
     }
 
     override public bool CanExecute()
     {
         var target = this.Targets[0];
 
-        if (target == null || target.GetComponent<Item>() == null) { return false; } // Target must be an item
+        if (target == null || this.Item == null) { return false; } // Target must be an item
 
-        var itemComp  = target.GetComponent<Item>();
-
-        var invInd = this.Agent.FindInInventory(itemComp);
-        var inHand = this.Agent.OnHand == itemComp;
+        var invInd = this.Agent.FindInInventory(this.Item);
+        var inHand = this.Agent.OnHand == this.Item;
 
         if (invInd != -1 || inHand)
         {
-            return target.GetComponent<Item>().CanInteract(Action.IDs.Drop);
+            return this.Item.CanInteract(Action.IDs.Drop);
         }
 
         return false;

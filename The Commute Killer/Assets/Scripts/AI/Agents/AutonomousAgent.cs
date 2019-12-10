@@ -19,10 +19,12 @@ public class AutonomousAgent : Agent
 
     #endregion
 
-    #region /* Moviment Targets */
-    
+
+    #region /* Movement Targets */
     private Vector3 InitialGoalPosition { get; set; }
+
     private Vector3 InitialPosition { get; set; }
+
     public bool GoalHome {  get; private set; } // True if it's current goal is the initial position
 
     private EventManager EventManager { get; set; }
@@ -65,6 +67,8 @@ public class AutonomousAgent : Agent
         }
 
         MovementStateMachine();
+
+        this.DCharacter.Update();
     }
 
     void OnDrawGizmos()
@@ -75,11 +79,9 @@ public class AutonomousAgent : Agent
     #endregion
 
 
-    #region === Moviment Functions ===
+    #region === Movement Functions ===
     private void MovementStateMachine()
     {
-        this.DCharacter.Update();
-
         switch (this.State)
         {
             case 0: // Stopped
@@ -146,7 +148,8 @@ public class AutonomousAgent : Agent
                 Character = this.DCharacter.KinematicData,
                 Target = new Assets.Scripts.IAJ.Unity.Movement.KinematicData()
                 {
-                    position = this.Path[0].transform.position
+                    position = this.Path[0].transform.position,
+                    velocity = new Vector3(1, 1, 1)
                 },
                 MaxAcceleration = 1f,
                 MaxSpeed        = this.Attributes[Attribute.Speed],
@@ -182,7 +185,8 @@ public class AutonomousAgent : Agent
 
                         this.DCharacter.Movement.Target = new Assets.Scripts.IAJ.Unity.Movement.KinematicData()
                         {
-                            position = this.Path[this.NextInd].transform.position
+                            position = this.Path[this.NextInd].transform.position,
+                            velocity = new Vector3(1, 1, 1)
                         };
                     }
                     else
@@ -196,7 +200,8 @@ public class AutonomousAgent : Agent
 
                     this.DCharacter.Movement.Target = new Assets.Scripts.IAJ.Unity.Movement.KinematicData()
                     {
-                        position = this.GoalPosition
+                        position = this.GoalPosition,
+                        velocity = new Vector3(1, 1, 1)
                     };
                 }
             }

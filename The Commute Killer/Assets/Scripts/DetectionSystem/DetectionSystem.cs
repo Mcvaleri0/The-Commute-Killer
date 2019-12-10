@@ -6,26 +6,58 @@ public class DetectionSystem : MonoBehaviour
 {
     public List<Zone> Zones;
 
+    private Player Player;
+
+    private List<Action.IDs> BannedActions;
+
+    public Zone PlayerZone;
+
     private void Start()
     {
-        this.Zones = new List<Zone>();
+        this.Player = GameObject.Find("PlayerCharacter").GetComponent<Player>();
+
+        this.BannedActions = new List<Action.IDs>()
+        {
+            Action.IDs.Stab
+        };
     }
 
     private void Update()
     {
-        
+        this.PlayerZone = GetZone(this.Player.transform.position);
+
+        if(this.PlayerZone != null)
+        {
+            if (this.PlayerZone.AwarenessLevel == Zone.Awareness.Surveiled)
+            {
+                var action = this.Player.ExecutingAction;
+
+                if(action != null && this.BannedActions.Contains(action.ID))
+                {
+                    //FIXME GameOver
+                }
+            }
+        } 
     }
 
     public Zone GetZone(Vector3 position)
     {
+        Zone zone = null;
+
+        var min = Mathf.Infinity;
+
         foreach(Zone z in this.Zones)
         {
-            if(z.In(position))
+            var yDist = z.In(position);
+
+            if (yDist < min)
             {
-                return z;
+                zone = z;
+
+                min = yDist;
             }
         }
 
-        return null;
+        return zone;
     }
 }

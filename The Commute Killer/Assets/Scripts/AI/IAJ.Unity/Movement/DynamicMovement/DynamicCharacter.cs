@@ -37,6 +37,7 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
         // Update is called once per frame
         public void Update ()
         {
+            Vector3 move = Vector3.zero;
             var vGravity = Physics.gravity * Time.deltaTime;
 
             if (this.Movement != null) 
@@ -52,18 +53,21 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
                 this.KinematicData.SetOrientationFromVelocity();
                 this.KinematicData.TrimMaxSpeed(this.MaxSpeed);
 
-                this.GameObject.transform.position = this.KinematicData.position;
+                move = this.KinematicData.position - this.GameObject.transform.position;
+
                 this.GameObject.transform.rotation = Quaternion.AngleAxis(this.KinematicData.orientation * MathConstants.MATH_180_PI, Vector3.up);
             }
-            else if(this.Collider.Move(vGravity) != CollisionFlags.CollidedBelow)
+            else
             {
                 var grav = new MovementOutput() { linear = vGravity };
 
                 this.KinematicData.Integrate(grav, this.Drag, Time.deltaTime);
                 this.KinematicData.TrimMaxSpeed(this.MaxSpeed);
 
-                this.GameObject.transform.position = this.KinematicData.position;
+                move = this.KinematicData.position - this.GameObject.transform.position;
             }
+
+            GameObject.GetComponent<CharacterController>().Move(move);
         }
     }
 }

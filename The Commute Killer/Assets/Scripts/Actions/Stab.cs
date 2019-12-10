@@ -12,7 +12,7 @@ public class Stab : Action
             target
         };
 
-        this.Instrument = agent.GetComponent<Agent>().OnHand;
+        this.Instrument = agent.OnHand;
     }
 
     public override void Update()

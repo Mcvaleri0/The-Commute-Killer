@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NotebookController : MonoBehaviour
 {
-    private int State = 0; //[ 0 - Closed | 1- Open ]
+    private int State = 0; //[ 0 - Closed | 1- Notebook Open | 2- Map Open ]
 
     private bool unlocked = false;
 
@@ -14,19 +14,40 @@ public class NotebookController : MonoBehaviour
 
     public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.N))
+        switch (State)
         {
-            switch (State)
-            {
-                case 0: // Closed
-                    openNotebook();
-                    break;
+            case 0: // Closed
 
-                case 1: // Open
+                if (Input.GetKeyDown(KeyCode.N))
+                {
+                    openNotebook();
+                }
+
+                if (Input.GetKeyDown(KeyCode.M))
+                {
+                    openMap();
+                }
+                break;
+
+            case 1: // Notebook Opened
+
+                if (Input.GetKeyDown(KeyCode.N))
+                {
                     closeNotebook();
-                    break;
-            }
+                }
+               
+                break;
+
+            case 2: // Map Opened
+
+                if (Input.GetKeyDown(KeyCode.M))
+                {
+                    closeMap();
+                }
+
+                break;
         }
+       
     }
 
     public void openNotebook()
@@ -38,11 +59,29 @@ public class NotebookController : MonoBehaviour
         this.State = 1;
     }
 
+    public void openMap()
+    {
+        var Map = this.transform.Find("PaperMap");
+
+        Map.gameObject.SetActive(true);
+
+        this.State = 2;
+    }
+
     public void closeNotebook()
     {
         var NoteBook = this.transform.Find("Notebook");
 
         NoteBook.gameObject.SetActive(false);
+
+        this.State = 0;
+    }
+
+    public void closeMap()
+    {
+        var Map = this.transform.Find("PaperMap");
+
+        Map.gameObject.SetActive(false);
 
         this.State = 0;
     }
