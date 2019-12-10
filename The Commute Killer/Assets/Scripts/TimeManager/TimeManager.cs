@@ -37,7 +37,6 @@ public class TimeManager : MonoBehaviour
     #region Prompt Variables
 
     private DayPrompt DayPrompt { get; set; }
-    private GameOverPrompt GameOverPrompt { get; set; }
     private bool PromptOpen { get; set; }
     private DateTime TimeToClosePrompt { get; set; }
 
@@ -190,10 +189,7 @@ public class TimeManager : MonoBehaviour
 
     private void InitializePrompt()
     {
-        var canvas = GameObject.Find("Canvas").transform;
-        this.DayPrompt = canvas.Find("DayPrompt").GetComponent<DayPrompt>();
-
-        this.GameOverPrompt = canvas.Find("GameOverPrompt").GetComponent<GameOverPrompt>();
+        this.DayPrompt = GameObject.Find("Canvas").transform.Find("DayPrompt").GetComponent<DayPrompt>();
 
         this.DayPrompt.Initialize();
         this.DrawDayPrompt();
@@ -208,11 +204,6 @@ public class TimeManager : MonoBehaviour
         this.DayPrompt.Draw(text);
 
         this.PromptOpen = true;
-    }
-
-    private void DrawGameOverPrompt()
-    {
-        this.GameOverPrompt.Draw();
     }
 
     private void HidePrompt()
@@ -236,22 +227,11 @@ public class TimeManager : MonoBehaviour
         this.CurrentTime = this.InitialTime;
         this.UpdateNextDay();
         this.TimeLimit = this.CurrentTime.AddDays(this.DaysToKill);
-
-        //this.PauseUnpauseGame();
-    }
-
-    private void TurnCursorVisible()
-    {
-        var playerController = GameObject.Find("PlayerCharacter").GetComponent<FirstPersonController>();
-
-        playerController.m_MouseLook.SetCursorLock(false);
     }
 
     private void MoveVictim()
     {
-        Debug.Log("TimeManger -> Victim Move!!!");
-
-        this.NormalSpeed();
+        //this.NormalSpeed();
         this.TimeForVictimToMove = DateTime.MaxValue;
         this.VictimController.ToogleGoalPosition();
     }

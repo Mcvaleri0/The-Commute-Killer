@@ -113,8 +113,6 @@ public class AutonomousAgent : Agent
         var start = this.transform.position;
         var goal  = this.GoalPosition;
 
-        Debug.Log("AutonomousAgent -> Calculating path...");
-
         if(this.Map != null)
         {
             this.Path = this.Map.GetPath(start, goal);
@@ -135,8 +133,6 @@ public class AutonomousAgent : Agent
 
             this.Path = this.Map.GetPath(start, goal);
         }
-
-        Debug.Log("AutonomousAgent -> path calculated!!!");
 
         if (this.Path != null)
         {
@@ -218,8 +214,6 @@ public class AutonomousAgent : Agent
             this.GoalPosition = this.InitialPosition;
             this.GoalHome = true;
         }
-
-        Debug.Log("AutonomousAgent -> New Goal: " + this.GoalPosition);
 
         this.InitializeMovement();
     }

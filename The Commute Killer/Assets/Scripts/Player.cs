@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.IAJ.Unity.Movement.DynamicMovement;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class Player : Agent
 {
@@ -13,6 +14,9 @@ public class Player : Agent
 
     public Action ExecutingAction { get; private set; }
 
+    private bool reactivateController = false;
+
+    private FirstPersonController Controller;
 
     // Start is called before the first frame update
     new void Start()
@@ -20,7 +24,11 @@ public class Player : Agent
         base.Start();
 
         this.SelectionM = GameObject.Find("Selection Manager").GetComponent<SelectionManager>();
-    }
+
+        //reactivate Controller (FIXME: fps controller is fucky)
+        reactivateController = false;
+        this.Controller = this.GetComponent<FirstPersonController>();
+}
 
     // Update is called once per frame
     new void Update()
@@ -63,6 +71,16 @@ public class Player : Agent
                 ExecuteAction(this.DeterminedAction);
             }
             #endregion
+        }
+    }
+
+    void FixedUpdate()
+    {
+        //Reactivate Controller
+        if (reactivateController)
+        {
+            Controller.enabled = true;
+            reactivateController = false;
         }
     }
 
@@ -129,5 +147,14 @@ public class Player : Agent
 
         this.DeterminedAction = null;
         return;
+    }
+
+    public void Teleport(Vector3 targetPos, Vector3 targetAngles)
+    {
+        Controller.enabled = false;
+        this.transform.position = targetPos;
+        this.transform.eulerAngles = new Vector3(0, 2, 0);
+        reactivateController = true;
+
     }
 }
