@@ -15,22 +15,18 @@ public class Use : Interaction
         
     }
 
-    override public bool CanExecute(Agent agent, GameObject target)
+    override public bool CanExecute()
     {
-        if(target.GetComponent<Interactable>() == null) { return false; } // Target must be an interactable
+        var target = this.Targets[0];
 
-        var aPos = agent.transform.position;
-        var tPos = target.transform.position;
+        // Target must be an interactable
+        if (target == null || target.GetComponent<Interactable>() == null) { return false; }
 
-        // Agents must be at least this close
-        if (Vector3.Distance(aPos, tPos) < 1.5f)
+        var interactable = target.GetComponent<Interactable>();
+
+        if(interactable.CanInteract(this.Agent.GetComponent<Agent>(), Action.IDs.Use))
         {
-            var interactable = target.GetComponent<Interactable>();
-
-            if(interactable.CanInteract(agent.GetComponent<Agent>(), Action.IDs.Use))
-            {
-                return true;
-            }
+            return true;
         }
 
         return false;

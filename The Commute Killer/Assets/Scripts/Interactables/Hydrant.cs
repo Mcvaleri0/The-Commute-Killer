@@ -72,7 +72,7 @@ public class Hydrant : Interactable
 
     override public bool CanInteract(Agent Interactor, Action.IDs id)
     {
-        if (this.State != 2 && id == Action.IDs.Sabotage && this.ActionAvailable(id))
+        if (this.State != 2 && this.ActionAvailable(id))
         {
             return true;
         }

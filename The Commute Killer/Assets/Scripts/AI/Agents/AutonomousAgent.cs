@@ -35,8 +35,15 @@ public class AutonomousAgent : Agent
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
+        base.Update();
+
+        if(this.Attributes[Attribute.HP] <= 0)
+        {
+            return;
+        }
+
         MovementStateMachine();
     }
 
