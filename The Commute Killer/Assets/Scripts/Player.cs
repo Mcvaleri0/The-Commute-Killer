@@ -8,9 +8,9 @@ public class Player : Agent
 {
     private SelectionManager SelectionM;
 
-    public GameObject DeterminedSelection { get; private set; }
+    public GameObject DeterminedSelection;
 
-    public Action DeterminedAction { get; private set; }
+    public Action DeterminedAction;
 
     public Action ExecutingAction { get; private set; }
 
