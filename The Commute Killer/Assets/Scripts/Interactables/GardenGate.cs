@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GardenGate : MonoBehaviour
 {
-    private int State = 2; // [ 0 - Open | 1 - Moving | 2 - Closed ]
+    private int State = 0; // [ 0 - Open | 1 - Moving | 2 - Closed ]
     private int NextState = -1;
 
     private Quaternion Door1TargetAngle;
