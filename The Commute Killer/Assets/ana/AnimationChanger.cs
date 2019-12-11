@@ -26,7 +26,7 @@ public class AnimationChanger : MonoBehaviour
 
         if (anim.GetBool("isWalking"))
         {
-            this.transform.Translate(0, 0, 0.001f);
+            //this.transform.Translate(0, 0, 0.001f);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha0))

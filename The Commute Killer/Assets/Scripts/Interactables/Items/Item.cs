@@ -88,10 +88,23 @@ public class Item : Interactable
     #region === Pick Up Methods ===
     public bool PickUp(Agent interactor)
     {
-        this.GetComponent<Collider>().enabled     = false;
-        this.GetComponent<Rigidbody>().useGravity = false;
-        this.GetComponent<Renderer>().enabled     = false;
+        this.GetComponent<Collider>().enabled = false;
 
+        if(GetComponent<Rigidbody>() != null)
+        {
+            this.GetComponent<Rigidbody>().useGravity = false;
+        }
+
+        if (GetComponent<CharacterController>() != null)
+        {
+            Destroy(this.GetComponent<CharacterController>());
+        }
+
+        if(this.GetComponent<Renderer>() != null)
+        {
+            this.GetComponent<Renderer>().enabled = false;
+        }
+        
         this.Owner = interactor.gameObject;
         this.transform.parent = interactor.transform;
 
@@ -122,8 +135,11 @@ public class Item : Interactable
     #region === Equiping Methods ===
     public void Equip()
     {
-        this.GetComponent<Renderer>().enabled = true;
-
+        if(this.GetComponent<Renderer>() != null)
+        {
+            this.GetComponent<Renderer>().enabled = true;
+        }
+        
         this.transform.localPosition = this.PosRelative;
         this.transform.localRotation = this.NewRotation;
     }

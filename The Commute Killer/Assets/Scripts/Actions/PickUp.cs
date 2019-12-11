@@ -21,7 +21,7 @@ public class PickUp : Action
     {
         if (this.Item == null) { return false; } // Target must be an item
 
-        if (this.Agent.FirstFree != -1 || this.Agent.OnHand == null)
+        if (/*this.Agent.FirstFree != -1 ||*/ this.Agent.OnHand == null)
         {
             return this.Item.CanInteract(Action.IDs.PickUp);
         }

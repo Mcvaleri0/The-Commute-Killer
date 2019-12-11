@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
     public bool Paused { get; private set; } = false;
     private bool GameFinished { get; set; }
     private GameOverPrompt GameOverPrompt { get; set; }
+    private WinPrompt WinPrompt { get; set; }
 
     #endregion
 
@@ -33,6 +34,7 @@ public class LevelManager : MonoBehaviour
         Physics.gravity = new Vector3(0, -9.8f, 0);
 
         this.GameOverPrompt = GameObject.Find("Canvas").transform.Find("GameOverPrompt").GetComponent<GameOverPrompt>();
+        this.WinPrompt = GameObject.Find("Canvas").transform.Find("WinPrompt").GetComponent<WinPrompt>();
 
     }
 
@@ -61,6 +63,16 @@ public class LevelManager : MonoBehaviour
         this.PlayerController.m_MouseLook.SetCursorLock(false);
     }
 
+    public void Win()
+    {
+        this.GameFinished = true;
+        this.Paused = true;
+
+        this.DrawWinPrompt();
+
+        this.PlayerController.m_MouseLook.SetCursorLock(false);
+    }
+
     #endregion
 
     #region === Auxiliar Functions ===
@@ -68,6 +80,11 @@ public class LevelManager : MonoBehaviour
     private void DrawGameOverPrompt()
     {
         this.GameOverPrompt.Draw();
+    }
+
+    private void DrawWinPrompt()
+    {
+        this.WinPrompt.Draw();
     }
 
     #endregion

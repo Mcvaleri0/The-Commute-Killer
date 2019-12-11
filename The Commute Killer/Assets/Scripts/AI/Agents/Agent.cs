@@ -338,6 +338,9 @@ public class Agent : MonoBehaviour
 
             case Action.IDs.Use:
                 return new Use(this, target);
+
+            case Action.IDs.Insert:
+                return new Insert(this, target);
         }
 
         return null;
@@ -358,9 +361,13 @@ public class Agent : MonoBehaviour
 
     public void Die()
     {
-        if (this.GetComponent<Animator>().enabled == true)
-        {
-            this.GetComponent<Animator>().enabled = false;
-        }
+       
+        this.GetComponent<Animator>().SetBool("isDying", true);
+
+        gameObject.AddComponent<Cadaver>();
+
+        GameObject.Find("EventManager").GetComponent<EventManager>().TriggerEvent(Event.Killed);
+
+        Destroy(this);
     }
 }
