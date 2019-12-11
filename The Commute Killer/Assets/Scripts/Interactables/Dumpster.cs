@@ -17,6 +17,7 @@ public class Dumpster : Interactable
 
         this.PossibleActions = new List<Action.IDs>()
         {
+            Action.IDs.Insert,
             Action.IDs.Use
         };
 
@@ -53,6 +54,10 @@ public class Dumpster : Interactable
             case Action.IDs.Use:
                 Use();
                 return true;
+
+            case Action.IDs.Insert:
+                Insert();
+                return true;
         }
 
         return false;
@@ -62,7 +67,21 @@ public class Dumpster : Interactable
     {
         if (this.ActionAvailable(id))
         {
-            return true;
+            switch (id)
+            {
+                default:
+                    break;
+
+                case Action.IDs.Use:
+                    return true;
+
+                case Action.IDs.Insert:
+                    if(this.State == 1)
+                    {
+                        return true;
+                    }
+                    break;
+            }
         }
 
         return false;
@@ -82,6 +101,11 @@ public class Dumpster : Interactable
                 Close();
                 break;
         }
+    }
+
+    private void Insert()
+    {
+
     }
     #endregion
 

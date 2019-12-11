@@ -11,7 +11,8 @@ public abstract class Action
         Drop,
         Stab,
         Sabotage,
-        Use
+        Use,
+        Insert
     }
 
     public IDs ID;

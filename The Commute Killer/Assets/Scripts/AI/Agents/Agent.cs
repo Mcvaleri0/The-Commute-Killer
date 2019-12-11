@@ -338,6 +338,9 @@ public class Agent : MonoBehaviour
 
             case Action.IDs.Use:
                 return new Use(this, target);
+
+            case Action.IDs.Insert:
+                return new Insert(this, target);
         }
 
         return null;
@@ -362,5 +365,9 @@ public class Agent : MonoBehaviour
         {
             this.GetComponent<Animator>().enabled = false;
         }
+
+        gameObject.AddComponent<Cadaver>();
+
+        Destroy(this);
     }
 }
