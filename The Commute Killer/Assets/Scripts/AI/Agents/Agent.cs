@@ -368,6 +368,8 @@ public class Agent : MonoBehaviour
 
         gameObject.AddComponent<Cadaver>();
 
+        GameObject.Find("EventManager").GetComponent<EventManager>().TriggerEvent(Event.Killed);
+
         Destroy(this);
     }
 }

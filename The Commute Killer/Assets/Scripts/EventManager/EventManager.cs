@@ -6,19 +6,22 @@ public class EventManager : MonoBehaviour
 {
     private MapController Map;
 
+    private DetectionSystem Detection;
+
     private GameObject Victim;
 
     private Vector3 VictimStartPosition;
+
     private Vector3 VictimEndPosition;
 
     private TimeManager TimeManager { get; set; }
-
-
 
     // Start is called before the first frame update
     void Start()
     {
         this.Map = GameObject.Find("Map").GetComponent<MapController>();
+
+        this.Detection = GameObject.Find("DetectionSystem").GetComponent<DetectionSystem>();
 
         this.Victim = GameObject.Find("Victim");
 
@@ -93,6 +96,10 @@ public class EventManager : MonoBehaviour
             
             case Event.GardenGate2_Open:
                 this.Map.BlockArc(34, 35, false);
+                return true;
+
+            case Event.Killed:
+                this.Detection.TryToTriggerGameOver();
                 return true;
         }
 

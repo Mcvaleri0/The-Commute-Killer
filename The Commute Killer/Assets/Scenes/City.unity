@@ -3762,7 +3762,7 @@ MonoBehaviour:
   Inventory: []
   HandPosition: {x: 16, y: 0, z: 60}
   AvailableActions: 
-  GoalPosition: {x: 10, y: -0.75, z: 57}
+  GoalPosition: {x: -10, y: -0.75, z: 67.68}
   Map: {fileID: 0}
   speed: 0
 --- !u!143 &315715878
@@ -12775,11 +12775,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1650689204}
     m_Modifications:
-    - target: {fileID: 3051136494111472347, guid: c11c0581b18bfa34380863df8c8d77d5,
-        type: 3}
-      propertyPath: m_Name
-      value: InteractibleGardenGate
-      objectReference: {fileID: 0}
     - target: {fileID: 8200229687751016509, guid: c11c0581b18bfa34380863df8c8d77d5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12834,6 +12829,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3051136494111472347, guid: c11c0581b18bfa34380863df8c8d77d5,
+        type: 3}
+      propertyPath: m_Name
+      value: InteractibleGardenGate
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c11c0581b18bfa34380863df8c8d77d5, type: 3}
@@ -18241,11 +18241,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1650689204}
     m_Modifications:
-    - target: {fileID: 3051136494111472347, guid: c11c0581b18bfa34380863df8c8d77d5,
-        type: 3}
-      propertyPath: m_Name
-      value: InteractibleGardenGate (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 8200229687751016509, guid: c11c0581b18bfa34380863df8c8d77d5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -18300,6 +18295,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3051136494111472347, guid: c11c0581b18bfa34380863df8c8d77d5,
+        type: 3}
+      propertyPath: m_Name
+      value: InteractibleGardenGate (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c11c0581b18bfa34380863df8c8d77d5, type: 3}
@@ -28254,7 +28254,7 @@ PrefabInstance:
     - target: {fileID: 7457923540884627517, guid: 92076be04ba52184ca715aa3dd35f4cf,
         type: 3}
       propertyPath: m_Name
-      value: wrench (2)
+      value: wrench
       objectReference: {fileID: 0}
     - target: {fileID: 7457923540884667421, guid: 92076be04ba52184ca715aa3dd35f4cf,
         type: 3}

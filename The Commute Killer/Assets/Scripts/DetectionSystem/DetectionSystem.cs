@@ -15,29 +15,19 @@ public class DetectionSystem : MonoBehaviour
     private void Start()
     {
         this.Player = GameObject.Find("PlayerCharacter").GetComponent<Player>();
-
-        this.BannedActions = new List<Action.IDs>()
-        {
-            Action.IDs.Stab
-        };
     }
 
     private void Update()
     {
         this.PlayerZone = GetZone(this.Player.transform.position);
+    }
 
-        if(this.PlayerZone != null)
+    public void TryToTriggerGameOver()
+    {
+        if(this.PlayerZone.AwarenessLevel == Zone.Awareness.Surveiled)
         {
-            if (this.PlayerZone.AwarenessLevel == Zone.Awareness.Surveiled)
-            {
-                var action = this.Player.ExecutingAction;
-
-                if(action != null && this.BannedActions.Contains(action.ID))
-                {
-                    //FIXME GameOver
-                }
-            }
-        } 
+            return; //FIXME GameOver
+        }
     }
 
     public Zone GetZone(Vector3 position)
