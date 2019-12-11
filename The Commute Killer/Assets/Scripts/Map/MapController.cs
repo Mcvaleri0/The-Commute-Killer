@@ -79,6 +79,11 @@ public class MapController : MonoBehaviour
 
         Stack<MapNode> path = null;
 
+        foreach (MapNode node in this.Nodes)
+        {
+            node.Previous = null;
+        }
+
         if(start != null && goal != null)
         {
             path = new Stack<MapNode>();
@@ -89,7 +94,7 @@ public class MapController : MonoBehaviour
 
             var goalFound = false;
 
-            while(toVisit.Count != 0 && !goalFound) {
+            while(!goalFound && toVisit.Count != 0) {
                 var node = toVisit.Dequeue();
                 
                 var adjNodes = node.AdjacentNodes;

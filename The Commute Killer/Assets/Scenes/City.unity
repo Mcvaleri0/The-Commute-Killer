@@ -3212,6 +3212,7 @@ MonoBehaviour:
   AvailableActions: 
   GoalPosition: {x: 0, y: 0, z: 0}
   Map: {fileID: 0}
+  speed: 0
 --- !u!54 &252896048
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3761,8 +3762,9 @@ MonoBehaviour:
   Inventory: []
   HandPosition: {x: 16, y: 0, z: 60}
   AvailableActions: 
-  GoalPosition: {x: -6, y: -5, z: 66}
+  GoalPosition: {x: 10, y: -0.75, z: 57}
   Map: {fileID: 0}
+  speed: 0
 --- !u!143 &315715878
 CharacterController:
   m_ObjectHideFlags: 0
@@ -5924,6 +5926,10 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 75317c3efc6062c4582ef3875a5d2850, type: 3}
       propertyPath: m_RootOrder
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 75317c3efc6062c4582ef3875a5d2850, type: 3}
+      propertyPath: m_RootOrder
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 75317c3efc6062c4582ef3875a5d2850, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

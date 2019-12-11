@@ -128,7 +128,7 @@ public class TimeManager : MonoBehaviour
             this.TimeForVictimToMove = this.CurrentTime.AddHours(this.VictimWorkHours);
         }
 
-        //this.FastFoward();
+        this.FastFoward();
     }
 
     private void NewDay()
@@ -179,7 +179,7 @@ public class TimeManager : MonoBehaviour
 
     private void NormalSpeed()
     {
-        this.TimeMultiplier = 10;
+        this.TimeMultiplier = 1;
     }
 
     #endregion
@@ -231,7 +231,7 @@ public class TimeManager : MonoBehaviour
 
     private void MoveVictim()
     {
-        //this.NormalSpeed();
+        this.NormalSpeed();
         this.TimeForVictimToMove = DateTime.MaxValue;
         this.VictimController.ToogleGoalPosition();
     }
