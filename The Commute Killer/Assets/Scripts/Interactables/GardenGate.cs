@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -79,10 +80,13 @@ public class GardenGate : MonoBehaviour
         Door2TargetAngle = Door2.rotation * Quaternion.Euler(0, 90, 0);  
 
         NextState = 0;
-        /*
-        var ev = (Event)Enum.Parse(typeof(Event), gameObject.name + "_ON");
+
+        var evName = gameObject.name + "_Open";
+        evName = evName.Replace(" ", "_");
+        evName = evName.Replace("(", string.Empty);
+        evName = evName.Replace(")", string.Empty);
+        var ev = (Event)Enum.Parse(typeof(Event), evName);
         this.EventManager.TriggerEvent(ev);
-        */
     }
 
     private void Close()
@@ -94,10 +98,12 @@ public class GardenGate : MonoBehaviour
 
         NextState = 2;
 
-        /*
-        var ev = (Event)Enum.Parse(typeof(Event), gameObject.name + "_OFF");
+        var evName = gameObject.name + "_Close";
+        evName = evName.Replace(" ", "_");
+        evName = evName.Replace("(", string.Empty);
+        evName = evName.Replace(")", string.Empty);
+        var ev = (Event)Enum.Parse(typeof(Event), evName);
         this.EventManager.TriggerEvent(ev);
-        */
     }
     #endregion
 
