@@ -55,6 +55,8 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
 
                 move = this.KinematicData.position - this.GameObject.transform.position;
 
+                //Debug.Log(move);
+
                 this.GameObject.transform.rotation = Quaternion.AngleAxis(this.KinematicData.orientation * MathConstants.MATH_180_PI, Vector3.up);
             }
             else
