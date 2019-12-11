@@ -29,11 +29,6 @@ public class EventManager : MonoBehaviour
 
         this.VictimStartPosition = new Vector3(19.375f, 0.3f, -15.225f);
         this.VictimEndPosition   = new Vector3(11f, 0.3f, -45f);
-
-        // FIXME -> remover. os portoes comecam abertos
-        this.TriggerEvent(Event.GardenGate1_Close);
-        this.TriggerEvent(Event.GardenGate2_Close);
-        this.Map.BlockArc(44, 45, true);    // portao do beco
     }
 
 
@@ -56,12 +51,7 @@ public class EventManager : MonoBehaviour
     {
         switch(e)
         {
-            //case Event.Hydrant_0_ON:
-            //    return this.Map.GetComponent<MapController>().BlockArc(25, 16, true);
-
-            //case Event.Hydrant_0_OFF:
-            //    return this.Map.GetComponent<MapController>().BlockArc(25, 16, false);
-
+            //FIXME: estes dois primeiros sao para sair. estes eventos ja nao deviam de existir
             case Event.VictimStartEnd:
                 this.VictimMovement(this.VictimStartPosition, this.VictimEndPosition);
                 return true;
@@ -82,19 +72,19 @@ public class EventManager : MonoBehaviour
                 this.Map.BlockArc(35, 46, false);
                 return true;
 
-            case Event.GardenGate1_Close:
+            case Event.InteractibleGardenGate_1_Close:
                 this.Map.BlockArc(32, 33, true);
                 return true;
 
-            case Event.GardenGate1_Open:
+            case Event.InteractibleGardenGate_1_Open:
                 this.Map.BlockArc(32, 33, false);
                 return true;
 
-            case Event.GardenGate2_Close:
+            case Event.InteractibleGardenGate_Close:
                 this.Map.BlockArc(34, 35, true);
                 return true;
             
-            case Event.GardenGate2_Open:
+            case Event.InteractibleGardenGate_Open:
                 this.Map.BlockArc(34, 35, false);
                 return true;
 
