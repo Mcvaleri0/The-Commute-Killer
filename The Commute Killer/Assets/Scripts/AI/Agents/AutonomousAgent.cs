@@ -17,6 +17,8 @@ public class AutonomousAgent : Agent
 
     private DynamicCharacter DCharacter;
 
+    public float speed;
+
     #endregion
 
 
@@ -73,7 +75,7 @@ public class AutonomousAgent : Agent
 
     void OnDrawGizmos()
     {
-        //Gizmos.DrawSphere(this.GoalPosition, 1f);
+        Gizmos.DrawSphere(this.GoalPosition, 1f);
     }
 
     #endregion

@@ -3225,6 +3225,7 @@ MonoBehaviour:
   AvailableActions: 
   GoalPosition: {x: 0, y: 0, z: 0}
   Map: {fileID: 0}
+  speed: 0
 --- !u!54 &252896048
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3452,7 +3453,7 @@ Transform:
   m_Children:
   - {fileID: 7678498}
   m_Father: {fileID: 1687054218}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &308134691 stripped
 GameObject:
@@ -3621,15 +3622,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: d755b99ef7277d24abc54d29285750a9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.47
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: d755b99ef7277d24abc54d29285750a9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.92
+      value: -0.833
       objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: d755b99ef7277d24abc54d29285750a9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 60.51
+      value: 52.67
       objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: d755b99ef7277d24abc54d29285750a9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3774,8 +3775,9 @@ MonoBehaviour:
   Inventory: []
   HandPosition: {x: 16, y: 0, z: 60}
   AvailableActions: 
-  GoalPosition: {x: -6, y: -5, z: 66}
+  GoalPosition: {x: 10, y: -0.75, z: 57}
   Map: {fileID: 0}
+  speed: 0
 --- !u!143 &315715878
 CharacterController:
   m_ObjectHideFlags: 0
@@ -5951,7 +5953,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 75317c3efc6062c4582ef3875a5d2850, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 75317c3efc6062c4582ef3875a5d2850, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -21114,8 +21116,8 @@ Transform:
   - {fileID: 692416561}
   - {fileID: 830146785}
   - {fileID: 1518401270}
-  - {fileID: 1315597988}
   - {fileID: 307388592}
+  - {fileID: 1315597988}
   m_Father: {fileID: 1330860493}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

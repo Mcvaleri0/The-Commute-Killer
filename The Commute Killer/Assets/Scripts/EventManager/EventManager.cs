@@ -27,8 +27,10 @@ public class EventManager : MonoBehaviour
         this.VictimStartPosition = new Vector3(19.375f, 0.3f, -15.225f);
         this.VictimEndPosition   = new Vector3(11f, 0.3f, -45f);
 
+        // FIXME -> remover. os portoes comecam abertos
         this.TriggerEvent(Event.GardenGate1_Close);
         this.TriggerEvent(Event.GardenGate2_Close);
+        this.Map.BlockArc(44, 45, true);    // portao do beco
     }
 
 
@@ -67,6 +69,14 @@ public class EventManager : MonoBehaviour
 
             case Event.VictimAtGoal:
                 this.VictimAtGoal();
+                return true;
+
+            case Event.Hydrant_ON:
+                this.Map.BlockArc(35, 46, true);
+                return true;
+
+            case Event.Hydrant_OFF:
+                this.Map.BlockArc(35, 46, false);
                 return true;
 
             case Event.GardenGate1_Close:
