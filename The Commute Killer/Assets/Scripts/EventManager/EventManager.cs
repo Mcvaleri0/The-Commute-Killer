@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
-    private GameObject Map;
+    private MapController Map;
 
     private GameObject Victim;
 
@@ -18,7 +18,7 @@ public class EventManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.Map = GameObject.Find("Map");
+        this.Map = GameObject.Find("Map").GetComponent<MapController>();
 
         this.Victim = GameObject.Find("Victim");
 
@@ -27,7 +27,8 @@ public class EventManager : MonoBehaviour
         this.VictimStartPosition = new Vector3(19.375f, 0.3f, -15.225f);
         this.VictimEndPosition   = new Vector3(11f, 0.3f, -45f);
 
-        //this.Victim.SetActive(false);
+        this.TriggerEvent(Event.GardenGate1_Close);
+        this.TriggerEvent(Event.GardenGate2_Close);
     }
 
 
@@ -66,7 +67,23 @@ public class EventManager : MonoBehaviour
 
             case Event.VictimAtGoal:
                 this.VictimAtGoal();
-                break;
+                return true;
+
+            case Event.GardenGate1_Close:
+                this.Map.BlockArc(32, 33, true);
+                return true;
+
+            case Event.GardenGate1_Open:
+                this.Map.BlockArc(32, 33, false);
+                return true;
+
+            case Event.GardenGate2_Close:
+                this.Map.BlockArc(34, 35, true);
+                return true;
+            
+            case Event.GardenGate2_Open:
+                this.Map.BlockArc(34, 35, false);
+                return true;
         }
 
         return false;
