@@ -50,11 +50,11 @@ public class EventManager : MonoBehaviour
     {
         switch(e)
         {
-            case Event.Hydrant_0_ON:
-                return this.Map.GetComponent<MapController>().BlockArc(25, 16, true);
+            //case Event.Hydrant_0_ON:
+            //    return this.Map.GetComponent<MapController>().BlockArc(25, 16, true);
 
-            case Event.Hydrant_0_OFF:
-                return this.Map.GetComponent<MapController>().BlockArc(25, 16, false);
+            //case Event.Hydrant_0_OFF:
+            //    return this.Map.GetComponent<MapController>().BlockArc(25, 16, false);
 
             case Event.VictimStartEnd:
                 this.VictimMovement(this.VictimStartPosition, this.VictimEndPosition);
