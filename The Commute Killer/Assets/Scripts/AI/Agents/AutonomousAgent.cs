@@ -71,6 +71,11 @@ public class AutonomousAgent : Agent
         this.DCharacter.Update();
     }
 
+    void OnDrawGizmos()
+    {
+        //Gizmos.DrawSphere(this.GoalPosition, 1f);
+    }
+
     #endregion
 
 
@@ -149,7 +154,8 @@ public class AutonomousAgent : Agent
                 MaxAcceleration = 1f,
                 MaxSpeed        = this.Attributes[Attribute.Speed],
                 TargetRadius    = 1f,
-                SlowRadius      = 3f
+                SlowRadius      = 3f,
+                
             };
 
             this.gameObject.SetActive(true);
@@ -161,6 +167,8 @@ public class AutonomousAgent : Agent
         // If the path through the grid is not finished
         if (this.NextInd < this.Path.Length)
         {
+            //Debug.Log(this.DCharacter.KinematicData);
+
             var nextNode = this.Path[this.NextInd];
 
             var distance = Vector3.Distance(this.transform.position, nextNode.transform.position);
