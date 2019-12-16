@@ -19,6 +19,8 @@ public class AutonomousAgent : Agent
 
     public float speed;
 
+    public bool Target = false;
+
     #endregion
 
 
@@ -84,10 +86,11 @@ public class AutonomousAgent : Agent
     #region === Movement Functions ===
     private void MovementStateMachine()
     {
+
         switch (this.State)
         {
             case 0: // Stopped
-                if (this.GoalPosition != null)
+                if (this.GoalPosition != null && Vector3.Distance(this.transform.position, this.GoalPosition) >= 1f)
                 {
                     InitializeMovement();
 
@@ -96,15 +99,27 @@ public class AutonomousAgent : Agent
                 break;
 
             case 1: // Moving to Target
+                if (this.Path == null) {
+                    if (Vector3.Distance(this.transform.position, this.GoalPosition) < 1f)
+                    {
+                        State = 0;
+                    }
+
+                    break;
+                }
+
                 if (MoveToTarget())
                 {
                     if (Vector3.Distance(this.transform.position, this.GoalPosition) < 1f)
                     {
                         this.State = 0; // Path completed -> Goal Reached
 
-                        this.gameObject.SetActive(false);
+                        if (this.Target)
+                        {
+                            this.gameObject.SetActive(false);
 
-                        this.EventManager.TriggerEvent(Event.VictimAtGoal);
+                            this.EventManager.TriggerEvent(Event.VictimAtGoal);
+                        }
                     }
                 }
                 else
@@ -118,50 +133,78 @@ public class AutonomousAgent : Agent
     private void InitializeMovement()
     {
         var start = this.transform.position;
-        var goal  = this.GoalPosition;
+        var goal = this.GoalPosition;
 
-        if(this.Map != null)
+        Physics.Raycast(start, goal, out RaycastHit hit, 2f);
+
+        if (hit.transform != null)
         {
-            this.Path = this.Map.GetPath(start, goal);
+
+            if (this.Map != null)
+            {
+                this.Path = this.Map.GetPath(start, goal);
+            }
+            else
+            {
+                if (GameObject.Find("Map") == null)
+                {
+                    return;
+                }
+
+                this.Map = GameObject.Find("Map").GetComponent<MapController>();
+
+                if (this.Map == null)
+                {
+                    return;
+                }
+
+                this.Path = this.Map.GetPath(start, goal);
+            }
+
+            if (this.Path != null)
+            {
+                this.NextInd = 0;
+
+                this.DCharacter.Movement = new DynamicArrive()
+                {
+                    Character = this.DCharacter.KinematicData,
+                    Target = new Assets.Scripts.IAJ.Unity.Movement.KinematicData()
+                    {
+                        position = this.Path[0].transform.position,
+                        velocity = new Vector3(1, 1, 1)
+                    },
+                    MaxAcceleration = 1f,
+                    MaxSpeed = this.Attributes[Attribute.Speed],
+                    TargetRadius = 1f,
+                    SlowRadius = 3f,
+
+                };
+
+                this.gameObject.SetActive(true);
+            }
+
         }
         else
         {
-            if(GameObject.Find("Map") == null)
-            {
-                return;
-            }
-
-            this.Map = GameObject.Find("Map").GetComponent<MapController>();
-
-            if(this.Map == null)
-            {
-                return;
-            }
-
-            this.Path = this.Map.GetPath(start, goal);
-        }
-
-        if (this.Path != null)
-        {
-            this.NextInd = 0;
-
             this.DCharacter.Movement = new DynamicArrive()
             {
                 Character = this.DCharacter.KinematicData,
                 Target = new Assets.Scripts.IAJ.Unity.Movement.KinematicData()
                 {
-                    position = this.Path[0].transform.position,
+                    position = goal,
                     velocity = new Vector3(1, 1, 1)
                 },
                 MaxAcceleration = 1f,
-                MaxSpeed        = this.Attributes[Attribute.Speed],
-                TargetRadius    = 1f,
-                SlowRadius      = 3f,
-                
+                MaxSpeed = this.Attributes[Attribute.Speed],
+                TargetRadius = 1f,
+                SlowRadius = 3f,
+
             };
 
-            this.gameObject.SetActive(true);
+
         }
+
+
     }
 
     private bool MoveToTarget()
