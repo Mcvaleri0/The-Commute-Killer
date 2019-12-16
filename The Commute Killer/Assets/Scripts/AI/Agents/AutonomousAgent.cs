@@ -120,6 +120,11 @@ public class AutonomousAgent : Agent
 
                             this.EventManager.TriggerEvent(Event.VictimAtGoal);
                         }
+
+                        else
+                        {
+                            this.gameObject.GetComponent<Animator>().SetBool("isIdling", true);
+                        }
                     }
                 }
                 else
