@@ -72,6 +72,14 @@ public class EventManager : MonoBehaviour
                 this.Map.BlockArc(35, 46, false);
                 return true;
 
+            case Event.Hydrant_1_ON:
+                this.Map.BlockArc(1, 38, true);
+                return true;
+
+            case Event.Hydrant_1_OFF:
+                this.Map.BlockArc(1, 38, false);
+                return true;
+
             case Event.InteractibleGardenGate_1_Close:
                 this.Map.BlockArc(32, 33, true);
                 return true;
