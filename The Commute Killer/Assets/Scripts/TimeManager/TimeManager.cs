@@ -10,7 +10,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class TimeManager : MonoBehaviour
 {
-    #region Variables setted in Unity Editor
+    #region Variables set in Unity Editor
 
     public float TimeMultiplier;
 
@@ -49,7 +49,6 @@ public class TimeManager : MonoBehaviour
     private AutonomousAgent VictimController { get; set; }
 
     #endregion
-
 
 
     #region === Unity Events ===

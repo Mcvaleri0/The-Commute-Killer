@@ -68,7 +68,7 @@ public class DoorKnob : Interactable
         Vector3 dirVec = new Vector3(xx, 00, zz);
 
         Vector3 targetPos = doorPos + (dirVec.normalized * distance);
-        targetPos.y += 2;
+        targetPos.y += 0.5f;
 
         this.Interactor.GetComponent<Player>().Teleport(targetPos, this.TargetDoor.transform.eulerAngles);
     }

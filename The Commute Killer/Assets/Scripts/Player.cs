@@ -153,7 +153,6 @@ public class Player : Agent
     {
         Controller.enabled = false;
         this.transform.position = targetPos;
-        this.transform.eulerAngles = new Vector3(0, 2, 0);
         reactivateController = true;
 
     }

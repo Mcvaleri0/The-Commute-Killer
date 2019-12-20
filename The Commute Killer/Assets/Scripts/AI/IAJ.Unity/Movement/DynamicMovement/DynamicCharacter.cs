@@ -44,10 +44,7 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
             {
                 MovementOutput steering = this.Movement.GetMovement();
 
-                if (this.Collider.Move(vGravity) != CollisionFlags.CollidedBelow)
-                {
-                    steering.linear += vGravity;
-                }
+                steering.linear += vGravity;
 
                 this.KinematicData.Integrate(steering,this.Drag,Time.deltaTime);
                 this.KinematicData.SetOrientationFromVelocity();
