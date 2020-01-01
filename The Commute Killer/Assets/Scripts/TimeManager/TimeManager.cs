@@ -83,6 +83,11 @@ public class TimeManager : MonoBehaviour
 
     #region === Time Functions ===
 
+    public DateTime GetCurrentTime()
+    {
+        return CurrentTime;
+    }
+
     private void InitializeTime()
     {
         this.InitialTime = new DateTime(this.StoryYear, this.StoryMonth, this.StoryDay, 8, 30, 0);    // 6/9/1989  8:30
