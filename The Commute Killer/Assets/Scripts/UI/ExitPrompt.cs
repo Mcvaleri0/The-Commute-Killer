@@ -20,27 +20,36 @@ public class ExitPrompt : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            PromptActive = !PromptActive;
+        //if(Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    PromptActive = !PromptActive;
 
-            Prompt.gameObject.SetActive(PromptActive);
-        }
+        //    Prompt.gameObject.SetActive(PromptActive);
+        //}
+    }
+
+    public void Draw()
+    {
+        this.PromptActive = true;
+        Prompt.gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        this.PromptActive = false;
+        Prompt.gameObject.SetActive(false);
     }
 
     public void YesButton()
     {
-        Prompt.gameObject.SetActive(false);
-
-        PromptActive = false;
+        this.Hide();
 
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
     public void NoButton()
     {
-        Prompt.gameObject.SetActive(false);
-
-        PromptActive = false;
+        this.Hide();
+        GameObject.Find("LevelManager").GetComponent<LevelManager>().UnPause();
     }
 }
