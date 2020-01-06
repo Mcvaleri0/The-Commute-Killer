@@ -53,7 +53,7 @@ public class AutonomousAgent : Agent
         {
             MaxSpeed = this.Attributes[Attribute.Speed],
             Drag = 0.5f,
-            Collider = GetComponent<CharacterController>()
+            Controller = GetComponent<CharacterController>()
         };
 
         this.InitialGoalPosition = this.GoalPosition;
