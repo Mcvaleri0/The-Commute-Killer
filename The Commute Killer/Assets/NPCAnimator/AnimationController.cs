@@ -5,7 +5,7 @@ using UnityEngine;
 public class AnimationController : MonoBehaviour
 {
     public Player player;
-    static Animator anim;
+    protected Animator anim;
     protected CharacterController character;
 
     //the number value is used in the animator
@@ -30,7 +30,7 @@ public class AnimationController : MonoBehaviour
         //pass params to animator
         Vector3 velocity = character.velocity;
         float speed = velocity.magnitude;
-        anim.SetFloat("Speed", 3);
+        anim.SetFloat("Speed", speed);
   
     }
 
