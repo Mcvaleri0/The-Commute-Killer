@@ -15,7 +15,7 @@ public class Item : Interactable
     #region /* Chain of Ownership */
     public GameObject OriginalOwner { get; protected set; }
 
-    public GameObject Owner { get; protected set; }
+    public GameObject Owner { get; protected set; } = null;
     #endregion
 
     #region /* Scene */
@@ -54,6 +54,15 @@ public class Item : Interactable
 
     public void Update()
     {
+        var ps = SelectableParticles.GetComponent<ParticleSystem>();
+        var emiss = ps.emission;
+        if (Owner != null)
+        {
+            emiss.enabled = false;
+        }
+        else {
+            emiss.enabled = true;
+        }
     }
 
     //Add a way to tell it to animate and detect when it is done

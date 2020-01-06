@@ -18,10 +18,14 @@ public class Player : Agent
 
     private FirstPersonController Controller;
 
+    public Vector3 InitialPosition { get; private set; }
+
     // Start is called before the first frame update
     new void Start()
     {
         base.Start();
+
+        this.InitialPosition = this.transform.position;
 
         this.SelectionM = GameObject.Find("Selection Manager").GetComponent<SelectionManager>();
 

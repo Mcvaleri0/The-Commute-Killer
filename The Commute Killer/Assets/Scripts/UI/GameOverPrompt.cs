@@ -26,8 +26,6 @@ public class GameOverPrompt : MonoBehaviour
     {
         this.Hide();
 
-        GameObject.Find("TimeManager").GetComponent<TimeManager>().ResetTime();
-
-        //GameObject.Find("PlayerCharacter").GetComponent<Player>().GoToInitialPosition();
+        GameObject.Find("LevelManager").GetComponent<LevelManager>().Resart();
     }
 }

@@ -31,8 +31,14 @@ public abstract class Action
 
     public int State { get; protected set; } = 0; // [ 0 - To Start | 1 - In Progress | 2 - Finished ]
 
+
     public Action(Agent agent) {
         this.Agent = agent;
+    }
+
+    public Agent GetAgent()
+    {
+        return this.Agent;
     }
 
     public virtual void Update() { }

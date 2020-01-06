@@ -59,9 +59,7 @@ public class AnimationChanger : MonoBehaviour
 
             Debug.Log(anim.GetBool("isAlert"));
             Debug.Log(anim.GetBool("isWalking"));
-        }
-
-        
+        } 
     }
 
     bool hasDangerousItem()

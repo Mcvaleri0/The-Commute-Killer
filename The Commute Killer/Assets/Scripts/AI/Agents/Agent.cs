@@ -38,6 +38,11 @@ public class Agent : MonoBehaviour
     private DynamicCharacter DynamicC;
 
     public Vector3 GoalPosition;
+
+    public Vector3 GetPosition()
+    {
+        return this.DynamicC.GameObject.transform.position;
+    }
     #endregion
 
 

@@ -84,6 +84,8 @@ public class Outline : MonoBehaviour {
 
     // Cache renderers
     renderers = GetComponentsInChildren<Renderer>();
+    //Nasty nico hack Muahahah stops particles from being highlighted :3
+    renderers = renderers.Where(renderer => !(renderer is ParticleSystemRenderer)).ToArray(); 
 
     // Instantiate outline materials
     outlineMaskMaterial = Instantiate(Resources.Load<Material>(@"Materials/OutlineMask"));

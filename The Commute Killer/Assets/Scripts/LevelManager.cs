@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityStandardAssets.Characters.FirstPerson;
-
-
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -12,6 +11,7 @@ public class LevelManager : MonoBehaviour
     private bool GameFinished { get; set; }
     private GameOverPrompt GameOverPrompt { get; set; }
     private WinPrompt WinPrompt { get; set; }
+    private ExitPrompt ExitPrompt { get; set; }
 
     #endregion
 
@@ -35,17 +35,24 @@ public class LevelManager : MonoBehaviour
 
         this.GameOverPrompt = GameObject.Find("Canvas").transform.Find("GameOverPrompt").GetComponent<GameOverPrompt>();
         this.WinPrompt = GameObject.Find("Canvas").transform.Find("WinPrompt").GetComponent<WinPrompt>();
-
+        this.ExitPrompt = GameObject.Find("Canvas").transform.Find("ExitPrompt").GetComponent<ExitPrompt>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!this.GameFinished && Input.GetKeyDown(KeyCode.Escape))
+        if (!this.GameFinished && Input.GetKeyDown(KeyCode.Escape))
         {
-            this.Paused = !this.Paused;
-
-            this.PlayerController.m_MouseLook.SetCursorLock(!this.Paused);
+            if (this.Paused)
+            {
+                this.UnPause();
+                this.ExitPrompt.Hide();
+            }
+            else
+            {
+                this.Pause();
+                this.ExitPrompt.Draw();
+            }
         }
     }
 
@@ -56,36 +63,43 @@ public class LevelManager : MonoBehaviour
     public void GameOver()
     {
         this.GameFinished = true;
-        this.Paused = true;
+        this.Pause();
 
-        this.DrawGameOverPrompt();
-
-        this.PlayerController.m_MouseLook.SetCursorLock(false);
+        this.GameOverPrompt.Draw();
     }
 
     public void Win()
     {
         this.GameFinished = true;
+        this.Pause();
+
+        this.WinPrompt.Draw();
+    }
+
+    public void Pause()
+    {
         this.Paused = true;
-
-        this.DrawWinPrompt();
-
+        Time.timeScale = 0;
         this.PlayerController.m_MouseLook.SetCursorLock(false);
+        this.PlayerController.enabled = false;
+    }
+
+    public void UnPause()
+    {
+        this.Paused = false;
+        Time.timeScale = 1;
+        this.PlayerController.m_MouseLook.SetCursorLock(true);
+        this.PlayerController.enabled = true;
+    }
+
+    public void Resart()
+    {
+        SceneManager.LoadScene("City", LoadSceneMode.Single);
     }
 
     #endregion
 
     #region === Auxiliar Functions ===
-
-    private void DrawGameOverPrompt()
-    {
-        this.GameOverPrompt.Draw();
-    }
-
-    private void DrawWinPrompt()
-    {
-        this.WinPrompt.Draw();
-    }
 
     #endregion
 }

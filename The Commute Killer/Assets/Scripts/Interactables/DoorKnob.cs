@@ -13,6 +13,7 @@ public class DoorKnob : Interactable
     #region === MonoBehaviour Methods ===
     new void Start()
     {
+        base.Start();
 
         this.PossibleActions = new List<Action.IDs>()
         {
