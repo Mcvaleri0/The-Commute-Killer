@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityStandardAssets.Characters.FirstPerson;
-
-
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -87,6 +86,11 @@ public class LevelManager : MonoBehaviour
     {
         this.Paused = false;
         this.PlayerController.m_MouseLook.SetCursorLock(true);
+    }
+
+    public void Resart()
+    {
+        SceneManager.LoadScene("City", LoadSceneMode.Single);
     }
 
     #endregion
