@@ -132,7 +132,7 @@ public class TimeManager : MonoBehaviour
             this.TimeForVictimToMove = this.CurrentTime.AddHours(this.VictimWorkHours);
         }
 
-        this.FastFoward();
+        //this.FastFoward();
     }
 
     private void NewDay()
@@ -173,7 +173,7 @@ public class TimeManager : MonoBehaviour
         var padding = 10;
 
         GUI.Box(new Rect(Screen.width - width - padding, padding / 2, width, height), 
-                this.CurrentTime.ToString("dd'-'MM'-'yy'\n'H':'mm':'ss"));
+                this.CurrentTime.ToString("dd'-'MM'-'yy'\n'H':'mm"));
     }
 
     private void FastFoward()
@@ -235,7 +235,7 @@ public class TimeManager : MonoBehaviour
 
     private void MoveVictim()
     {
-        this.NormalSpeed();
+        //this.NormalSpeed();
         this.TimeForVictimToMove = DateTime.MaxValue;
         this.VictimController.ToogleGoalPosition();
     }
