@@ -38,6 +38,7 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
         public void Update ()
         {
             Vector3 move = Vector3.zero;
+
             var vGravity = Physics.gravity * Time.deltaTime;
 
             if (this.Movement != null) 
