@@ -79,6 +79,7 @@ public class LevelManager : MonoBehaviour
     public void Pause()
     {
         this.Paused = true;
+        Time.timeScale = 0;
         this.PlayerController.m_MouseLook.SetCursorLock(false);
         this.PlayerController.enabled = false;
     }
@@ -86,6 +87,7 @@ public class LevelManager : MonoBehaviour
     public void UnPause()
     {
         this.Paused = false;
+        Time.timeScale = 1;
         this.PlayerController.m_MouseLook.SetCursorLock(true);
         this.PlayerController.enabled = true;
     }
