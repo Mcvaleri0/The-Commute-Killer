@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9335caf81e0f053499f773cfc8a0b330
+guid: 29acdf53345b18c46933dbc87e5a9927
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Dude.002
+    100002: Dude.003_Cube.043
     100004: mixamorig:Head
     100006: mixamorig:HeadTop_End
     100008: mixamorig:Hips
@@ -63,7 +63,7 @@ ModelImporter:
     100114: mixamorig:Spine1
     100116: mixamorig:Spine2
     400000: //RootNode
-    400002: Dude.002
+    400002: Dude.003_Cube.043
     400004: mixamorig:Head
     400006: mixamorig:HeadTop_End
     400008: mixamorig:Hips
@@ -122,10 +122,10 @@ ModelImporter:
     400114: mixamorig:Spine1
     400116: mixamorig:Spine2
     2100000: No Name
-    4300000: Dude.002
+    4300000: Dude.003_Cube.043
     7400000: mixamo.com
     9500000: //RootNode
-    13700000: Dude.002
+    13700000: Dude.003_Cube.043
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -153,7 +153,35 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: mixamo.com
+      takeName: mixamo.com
+      firstFrame: 0
+      lastFrame: 330
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []

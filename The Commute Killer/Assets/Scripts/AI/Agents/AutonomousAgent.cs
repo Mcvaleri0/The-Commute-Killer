@@ -123,7 +123,7 @@ public class AutonomousAgent : Agent
 
                         else
                         {
-                            this.gameObject.GetComponent<Animator>().SetBool("isIdling", true);
+                            //this.gameObject.GetComponent<Animator>().SetBool("isIdling", true);
                         }
                     }
                 }
