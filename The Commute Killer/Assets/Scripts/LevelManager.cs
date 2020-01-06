@@ -80,12 +80,14 @@ public class LevelManager : MonoBehaviour
     {
         this.Paused = true;
         this.PlayerController.m_MouseLook.SetCursorLock(false);
+        this.PlayerController.enabled = false;
     }
 
     public void UnPause()
     {
         this.Paused = false;
         this.PlayerController.m_MouseLook.SetCursorLock(true);
+        this.PlayerController.enabled = true;
     }
 
     public void Resart()

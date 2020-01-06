@@ -25,6 +25,7 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
         public float Drag { get; set; }
         public float MaxSpeed { get; set; }
 
+
         public DynamicCharacter(GameObject gameObject)
         {
             this.KinematicData = new KinematicData(new StaticData(gameObject.transform.position));
@@ -34,6 +35,7 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
             this.MaxSpeed = 50.0f;
         }
 	
+
         // Update is called once per frame
         public void Update ()
         {
