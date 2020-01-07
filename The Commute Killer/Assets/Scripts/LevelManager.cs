@@ -29,7 +29,7 @@ public class LevelManager : MonoBehaviour
     {
         this.PlayerController = GameObject.Find("PlayerCharacter").GetComponent<FirstPersonController>();
 
-        this.PlayerController.m_MouseLook.SetCursorLock(true);
+        this.UnPause();
 
         Physics.gravity = new Vector3(0, -9.8f, 0);
 
