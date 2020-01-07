@@ -18,8 +18,8 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
         public DynamicArrive()
         {
             this.TimeToTargetSpeed = 0.1f;
-            this.TargetRadius = 2.0f;
-            this.SlowRadius = 5.0f;
+            this.TargetRadius = 0.25f;
+            this.SlowRadius = 1f;
         }
         
         

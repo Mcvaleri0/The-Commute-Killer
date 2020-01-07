@@ -31,8 +31,8 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
             this.KinematicData = new KinematicData(new StaticData(gameObject.transform.position));
             this.KinematicData.velocity = new Vector3(1, 1, 1);
             this.GameObject = gameObject;
-            this.Drag = 0.01f;
-            this.MaxSpeed = 10.0f;
+            this.Drag = 0.1f;
+            this.MaxSpeed = 20.0f;
         }
 
 
@@ -44,6 +44,8 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
             if (this.Movement != null)
             {
                 MovementOutput steering = this.Movement.GetMovement();
+
+                this.KinematicData.position = this.GameObject.transform.position;
 
                 this.KinematicData.Integrate(steering, this.Drag, Time.deltaTime);
                 this.KinematicData.SetOrientationFromVelocity();
