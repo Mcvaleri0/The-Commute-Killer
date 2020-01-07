@@ -36,6 +36,7 @@ public class Drop : Action
 
     override public void Execute() 
     {
+        this.Agent.OnHand.PlayDropSound();
         this.Agent.Drop(this.Agent.InventorySize);
     }
 }

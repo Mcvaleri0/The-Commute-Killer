@@ -23,6 +23,9 @@ public class Knife : Item
         };
 
         this.DefaultAction = Action.IDs.Stab;
+
+        this.PickUpSound = (AudioClip)Resources.Load("Audio/knife_on");
+        this.DropSound = (AudioClip)Resources.Load("Audio/knife_off");
     }
 
     new public void Update()

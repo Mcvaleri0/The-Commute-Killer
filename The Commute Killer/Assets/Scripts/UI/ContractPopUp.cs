@@ -5,8 +5,23 @@ using UnityEngine;
 public class ContractPopUp : MonoBehaviour
 {
 
+    private AudioClip OpenSound;
+    private AudioClip CloseSound;
+
+    private AudioSource AudioSource;
+
     public RectTransform contract;
     private int state = 0;
+
+
+    private void Start()
+    {
+        this.AudioSource = gameObject.AddComponent<AudioSource>();
+        this.AudioSource.playOnAwake = false;
+
+        this.OpenSound = (AudioClip)Resources.Load("Audio/contract_open");
+        this.CloseSound = (AudioClip)Resources.Load("Audio/contract_close");
+    }
 
     // Start is called before the first frame update
     void Update()
@@ -20,13 +35,17 @@ public class ContractPopUp : MonoBehaviour
             case 1:
                 contract.gameObject.SetActive(true);
                 state = 0;
-            break;
+
+                this.AudioSource.PlayOneShot(OpenSound);
+                break;
 
             //close
             case 2:
                 contract.gameObject.SetActive(false);
                 state = 0;
-            break;
+
+                this.AudioSource.PlayOneShot(CloseSound);
+                break;
 
 
         }

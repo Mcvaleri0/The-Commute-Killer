@@ -38,6 +38,10 @@ public class Item : Interactable
     public Action.IDs DefaultAction { get; protected set; } = Action.IDs.None;
     #endregion
 
+    public AudioSource AudioSource;
+    public AudioClip PickUpSound;
+    public AudioClip DropSound;
+
     public int AnimationState = 0; // [ 0 - To Start | 1 - On Going | 2 - Finished ]
 
     new public void Start()
@@ -50,6 +54,9 @@ public class Item : Interactable
         if(this.transform.parent != null) this.OriginalParent = this.transform.parent.gameObject;
 
         this.Types = new List<ItemType>();
+
+        this.AudioSource = gameObject.AddComponent<AudioSource>();
+        this.AudioSource.playOnAwake = false;
     }
 
     public void Update()
@@ -158,4 +165,15 @@ public class Item : Interactable
         this.GetComponent<Renderer>().enabled = false;
     }
     #endregion
+
+
+    public void PlayPickUpSound()
+    {
+        this.AudioSource.PlayOneShot(PickUpSound);
+    }
+
+    public void PlayDropSound()
+    {
+        this.AudioSource.PlayOneShot(DropSound);
+    }
 }
