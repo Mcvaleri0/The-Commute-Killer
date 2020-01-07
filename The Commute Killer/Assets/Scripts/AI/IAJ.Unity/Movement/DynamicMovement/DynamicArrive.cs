@@ -46,7 +46,6 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
                 targetSpeed = this.MaxSpeed*distance/this.SlowRadius;
             }
 
-            direction.Normalize();
             this.TargetVelocity.velocity = direction.normalized * targetSpeed;
 
             return base.GetMovement();
