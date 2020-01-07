@@ -11,7 +11,7 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
 
         private DynamicMovement movement;
 
-        public CharacterController Controller;
+        public CharacterController Collider;
 
         public DynamicMovement Movement 
         { 
@@ -31,69 +31,45 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
             this.KinematicData = new KinematicData(new StaticData(gameObject.transform.position));
             this.KinematicData.velocity = new Vector3(1, 1, 1);
             this.GameObject = gameObject;
-            this.Drag = 0.01f;
-            this.MaxSpeed = 10.0f;
+            this.Drag = 0.1f;
+            this.MaxSpeed = 50.0f;
         }
 	
 
         // Update is called once per frame
         public void Update ()
         {
-            //Vector3 move = Vector3.zero;
-            //var vGravity = Physics.gravity * Time.deltaTime;
+            Vector3 move = Vector3.zero;
 
-            //if (this.Movement != null)
-            //{
-            //    MovementOutput steering = this.Movement.GetMovement();
+            var vGravity = Physics.gravity * Time.deltaTime;
 
-            //    steering.linear += vGravity;
-
-            //    this.KinematicData.Integrate(steering, this.Drag, Time.deltaTime);
-            //    this.KinematicData.SetOrientationFromVelocity();
-            //    this.KinematicData.TrimMaxSpeed(this.MaxSpeed);
-
-            //    move = this.KinematicData.position - this.GameObject.transform.position;
-
-            //    //Debug.Log(move);
-
-            //    this.GameObject.transform.rotation = Quaternion.AngleAxis(this.KinematicData.orientation * MathConstants.MATH_180_PI, Vector3.up);
-            //}
-            //else
-            //{
-            //    var grav = new MovementOutput() { linear = vGravity };
-
-            //    this.KinematicData.Integrate(grav, this.Drag, Time.deltaTime);
-            //    this.KinematicData.TrimMaxSpeed(this.MaxSpeed);
-
-            //    move = this.KinematicData.position - this.GameObject.transform.position;
-            //}
-
-            //GameObject.GetComponent<CharacterController>().Move(move);
-
-
-
-            // vector that has the desired movement
-            Vector3 motion = Vector3.zero;
-
-            if (this.Movement != null)
+            if (this.Movement != null) 
             {
                 MovementOutput steering = this.Movement.GetMovement();
 
-                this.KinematicData.Integrate(steering, this.Drag, Time.deltaTime);
+                steering.linear += vGravity;
+
+                this.KinematicData.Integrate(steering,this.Drag,Time.deltaTime);
                 this.KinematicData.SetOrientationFromVelocity();
                 this.KinematicData.TrimMaxSpeed(this.MaxSpeed);
 
-                motion = this.KinematicData.position - this.GameObject.transform.position;
+                move = this.KinematicData.position - this.GameObject.transform.position;
+
+                //Debug.Log(move);
 
                 this.GameObject.transform.rotation = Quaternion.AngleAxis(this.KinematicData.orientation * MathConstants.MATH_180_PI, Vector3.up);
             }
+            else
+            {
+                var grav = new MovementOutput() { linear = vGravity };
 
-            // apply gravity -> has to take in consideration the delta time
-            motion += (Physics.gravity * Time.deltaTime);
+                this.KinematicData.Integrate(grav, this.Drag, Time.deltaTime);
+                this.KinematicData.TrimMaxSpeed(this.MaxSpeed);
 
+                move = this.KinematicData.position - this.GameObject.transform.position;
+            }
 
-            // move controller -> has to take in consideration the delta time
-            this.Controller.Move(motion * Time.deltaTime);
+            GameObject.GetComponent<CharacterController>().Move(move);
         }
     }
 }
