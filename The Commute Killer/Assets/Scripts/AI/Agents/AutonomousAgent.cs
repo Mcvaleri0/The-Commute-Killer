@@ -197,8 +197,11 @@ public class AutonomousAgent : Agent
 
                 prev = p;
             }
+
+            Gizmos.DrawWireSphere(this.DCharacter.Movement.Target.position, 0.2f);
         }
 
-        Gizmos.DrawSphere(this.GoalPosition, 0.5f);
+        Gizmos.DrawSphere(this.GoalPosition, 0.25f);
+
     }
 }
