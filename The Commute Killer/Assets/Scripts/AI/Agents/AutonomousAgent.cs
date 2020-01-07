@@ -45,7 +45,7 @@ public class AutonomousAgent : Agent
         this.DCharacter = new DynamicCharacter(this.gameObject)
         {
             MaxSpeed = this.Attributes[Attribute.Speed],
-            Drag = 0.5f,
+            Drag = 0.01f,
             Controller = GetComponent<CharacterController>()
         };
 
@@ -68,6 +68,11 @@ public class AutonomousAgent : Agent
         MovementStateMachine();
 
         this.DCharacter.Update();
+
+        if (this.Path != null)
+        {
+
+        }
     }
     #endregion
 
@@ -93,10 +98,13 @@ public class AutonomousAgent : Agent
                 if(solution != null)
                 {
                     this.Path = solution;
-
                     this.DCharacter.Movement = new DynamicFollowPath()
                     {
-                        Path = this.Path
+                        Path = this.Path,
+                        MaxSpeed = 2.5f,
+                        MaxAcceleration = 5,
+                        TargetRadius = 0.1f,
+                        PathOffset = 1f
                     };
 
                     this.MovementState = 2;
@@ -190,5 +198,7 @@ public class AutonomousAgent : Agent
                 prev = p;
             }
         }
+
+        Gizmos.DrawSphere(this.GoalPosition, 0.5f);
     }
 }
