@@ -82,6 +82,8 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 0;
         this.PlayerController.m_MouseLook.SetCursorLock(false);
         this.PlayerController.enabled = false;
+        AudioListener.volume = 0.3f;
+
     }
 
     public void UnPause()
@@ -90,6 +92,8 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 1;
         this.PlayerController.m_MouseLook.SetCursorLock(true);
         this.PlayerController.enabled = true;
+        AudioListener.volume = 1.0f;
+
     }
 
     public void Resart()

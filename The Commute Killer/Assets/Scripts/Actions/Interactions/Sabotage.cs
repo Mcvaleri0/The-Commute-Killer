@@ -24,4 +24,10 @@ public class Sabotage : Interaction
 
         return false;
     }
+
+    public override void Execute()
+    {
+        base.Execute();
+        this.Instrument.PlayActionSound(this.ID);
+    }
 }

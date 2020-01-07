@@ -39,8 +39,7 @@ public class Item : Interactable
     #endregion
 
     public AudioSource AudioSource;
-    public AudioClip PickUpSound;
-    public AudioClip DropSound;
+    public Dictionary<Action.IDs, AudioClip> ActionSounds;
 
     public int AnimationState = 0; // [ 0 - To Start | 1 - On Going | 2 - Finished ]
 
@@ -57,10 +56,12 @@ public class Item : Interactable
 
         this.AudioSource = gameObject.AddComponent<AudioSource>();
         this.AudioSource.playOnAwake = false;
+        this.ActionSounds = new Dictionary<Action.IDs, AudioClip>();
     }
 
     public void Update()
     {
+
         var ps = SelectableParticles.GetComponent<ParticleSystem>();
         var emiss = ps.emission;
         if (Owner != null)
@@ -166,14 +167,15 @@ public class Item : Interactable
     }
     #endregion
 
-
-    public void PlayPickUpSound()
+    public void PlayActionSound(Action.IDs action)
     {
-        this.AudioSource.PlayOneShot(PickUpSound);
-    }
-
-    public void PlayDropSound()
-    {
-        this.AudioSource.PlayOneShot(DropSound);
+        if (this.ActionSounds != null)
+        {
+            var sound = this.ActionSounds[action];
+            if (sound != null)
+            {
+                this.AudioSource.PlayOneShot(sound);
+            }
+        }
     }
 }

@@ -18,11 +18,23 @@ public class GardenGate : MonoBehaviour
 
     public float smooth = 5.0f;
 
+    private AudioSource AudioSource;
+    private AudioClip OpenSound;
+    private AudioClip CloseSound;
+
     #region === MonoBehaviour Methods ===
     void Start()
     {
         Door1 = this.transform.GetChild(0).transform;
         Door2 = this.transform.GetChild(1).transform;
+
+        this.AudioSource = gameObject.AddComponent<AudioSource>();
+        this.AudioSource.playOnAwake = false;
+        this.AudioSource.volume = 1.0f;
+        this.AudioSource.spatialBlend = 1.0f;
+
+        this.OpenSound  = (AudioClip)Resources.Load("Audio/gate_open");
+        this.CloseSound = (AudioClip)Resources.Load("Audio/gate_close");
     }
 
     // Update is called once per frame
@@ -87,6 +99,8 @@ public class GardenGate : MonoBehaviour
         evName = evName.Replace(")", string.Empty);
         var ev = (Event)Enum.Parse(typeof(Event), evName);
         this.EventManager.TriggerEvent(ev);
+
+        this.AudioSource.PlayOneShot(OpenSound);
     }
 
     private void Close()
@@ -104,6 +118,8 @@ public class GardenGate : MonoBehaviour
         evName = evName.Replace(")", string.Empty);
         var ev = (Event)Enum.Parse(typeof(Event), evName);
         this.EventManager.TriggerEvent(ev);
+
+        this.AudioSource.PlayOneShot(CloseSound);
     }
     #endregion
 

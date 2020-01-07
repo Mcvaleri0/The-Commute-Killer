@@ -32,6 +32,6 @@ public class PickUp : Action
     override public void Execute() 
     {
         this.Agent.PickUp(this.Item);
-        this.Item.PlayPickUpSound();
+        this.Item.PlayActionSound(this.ID);
     }
 }

@@ -52,7 +52,6 @@ public class ExitPrompt : MonoBehaviour
         Prompt.gameObject.SetActive(true);
 
         this.AudioSource.PlayOneShot(SnapSound);
-        this.Ambient.setVolume(0.3f);
     }
 
     public void Hide()
@@ -61,7 +60,6 @@ public class ExitPrompt : MonoBehaviour
         Prompt.gameObject.SetActive(false);
 
         this.AudioSource.PlayOneShot(SnapSound);
-        this.Ambient.setVolume(1.0f);
     }
 
     public void YesButton()

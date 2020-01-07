@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Stab : Action
 {
+
     public Stab(Agent agent, GameObject target) : base(agent) {
         this.ID = IDs.Stab;
 
@@ -43,6 +44,9 @@ public class Stab : Action
 
     override public void Execute() 
     {
+        this.Instrument.AudioSource.pitch = Random.Range(0.7f, 1.3f);
+        this.Instrument.PlayActionSound(this.ID);
+
         this.Instrument.Animate();
 
         var target = this.Agent.GetInFront();

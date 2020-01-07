@@ -26,6 +26,10 @@ public class Wrench : Item
         {
             Action.IDs.Sabotage
         };
+
+        this.ActionSounds.Add(Action.IDs.PickUp, (AudioClip)Resources.Load("Audio/wrench_on"));
+        this.ActionSounds.Add(Action.IDs.Drop, (AudioClip)Resources.Load("Audio/wrench_off"));
+        this.ActionSounds.Add(Action.IDs.Sabotage, (AudioClip)Resources.Load("Audio/wrench_sabotage"));
     }
 
 

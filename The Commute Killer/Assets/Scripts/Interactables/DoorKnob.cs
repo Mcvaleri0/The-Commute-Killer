@@ -46,7 +46,8 @@ public class DoorKnob : Interactable
 
     override public bool CanInteract(Agent Interactor, Action.IDs id)
     {
-        if (!this.Locked) {
+        if (!this.Locked && this.ActionAvailable(id))
+        {
             
              return true;
        
