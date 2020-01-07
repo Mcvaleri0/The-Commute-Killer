@@ -33,7 +33,7 @@ public class Dumpster : Interactable
 
         this.AudioSource = gameObject.AddComponent<AudioSource>();
         this.AudioSource.playOnAwake = false;
-        this.AudioSource.volume = 1.0f;
+        this.AudioSource.volume = 1.4f;
         this.AudioSource.spatialBlend = 1.0f;
 
         this.OpenSound = (AudioClip)Resources.Load("Audio/dumpster_open");
