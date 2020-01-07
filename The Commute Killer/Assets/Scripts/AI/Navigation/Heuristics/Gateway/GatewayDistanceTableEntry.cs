@@ -14,4 +14,13 @@ public class GatewayDistanceTableEntry : ScriptableObject
         this.EndGatewayPosition   = end;
         this.ShortestDistance     = dist;
     }
+
+    public GatewayDistanceTableEntry Clone()
+    {
+        var entry = CreateInstance("GatewayDistanceTableEntry") as GatewayDistanceTableEntry;
+
+        entry.Init(this.StartGatewayPosition, this.EndGatewayPosition, this.ShortestDistance);
+
+        return entry;
+    }
 }

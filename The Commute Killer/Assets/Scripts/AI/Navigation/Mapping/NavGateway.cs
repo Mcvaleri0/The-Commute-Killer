@@ -7,8 +7,11 @@ public class NavGateway : ScriptableObject
     public int Id;
 
     public Vector3 Center;
+
     public Vector3 Min { get; set; }
+
     public Vector3 Max { get; set; }
+
     public List<NavCluster> Clusters { get; set; }
 
     public void Initialize()
@@ -24,9 +27,9 @@ public class NavGateway : ScriptableObject
 
         this.Center = gatewayObject.transform.position;
 
-        var halfLength = gatewayObject.transform.localScale.x * 10 / 2;
-        var halfWidth = gatewayObject.transform.localScale.z * 10 / 2;
-        var halfHeight = gatewayObject.transform.localScale.y * 10 / 2;
+        var halfLength = gatewayObject.transform.localScale.x * 1 / 2;
+        var halfWidth  = gatewayObject.transform.localScale.z * 1 / 2;
+        var halfHeight = gatewayObject.transform.localScale.y * 1 / 2;
 
         //clusters have a size of 10 multipled by the scale
         this.Min = new Vector3(this.Center.x - halfLength, this.Center.y - halfHeight, this.Center.z - halfWidth);
