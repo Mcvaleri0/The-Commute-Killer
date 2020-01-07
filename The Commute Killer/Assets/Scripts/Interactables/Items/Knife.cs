@@ -23,6 +23,10 @@ public class Knife : Item
         };
 
         this.DefaultAction = Action.IDs.Stab;
+
+        this.ActionSounds.Add(Action.IDs.PickUp, (AudioClip)Resources.Load("Audio/knife_on"));
+        this.ActionSounds.Add(Action.IDs.Drop,   (AudioClip)Resources.Load("Audio/knife_off"));
+        this.ActionSounds.Add(Action.IDs.Stab,   (AudioClip)Resources.Load("Audio/knife_stab1"));
     }
 
     new public void Update()
@@ -58,4 +62,5 @@ public class Knife : Item
             this.AnimationState = 1;
         }
     }
+
 }

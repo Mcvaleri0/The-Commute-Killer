@@ -46,7 +46,8 @@ public class DoorKnob : Interactable
 
     override public bool CanInteract(Agent Interactor, Action.IDs id)
     {
-        if (!this.Locked) {
+        if (!this.Locked && this.ActionAvailable(id))
+        {
             
              return true;
        
@@ -70,6 +71,9 @@ public class DoorKnob : Interactable
 
         Vector3 targetPos = doorPos + (dirVec.normalized * distance);
         targetPos.y += 0.5f;
+
+        gameObject.GetComponent<AudioSource>().pitch = Random.Range(0.8f, 1.3f);
+        gameObject.GetComponent<AudioSource>().Play();
 
         this.Interactor.GetComponent<Player>().Teleport(targetPos, this.TargetDoor.transform.eulerAngles);
     }

@@ -14,5 +14,8 @@ public class Cadaver : Item
         {
             Action.IDs.Insert
         };
+
+        this.ActionSounds.Add(Action.IDs.PickUp, (AudioClip)Resources.Load("Audio/cadaver"));
+        this.ActionSounds.Add(Action.IDs.Drop, (AudioClip)Resources.Load("Audio/cadaver"));
     }
 }
