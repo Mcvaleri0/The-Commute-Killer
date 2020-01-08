@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
 {
@@ -43,7 +43,7 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
             }
             else
             {
-                targetSpeed = Mathf.Max(this.MaxSpeed*distance/this.SlowRadius, 1f);
+                targetSpeed = this.MaxSpeed*distance/this.SlowRadius;
             }
 
             this.TargetVelocity.velocity = direction.normalized * targetSpeed;

@@ -25,50 +25,7 @@ public class GlobalPath : Path
 
     public override float GetParam(Vector3 position, float previousParam)
     {
-        //// The integer part will represent the local path inside the global path
-        //// The decimal part represents the percentage of the local path traversed so far
-        //int   localIndex     = Mathf.FloorToInt(previousParam);
-        //float percentageDone = previousParam % 1;
-
-        //// If the previous param is bigger then the number of local paths
-        //// then we already finished the global path
-        //if (localIndex >= LocalPaths.Count)
-        //{
-        //    return LocalPaths.Count;
-        //}
-
-        //LocalPath path  = LocalPaths[localIndex];
-        //float localParm = path.GetParam(position, percentageDone);
-
-        //// If we already finished this segment then we are the begining of the next one
-        //if (path.PathEnd(localParm)) {
-        //    localIndex++;
-
-        //    // If the previous local path was the last one
-        //    // then we already finished the global path
-        //    if (localIndex == LocalPaths.Count)
-        //    {
-        //        return LocalPaths.Count;
-        //    }
-
-        //    Vector3 pathStart = path.GetPosition(0);
-        //    Vector3 pathEnd   = path.GetPosition(1);
-
-        //    LocalPath nextPath  = LocalPaths[localIndex];
-        //    Vector3   nextStart = nextPath.GetPosition(0);
-        //    Vector3   nextEnd   = nextPath.GetPosition(1);
-
-        //    // closestPosition to our position in the next segment
-        //    var closestPosition = MathHelper.ClosestPointInLineSegment2ToLineSegment1(pathStart, pathEnd, nextStart, nextEnd, position);
-
-        //    // percentage of the next segment already done
-        //    localParm = nextPath.GetParam(closestPosition, 0);
-        //}
-
-        //// If we are not done with the path
-        //return localIndex + localParm;
-
-
+        // Param are the index of the segment that the character is following
 
         if (previousParam >= LocalPaths.Count)
         {
@@ -97,8 +54,7 @@ public class GlobalPath : Path
     {
         // The integer part will represent the local path inside the global path
         // The decimal part represents the percentage of the local path traversed so far
-        int   localIndex     = Mathf.FloorToInt(param);
-        float percentageDone = param % 1;
+        int   localIndex  = Mathf.FloorToInt(param);
 
         LocalPath path;
 
@@ -107,12 +63,12 @@ public class GlobalPath : Path
         if (localIndex >= LocalPaths.Count)
         {
             path = LocalPaths[LocalPaths.Count - 1];
-            //return path.GetPosition(1);
+        }
+        else
+        {
+            path = LocalPaths[localIndex];
         }
 
-        path = LocalPaths[localIndex];
-
-        //return path.GetPosition(percentageDone);
         return path.GetPosition(1);
 
     }

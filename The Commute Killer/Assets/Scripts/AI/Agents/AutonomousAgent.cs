@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.IAJ.Unity.Movement.DynamicMovement;
@@ -45,7 +45,7 @@ public class AutonomousAgent : Agent
         this.DCharacter = new DynamicCharacter(this.gameObject)
         {
             MaxSpeed = this.Attributes[Attribute.Speed],
-            Drag = 0.01f,
+            Drag = this.Attributes[Attribute.Drag],
             Controller = GetComponent<CharacterController>()
         };
 
@@ -98,7 +98,7 @@ public class AutonomousAgent : Agent
                     {
                         Path = this.Path,
                         MaxSpeed = this.Attributes[Attribute.Speed],
-                        MaxAcceleration = 20,
+                        MaxAcceleration = this.Attributes[Attribute.Accelaration],
                         PathOffset = 1f
                     };
 
