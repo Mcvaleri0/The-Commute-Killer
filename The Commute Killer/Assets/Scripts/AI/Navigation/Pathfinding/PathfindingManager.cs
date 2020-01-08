@@ -11,34 +11,22 @@ public class PathfindingManager : MonoBehaviour {
 	private Vector3 EndPosition;
 
     private NavigationManager NavManager;
-
-	private NavGraph Graph;
-
-    private NavClusterGraph ClusterGraph;
     #endregion
 
-    #region Aux    
-    private bool Draw;
-    #endregion
 
     #region Pathfinding
     public PathfindingAlgorithm PathFinding;
 
     private GlobalPath CurrentSolution;
 
-    private struct SettingsStruct
-    {
-        public PAlgorithm pathalgorithm;
+    public PAlgorithm Algorithm = PAlgorithm.AStar;
 
-        public OpenSet   openset;
-        public ClosedSet closedset;
+    public OpenSet   Open   = OpenSet.SimpleUnorderedList;
+    public ClosedSet Closed = ClosedSet.SimpleUnorderedList;
 
-        public Heuristic heuristic;
+    public Heuristic H = Heuristic.Zero;
 
-        public bool Changed;
-    }
-
-    private SettingsStruct Settings;
+    private bool SettingsChanged = false;
 
     #region Enums
     public enum Heuristic
@@ -77,25 +65,8 @@ public class PathfindingManager : MonoBehaviour {
         // Get Scene's Navigation Manager
         this.NavManager = GameObject.Find("NavigationManager").GetComponent<NavigationManager>();
 
-        // Get Scene's NavGraph
-        this.Graph = this.NavManager.Graph;
-
-        // Get Scene's NavClusterGraph
-        this.ClusterGraph = this.NavManager.ClusterGraph;
-
-        this.Settings = new SettingsStruct()
-        {
-            pathalgorithm = PAlgorithm.AStar,
-            openset       = OpenSet.SimpleUnorderedList,
-            closedset     = ClosedSet.SimpleUnorderedList,
-            heuristic     = Heuristic.Zero,
-            Changed       = false
-        };
-
         // Default
-        this.PathFinding = GetPathfinding(PAlgorithm.AStar, OpenSet.SimpleUnorderedList, ClosedSet.SimpleUnorderedList, Heuristic.Zero);
-
-        this.Draw = false; // Debugging
+        this.PathFinding = GetPathfinding(this.Algorithm, this.Open, this.Closed, this.H);
     }
 
 
@@ -109,17 +80,16 @@ public class PathfindingManager : MonoBehaviour {
             if (finished)
             {
                 this.PathFinding.InProgress = false;
-                this.Draw = false;
             }
 
             return;
         }
 
-        if(this.Settings.Changed)
+        if(this.SettingsChanged)
         {
-            this.Settings.Changed = false;
+            this.SettingsChanged = false;
 
-            this.PathFinding = GetPathfinding(this.Settings.pathalgorithm, this.Settings.openset, this.Settings.closedset, this.Settings.heuristic);
+            this.PathFinding = GetPathfinding(this.Algorithm, this.Open, this.Closed, this.H);
         }
 	}
 
@@ -128,10 +98,9 @@ public class PathfindingManager : MonoBehaviour {
     public void InitializePathFinding(Vector3 p1, Vector3 p2)
     {
         this.StartPosition = p1;
-        this.EndPosition = p2;
+        this.EndPosition   = p2;
 
         this.CurrentSolution = null;
-        this.Draw = true;
 
         this.PathFinding.InitializeSearch(this.StartPosition, this.EndPosition);
     }
@@ -143,39 +112,38 @@ public class PathfindingManager : MonoBehaviour {
     }
 
 
+    #region AUX
     public void ChangeSettings(PAlgorithm p, OpenSet open, ClosedSet closed, Heuristic h)
     {
-        if(this.Settings.pathalgorithm != p)
+        if (this.Algorithm != p)
         {
-            this.Settings.pathalgorithm = p;
+            this.Algorithm = p;
 
-            this.Settings.Changed = true;
+            this.SettingsChanged = true;
         }
 
-        if (this.Settings.openset != open)
+        if (this.Open != open)
         {
-            this.Settings.openset = open;
+            this.Open = open;
 
-            this.Settings.Changed = true;
+            this.SettingsChanged = true;
         }
 
-        if (this.Settings.closedset != closed)
+        if (this.Closed != closed)
         {
-            this.Settings.closedset = closed;
+            this.Closed = closed;
 
-            this.Settings.Changed = true;
+            this.SettingsChanged = true;
         }
 
-        if (this.Settings.heuristic != h)
+        if (this.H != h)
         {
-            this.Settings.heuristic = h;
+            this.H = h;
 
-            this.Settings.Changed = true;
+            this.SettingsChanged = true;
         }
     }
 
-
-    #region AUX
     private IHeuristic GetHeuristic(Heuristic heuristic)
     {
         switch(heuristic)
@@ -188,7 +156,7 @@ public class PathfindingManager : MonoBehaviour {
                 return new EuclideanDistanceHeuristic();
 
             case Heuristic.Gateway:
-                return new GatewayHeuristic(this.ClusterGraph);
+                return new GatewayHeuristic(this.NavManager.GatewayDistanceTable);
         }
     }
 
@@ -204,7 +172,7 @@ public class PathfindingManager : MonoBehaviour {
                 return new NodePriorityHeap();
 
             case OpenSet.NodeRecordArray:
-                return new NodeRecordArray(new List<NavNode>(this.Graph.Nodes));
+                return new NodeRecordArray(new List<NavNode>(this.NavManager.Graph.Nodes));
         }
     }
 
@@ -230,7 +198,7 @@ public class PathfindingManager : MonoBehaviour {
         var openSet = GetOpenSet(open);
 
         // Closed Set
-        IClosedSet closedSet = null;
+        IClosedSet closedSet;
 
         if(closed != ClosedSet.NodeRecordArray)
         {
@@ -247,10 +215,10 @@ public class PathfindingManager : MonoBehaviour {
         {
             default:
             case PAlgorithm.AStar:
-                return new AStarPathfinding(this.Graph, openSet, closedSet, heuristic);
+                return new AStarPathfinding(this.NavManager.Graph, openSet, closedSet, heuristic);
 
             case PAlgorithm.NodeArrayAStar:
-                return new NodeArrayAStarPathFinding(this.Graph, heuristic);
+                return new NodeArrayAStarPathFinding(this.NavManager.Graph, heuristic);
         }
     }
     #endregion

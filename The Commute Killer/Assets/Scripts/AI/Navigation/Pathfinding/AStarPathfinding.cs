@@ -198,6 +198,7 @@ public class AStarPathfinding : PathfindingAlgorithm
             IsPartial = partial,
             Length = node.gValue
         };
+
         var currentNode = node;
 
         Vector3 pos2 = this.GoalPosition;

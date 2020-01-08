@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class DetectionSystem : MonoBehaviour
 {
-    public List<Zone> Zones;
+    private List<NavZone> Zones;
 
     private Player Player;
 
-    private List<Action.IDs> BannedActions;
-
-    public Zone PlayerZone;
+    public NavZone PlayerZone;
 
     private void Start()
     {
+        var zoneObjects = GameObject.FindGameObjectsWithTag("Zone");
+
+        this.Zones = new List<NavZone>();
+
+        foreach(var zone in zoneObjects)
+        {
+            this.Zones.Add(zone.GetComponent<NavZone>());
+        }
+
         this.Player = GameObject.Find("PlayerCharacter").GetComponent<Player>();
     }
 
@@ -24,20 +31,20 @@ public class DetectionSystem : MonoBehaviour
 
     public void TryToTriggerGameOver()
     {
-        if(this.PlayerZone.AwarenessLevel == Zone.Awareness.Surveiled)
+        if(this.PlayerZone.AwarenessLevel == NavZone.Awareness.Surveiled)
         {
             GameObject.Find("LevelManager").GetComponent<LevelManager>().GameOver();
             return;
         }
     }
 
-    public Zone GetZone(Vector3 position)
+    public NavZone GetZone(Vector3 position)
     {
-        Zone zone = null;
+        NavZone zone = null;
 
         var min = Mathf.Infinity;
 
-        foreach(Zone z in this.Zones)
+        foreach(NavZone z in this.Zones)
         {
             var yDist = z.In(position);
 

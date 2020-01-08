@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using UnityEditor;
 
-public class Zone : MonoBehaviour
+public class NavZone : MonoBehaviour
 {
     public Vector3 StartPoint;
 
@@ -11,7 +10,8 @@ public class Zone : MonoBehaviour
     {
         None,
         Passive,
-        Surveiled
+        Surveiled,
+        Debug
     }
 
     public Awareness AwarenessLevel;
@@ -49,10 +49,43 @@ public class Zone : MonoBehaviour
         return false;
     }
 
+    public Vector3 GetCenter()
+    {
+        var center = new Vector3();
+
+        if(this.StartPoint.x < this.EndPoint.x)
+        {
+            center.x = this.EndPoint.x - this.StartPoint.x;
+        }
+        else
+        {
+            center.x = this.EndPoint.x - this.StartPoint.x;
+        }
+
+        if (this.StartPoint.y < this.EndPoint.y)
+        {
+            center.y = this.EndPoint.y - this.StartPoint.y;
+        }
+        else
+        {
+            center.y = this.EndPoint.y - this.StartPoint.y;
+        }
+
+        if (this.StartPoint.z < this.EndPoint.z)
+        {
+            center.z = this.EndPoint.z - this.StartPoint.z;
+        }
+        else
+        {
+            center.z = this.EndPoint.z - this.StartPoint.z;
+        }
+
+        return center;
+    }
+
     public void OnDrawGizmos()
     {
         var size = this.EndPoint - this.StartPoint;
-        size.y = 1;
 
         var center = this.StartPoint + size / 2;
 
@@ -68,6 +101,10 @@ public class Zone : MonoBehaviour
 
             case Awareness.Surveiled:
                 Gizmos.color = Color.red;
+                break;
+
+            case Awareness.Debug:
+                Gizmos.color = Color.blue;
                 break;
         }
 

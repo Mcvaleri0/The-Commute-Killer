@@ -2,24 +2,21 @@
 
 public class GatewayHeuristic : IHeuristic
 {
-    private NavClusterGraph ClusterGr { get; set; }
+    private GatewayDistanceTableRow[] GatewayDistanceTable;
 
     public System.Diagnostics.Stopwatch stopwatch;
 
     private NavNode LastGoal { get; set; }
+
     public NavCluster  CurrentCluster { get; set; }
+
     public NavCluster  GoalCluster    { get; set; }
+
     private float[] Gate2GoalCosts { get; set; }
 
-    public GatewayHeuristic()
+    public GatewayHeuristic(GatewayDistanceTableRow[] table)
     {
-        this.ClusterGr = Resources.Load<NavClusterGraph>("ClusterGraph");
-        this.stopwatch = new System.Diagnostics.Stopwatch();
-    }
-
-    public GatewayHeuristic(NavClusterGraph graph)
-    {
-        this.ClusterGr = graph;
+        this.GatewayDistanceTable = table;
         this.stopwatch = new System.Diagnostics.Stopwatch();
     }
 
@@ -27,10 +24,10 @@ public class GatewayHeuristic : IHeuristic
     {
 
         this.stopwatch.Start();
-        NavCluster currentCluster = ClusterGr.Quantize(node);
+        NavCluster currentCluster = node.Cluster;
         this.stopwatch.Stop();
 
-        this.CurrentCluster    = currentCluster;
+        this.CurrentCluster = currentCluster;
 
         if(currentCluster == null)
         {
@@ -78,7 +75,7 @@ public class GatewayHeuristic : IHeuristic
         this.LastGoal = node;
 
         this.stopwatch.Start();
-        this.GoalCluster = this.ClusterGr.Quantize(this.LastGoal);
+        this.GoalCluster = this.LastGoal.Cluster;
         this.stopwatch.Stop();
 
         var gateCount = this.GoalCluster.Gateways.Count;
@@ -100,8 +97,7 @@ public class GatewayHeuristic : IHeuristic
 
     private float GatewayH(int outGateId, int inGateId)
     {
-        GatewayDistanceTableRow[] table = ClusterGr.GatewayDistanceTable;
-        GatewayDistanceTableRow   row   = table[outGateId];
+        GatewayDistanceTableRow   row   = this.GatewayDistanceTable[outGateId];
         GatewayDistanceTableEntry entry = row.entries[inGateId];
 
         return entry.ShortestDistance;
