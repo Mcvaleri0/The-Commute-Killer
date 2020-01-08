@@ -93,8 +93,10 @@ public class NavigationMenu : ScriptableObject
         NavCluster cluster;
         NavGateway gateway;
 
-        // Get NavCluster gameobjects
-        var clusters = GameObject.FindGameObjectsWithTag("Cluster");
+        //FIXME - You should attribute the clusters to the nodes here
+
+        // Get NavZone gameobjects
+        var zones = GameObject.FindGameObjectsWithTag("Zone");
 
         // Get NavGateway gameobjects
         var gateways = GameObject.FindGameObjectsWithTag("Gateway");
@@ -102,11 +104,12 @@ public class NavigationMenu : ScriptableObject
         int scene = SceneManager.GetActiveScene().buildIndex;
 
         // Get the NavGraph
-        NavGraph navGraph = AssetDatabase.LoadAssetAtPath("Assets/Navigation/NavGraph_" + scene.ToString(), typeof(NavGraph)) as NavGraph;
+        NavGraph navGraph = AssetDatabase.LoadAssetAtPath("Assets/Navigation/NavGraph_" + scene.ToString() + ".asset", typeof(NavGraph)) as NavGraph;
 
-        NavClusterGraph clusterGraph = ScriptableObject.CreateInstance<NavClusterGraph>();
+        NavClusterGraph clusterGraph = CreateInstance<NavClusterGraph>();
+        clusterGraph.Initialize();
 
-        //create gateway instances for each gateway game object
+        // Create NavGateway instances for each Gateway GameObject
         for (int i = 0; i < gateways.Length; i++)
         {
             var gatewayGO = gateways[i];
@@ -115,12 +118,11 @@ public class NavigationMenu : ScriptableObject
             clusterGraph.Gateways.Add(gateway);
         }
 
-        //create cluster instances for each cluster game object and check for connections through gateways
-        foreach (var clusterGO in clusters)
+        // Create NavCluster instances for each NavZone GameObject and check for connections through gateways
+        foreach (var zone in zones)
         {
-
-            cluster = ScriptableObject.CreateInstance<NavCluster>();
-            cluster.Initialize(clusterGO);
+            cluster = CreateInstance<NavCluster>();
+            cluster.Initialize(zone.GetComponent<NavZone>());
             clusterGraph.Clusters.Add(cluster);
 
             //determine intersection between cluster and gateways and add connections when they intersect
@@ -134,15 +136,30 @@ public class NavigationMenu : ScriptableObject
             }
         }
 
-        // Second stage of the algorithm, calculation of the Gateway table
 
-        GlobalPath solution = null;
+        foreach (var node in navGraph.Nodes)
+        {
+            foreach (var c in clusterGraph.Clusters)
+            {
+                if (MathHelper.PointInsideBoundingBox(node.Position, c.Min, c.Max))
+                {
+                    node.Cluster = c;
+                    break;
+                }
+            }
+        }
+
+
+        // Second stage of the algorithm, calculation of the Gateway table
+        GlobalPath solution;
 
         float cost;
+
         NavGateway startGate;
         NavGateway endGate;
 
-        var pathfindingManager = new PathfindingManager();
+        var pathfindingManager = GameObject.Find("NavigationHelper").GetComponent<PathfindingManager>();
+        pathfindingManager.Start();
 
         GatewayDistanceTableRow[] gateDistTable = new GatewayDistanceTableRow[gateways.Length];
 
@@ -213,6 +230,6 @@ public class NavigationMenu : ScriptableObject
         clusterGraph.GatewayDistanceTable = gateDistTable;
 
         //create a new asset that will contain the ClusterGraph and save it to disk (DO NOT REMOVE THIS LINE)
-        clusterGraph.SaveToAssetDatabase();
+        clusterGraph.SaveToAssetDatabase(scene);
     }
 }

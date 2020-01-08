@@ -21,28 +21,7 @@ public class NavClusterGraph : ScriptableObject
         this.Node2Cluster = new Dictionary<int, int>();
     }
 
-    public NavCluster Quantize(NavNode node)
-    {
-        if (this.Node2Cluster.TryGetValue(node.Id, out int clusterId))
-        {
-            return this.Clusters[clusterId];
-        }
-
-        for (var i = 0; i < this.Clusters.Count; i++)
-        {
-            var foundCluster = this.Clusters[i];
-
-            if (MathHelper.PointInsideBoundingBox(node.Position, foundCluster.Min, foundCluster.Max))
-            {
-                this.Node2Cluster.Add(node.Id, i);
-                return foundCluster;
-            }
-        }
-
-        return null;
-    }
-
-    public void SaveToAssetDatabase()
+    public void SaveToAssetDatabase(int id = 0)
     {
         string path = AssetDatabase.GetAssetPath(Selection.activeObject);
 
@@ -55,7 +34,7 @@ public class NavClusterGraph : ScriptableObject
             path = path.Replace(System.IO.Path.GetFileName(AssetDatabase.GetAssetPath(Selection.activeObject)), "");
         }
 
-        string assetPathAndName = AssetDatabase.GenerateUniqueAssetPath(path + "/" + typeof(NavClusterGraph).Name.ToString() + ".asset");
+        string assetPathAndName = AssetDatabase.GenerateUniqueAssetPath(path + "/" + typeof(NavClusterGraph).Name.ToString() + "_" + id.ToString() + ".asset");
 
         AssetDatabase.CreateAsset(this, assetPathAndName);
         EditorUtility.SetDirty(this);
