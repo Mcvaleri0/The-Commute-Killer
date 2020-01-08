@@ -43,7 +43,7 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
             }
             else
             {
-                targetSpeed = Mathf.Min(this.MaxSpeed*distance/this.SlowRadius, 1f);
+                targetSpeed = Mathf.Max(this.MaxSpeed*distance/this.SlowRadius, 1f);
             }
 
             this.TargetVelocity.velocity = direction.normalized * targetSpeed;

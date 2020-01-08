@@ -140,14 +140,24 @@ public class PathfindingManager : MonoBehaviour {
             {
                 smoothedPath.PathPositions.RemoveAt(i + 1);
                 smoothedPath.PathNodes.RemoveAt(i);
-                smoothedPath.LocalPaths.Add(new LineSegmentPath(smoothedPath.PathPositions[i], smoothedPath.PathPositions[i + 2]));
             }
             else
             {
-                smoothedPath.LocalPaths.Add(new LineSegmentPath(smoothedPath.PathPositions[i], smoothedPath.PathPositions[i + 1]));
                 i++;
             }
         }
+
+        var prevPosition = smoothedPath.PathNodes[0].Position;
+
+        for(i = 1; i < smoothedPath.PathNodes.Count; i++)
+        {
+            var currentPosition = smoothedPath.PathNodes[i].Position;
+
+            smoothedPath.LocalPaths.Add(new LineSegmentPath(prevPosition, currentPosition));
+
+            prevPosition = currentPosition;
+        }
+
         return smoothedPath;
     }
 

@@ -45,7 +45,7 @@ public class AutonomousAgent : Agent
         this.DCharacter = new DynamicCharacter(this.gameObject)
         {
             MaxSpeed = this.Attributes[Attribute.Speed],
-            Drag = this.Attributes[Attribute.Drag],
+            Drag = 0.01f,
             Controller = GetComponent<CharacterController>()
         };
 
@@ -98,7 +98,7 @@ public class AutonomousAgent : Agent
                     {
                         Path = this.Path,
                         MaxSpeed = this.Attributes[Attribute.Speed],
-                        MaxAcceleration = this.Attributes[Attribute.Speed],
+                        MaxAcceleration = 20,
                         PathOffset = 1f
                     };
 
