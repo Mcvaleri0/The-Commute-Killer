@@ -53,7 +53,7 @@ public class Agent : MonoBehaviour
         {
             [Attribute.MaxHP] = 10,
             [Attribute.HP]    = 10,
-            [Attribute.Speed] = 10
+            [Attribute.Speed] = 5
         };
         
         this.Inventory = new Item[this.InventorySize];
@@ -72,7 +72,7 @@ public class Agent : MonoBehaviour
 
         this.DynamicC = new DynamicCharacter(this.gameObject)
         {
-            MaxSpeed = 10f
+            MaxSpeed = 5f
         };
     }
 
