@@ -118,7 +118,7 @@ public class PathfindingManager : MonoBehaviour {
     {
         if(this.CurrentSolution != null)
         {
-            return SmoothPath(this.CurrentSolution.PathPositions[0], this.CurrentSolution);
+            return SmoothPath(this.StartPosition, this.CurrentSolution);
         }
 
         return null;
@@ -133,29 +133,43 @@ public class PathfindingManager : MonoBehaviour {
 
         smoothedPath.PathNodes.AddRange(actual.PathNodes);
 
-        int i = 0;
-        while (i < smoothedPath.PathPositions.Count - 2)
+        var i = 0;
+        var j = 2;
+
+        while (i + j < smoothedPath.PathPositions.Count)
         {
-            if (Walkable(smoothedPath.PathPositions[i], smoothedPath.PathPositions[i + 2]))
+            var pos   = smoothedPath.PathPositions[i];
+            var reach = smoothedPath.PathPositions[i + j];
+
+            // Find the furthest node we can reach from current
+            while(Walkable(pos, reach))
             {
-                smoothedPath.PathPositions.RemoveAt(i + 1);
-                smoothedPath.PathNodes.RemoveAt(i);
+                j++;
+
+                if(i + j < smoothedPath.PathNodes.Count)
+                {
+                    reach = smoothedPath.PathPositions[i + j];
+                }
+                else
+                {
+                    break;
+                }
             }
-            else
+
+            j--;
+
+            // Remove all nodes inbetween
+            for (var k = 1; k < j; k++)
             {
-                i++;
+                smoothedPath.PathNodes.RemoveAt(i + 1);
+                smoothedPath.PathPositions.RemoveAt(i + 2);
             }
-        }
 
-        var prevPosition = smoothedPath.PathNodes[0].Position;
+            // Add that path segment
+            smoothedPath.LocalPaths.Add(new LineSegmentPath(pos, smoothedPath.PathPositions[i + 1]));
 
-        for(i = 1; i < smoothedPath.PathNodes.Count; i++)
-        {
-            var currentPosition = smoothedPath.PathNodes[i].Position;
-
-            smoothedPath.LocalPaths.Add(new LineSegmentPath(prevPosition, currentPosition));
-
-            prevPosition = currentPosition;
+            i++;
+            j = 2;
         }
 
         return smoothedPath;
