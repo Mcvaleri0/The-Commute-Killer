@@ -27,11 +27,15 @@ public class DynamicFollowPath : DynamicArrive
 
     public override MovementOutput GetMovement()
     {
-        CurrentParam = Path.GetParam(Character.position, CurrentParam);
+        if (Target.position == Vector3.zero ||
+           (Target.position - Character.position).sqrMagnitude <= (this.SlowRadius*this.SlowRadius)/2)
+        {
+            CurrentParam = Path.GetParam(Character.position, CurrentParam);
 
-        float targetParam = CurrentParam + PathOffset;
+            float targetParam = CurrentParam + PathOffset;
 
-        Target.position = Path.GetPosition(targetParam);
+            Target.position = Path.GetPosition(targetParam);
+        }
 
         return base.GetMovement();
     }

@@ -97,9 +97,8 @@ public class AutonomousAgent : Agent
                     this.DCharacter.Movement = new DynamicFollowPath()
                     {
                         Path = this.Path,
-                        MaxSpeed = 2.5f,
-                        MaxAcceleration = 5,
-                        TargetRadius = 0.1f,
+                        MaxSpeed = 10f,
+                        MaxAcceleration = 20,
                         PathOffset = 1f
                     };
 
