@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.IAJ.Unity.Movement.DynamicMovement;
@@ -88,7 +88,7 @@ public class AutonomousAgent : Agent
                 break;
 
             case 1: // Looking for Path
-                var solution = this.Pathfinding.GetCurrentSolution();
+                var solution = this.Pathfinding.GetCurrentSmoothSolution();
 
                 if(solution != null)
                 {

@@ -54,8 +54,7 @@ public class GlobalPath : Path
     {
         // The integer part will represent the local path inside the global path
         // The decimal part represents the percentage of the local path traversed so far
-        int   localIndex     = Mathf.FloorToInt(param);
-        float percentageDone = param % 1;
+        int   localIndex  = Mathf.FloorToInt(param);
 
         LocalPath path;
 
@@ -64,12 +63,12 @@ public class GlobalPath : Path
         if (localIndex >= LocalPaths.Count)
         {
             path = LocalPaths[LocalPaths.Count - 1];
-            //return path.GetPosition(1);
+        }
+        else
+        {
+            path = LocalPaths[localIndex];
         }
 
-        path = LocalPaths[localIndex];
-
-        //return path.GetPosition(percentageDone);
         return path.GetPosition(1);
 
     }
