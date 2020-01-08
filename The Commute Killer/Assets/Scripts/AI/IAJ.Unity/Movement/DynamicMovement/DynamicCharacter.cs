@@ -31,8 +31,6 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
             this.KinematicData = new KinematicData(new StaticData(gameObject.transform.position));
             this.KinematicData.velocity = new Vector3(1, 1, 1);
             this.GameObject = gameObject;
-            this.Drag = 0.1f;
-            this.MaxSpeed = 20.0f;
         }
 
 
@@ -57,11 +55,10 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
             }
 
             // apply gravity -> has to take in consideration the delta time
-            motion += (Physics.gravity * Time.deltaTime);
-
+            motion += (Physics.gravity * Time.deltaTime * Time.deltaTime);
 
             // move controller -> has to take in consideration the delta time
-            this.Controller.Move(motion * Time.deltaTime);
+            this.Controller.Move(motion);
         }
     }
 }

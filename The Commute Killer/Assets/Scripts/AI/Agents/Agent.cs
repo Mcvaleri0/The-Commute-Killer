@@ -22,7 +22,9 @@ public class Agent : MonoBehaviour
     {
         MaxHP,
         HP,
-        Speed
+        Speed,
+        Accelaration,
+        Drag
     }
 
     public Dictionary<Attribute, float> Attributes;
@@ -53,7 +55,9 @@ public class Agent : MonoBehaviour
         {
             [Attribute.MaxHP] = 10,
             [Attribute.HP]    = 10,
-            [Attribute.Speed] = 10
+            [Attribute.Speed] = 1,
+            [Attribute.Accelaration] = 2,
+            [Attribute.Drag]  = 0.1f
         };
         
         this.Inventory = new Item[this.InventorySize];
@@ -72,7 +76,7 @@ public class Agent : MonoBehaviour
 
         this.DynamicC = new DynamicCharacter(this.gameObject)
         {
-            MaxSpeed = 10f
+            MaxSpeed = 5f
         };
     }
 
