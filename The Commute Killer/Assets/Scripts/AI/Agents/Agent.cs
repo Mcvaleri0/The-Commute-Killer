@@ -56,7 +56,7 @@ public class Agent : MonoBehaviour
             [Attribute.MaxHP] = 10,
             [Attribute.HP]    = 10,
             [Attribute.Speed] = 1,
-            [Attribute.Accelaration] = 2,
+            [Attribute.Accelaration] = 1,
             [Attribute.Drag]  = 0.1f
         };
         

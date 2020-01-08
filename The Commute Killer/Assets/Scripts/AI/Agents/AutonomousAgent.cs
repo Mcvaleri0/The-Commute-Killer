@@ -98,7 +98,7 @@ public class AutonomousAgent : Agent
                     {
                         Path = this.Path,
                         MaxSpeed = this.Attributes[Attribute.Speed],
-                        MaxAcceleration = this.Attributes[Attribute.Speed],
+                        MaxAcceleration = this.Attributes[Attribute.Accelaration],
                         PathOffset = 1f
                     };
 
