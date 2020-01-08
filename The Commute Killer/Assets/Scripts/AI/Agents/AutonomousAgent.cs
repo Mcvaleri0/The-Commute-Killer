@@ -88,7 +88,7 @@ public class AutonomousAgent : Agent
                 break;
 
             case 1: // Looking for Path
-                var solution = this.Pathfinding.GetCurrentSolution();
+                var solution = this.Pathfinding.GetCurrentSmoothSolution();
 
                 if(solution != null)
                 {

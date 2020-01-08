@@ -79,6 +79,8 @@ public class PathfindingManager : MonoBehaviour {
 
             if (finished)
             {
+                if (this.CurrentSolution != null) Debug.Log("Success - " + this.PathFinding.TotalExploredNodes);
+
                 this.PathFinding.InProgress = false;
             }
 
@@ -109,6 +111,50 @@ public class PathfindingManager : MonoBehaviour {
     public GlobalPath GetCurrentSolution()
     {
         return this.CurrentSolution;
+    }
+
+
+    public GlobalPath GetCurrentSmoothSolution()
+    {
+        if(this.CurrentSolution != null)
+        {
+            return SmoothPath(this.CurrentSolution.PathPositions[0], this.CurrentSolution);
+        }
+
+        return null;
+    }
+
+
+    protected GlobalPath SmoothPath(Vector3 position, GlobalPath actual)
+    {
+        var smoothedPath = new GlobalPath();
+        smoothedPath.PathPositions.Add(position);
+        smoothedPath.PathPositions.AddRange(actual.PathPositions);
+
+        smoothedPath.PathNodes.AddRange(actual.PathNodes);
+
+        int i = 0;
+        while (i < smoothedPath.PathPositions.Count - 2)
+        {
+            if (Walkable(smoothedPath.PathPositions[i], smoothedPath.PathPositions[i + 2]))
+            {
+                smoothedPath.PathPositions.RemoveAt(i + 1);
+                smoothedPath.PathNodes.RemoveAt(i);
+                smoothedPath.LocalPaths.Add(new LineSegmentPath(smoothedPath.PathPositions[i], smoothedPath.PathPositions[i + 2]));
+            }
+            else
+            {
+                smoothedPath.LocalPaths.Add(new LineSegmentPath(smoothedPath.PathPositions[i], smoothedPath.PathPositions[i + 1]));
+                i++;
+            }
+        }
+        return smoothedPath;
+    }
+
+    protected bool Walkable(Vector3 p1, Vector3 p2)
+    {
+        Vector3 direction = p2 - p1;
+        return !Physics.Raycast(p1, direction, direction.magnitude);
     }
 
 

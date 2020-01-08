@@ -19,7 +19,7 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
         {
             this.TimeToTargetSpeed = 0.1f;
             this.TargetRadius = 2.0f;
-            this.SlowRadius = 5.0f;
+            this.SlowRadius = 1.0f;
         }
         
         
@@ -43,7 +43,7 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
             }
             else
             {
-                targetSpeed = this.MaxSpeed*distance/this.SlowRadius;
+                targetSpeed = Mathf.Min(this.MaxSpeed*distance/this.SlowRadius, 1f);
             }
 
             this.TargetVelocity.velocity = direction.normalized * targetSpeed;
