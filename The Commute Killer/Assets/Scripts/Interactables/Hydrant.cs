@@ -14,6 +14,8 @@ public class Hydrant : Interactable
 
     public EventManager EventManager;
 
+    private AudioSource AudioSource;
+
     #region === MonoBehaviour Methods ===
     new void Start()
     {
@@ -23,6 +25,13 @@ public class Hydrant : Interactable
         {
             Action.IDs.Sabotage
         };
+
+        this.AudioSource = gameObject.AddComponent<AudioSource>();
+        this.AudioSource.playOnAwake = false;
+        this.AudioSource.loop = true;
+        this.AudioSource.volume = 0.3f;
+        this.AudioSource.spatialBlend = 1.0f;
+        this.AudioSource.clip = (AudioClip)Resources.Load("Audio/hydrant_splash");
     }
 
     // Update is called once per frame
@@ -99,6 +108,8 @@ public class Hydrant : Interactable
 
         var ev = (Event)Enum.Parse(typeof(Event), gameObject.name + "_ON");
         this.EventManager.TriggerEvent(ev);
+
+        this.AudioSource.Play();
     }
 
     private void Deactivate()
@@ -113,6 +124,8 @@ public class Hydrant : Interactable
 
         var ev = (Event)Enum.Parse(typeof(Event), gameObject.name + "_OFF");
         this.EventManager.TriggerEvent(ev);
+
+        this.AudioSource.Stop();
     }
     #endregion
 }

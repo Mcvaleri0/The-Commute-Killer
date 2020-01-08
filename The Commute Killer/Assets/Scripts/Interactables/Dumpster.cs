@@ -10,6 +10,11 @@ public class Dumpster : Interactable
 
     private GameObject[] Doors;
 
+    private AudioSource AudioSource;
+    private AudioClip OpenSound;
+    private AudioClip CloseSound;
+    private AudioClip InsertSound;
+
     #region === MonoBehaviour Methods ===
     new void Start()
     {
@@ -25,6 +30,15 @@ public class Dumpster : Interactable
 
         this.Doors[0] = transform.Find("door 1").gameObject;
         this.Doors[1] = transform.Find("door 2").gameObject;
+
+        this.AudioSource = gameObject.AddComponent<AudioSource>();
+        this.AudioSource.playOnAwake = false;
+        this.AudioSource.volume = 1.4f;
+        this.AudioSource.spatialBlend = 1.0f;
+
+        this.OpenSound = (AudioClip)Resources.Load("Audio/dumpster_open");
+        this.CloseSound = (AudioClip)Resources.Load("Audio/dumpster_close");
+        this.InsertSound = (AudioClip)Resources.Load("Audio/dumpster_insert");
     }
 
     // Update is called once per frame
@@ -105,7 +119,7 @@ public class Dumpster : Interactable
 
     private void Insert()
     {
-
+        this.AudioSource.PlayOneShot(InsertSound);
     }
     #endregion
 
@@ -118,6 +132,8 @@ public class Dumpster : Interactable
         {
             DisableDoor(d);
         }
+
+        this.AudioSource.PlayOneShot(OpenSound);
     }
 
     private void Close()
@@ -128,6 +144,8 @@ public class Dumpster : Interactable
         {
             EnableDoor(d);
         }
+
+        this.AudioSource.PlayOneShot(CloseSound);
     }
 
     private void EnableDoor(GameObject door)

@@ -76,7 +76,7 @@ public class AStarPathfinding : PathfindingAlgorithm
         {
             Open.AddToOpen(childNode);
 
-            Debug.Log(step + "Opened it.");
+            //Debug.Log(step + "Opened it.");
         }
 
         // If child is in Open
@@ -86,7 +86,7 @@ public class AStarPathfinding : PathfindingAlgorithm
             {
                 Open.Replace(inOpen, childNode);
 
-                Debug.Log(step + "Replaced in open.");
+                //Debug.Log(step + "Replaced in open.");
             }
         }
 
@@ -98,7 +98,7 @@ public class AStarPathfinding : PathfindingAlgorithm
                 Closed.RemoveFromClosed(inClosed);
                 Open.AddToOpen(childNode);
 
-                Debug.Log(step + "Removed from closed.");
+                //Debug.Log(step + "Removed from closed.");
             }
         }
     }
@@ -123,13 +123,13 @@ public class AStarPathfinding : PathfindingAlgorithm
 
         var bestNode = Open.GetBestAndRemove();
 
-        Debug.Log(step + "Best Node:" + bestNode.node.Id.ToString());
+        //Debug.Log(step + "Best Node:" + bestNode.node.Id.ToString());
 
         if (bestNode.node == GoalNode)
         {
             solution = CalculateSolution(bestNode, false);
             TotalProcessingTime = Time.time - StartProcessingTime;
-            Debug.Log(step + "Success!!!");
+            //Debug.Log(step + "Success!!!");
             return true;
         }
 
@@ -139,15 +139,15 @@ public class AStarPathfinding : PathfindingAlgorithm
 
         for (int i = 0; i < outConnections; i++)
         {
-            Debug.Log(step + "Connection - " + bestNode.node.Adjacents[i].Id);
+            //Debug.Log(step + "Connection - " + bestNode.node.Adjacents[i].Id);
 
             this.ProcessChildNode(bestNode, bestNode.node.Adjacents[i]);
         }
 
         TotalExploredNodes++;
 
-        Debug.Log(step + "Open Nodes: " + Open.CountOpen().ToString());
-        Debug.Log(step + "Total Explored: " + TotalExploredNodes);
+        //Debug.Log(step + "Open Nodes: " + Open.CountOpen().ToString());
+        //Debug.Log(step + "Total Explored: " + TotalExploredNodes);
         this.StepsSoFar++;
 
         solution = null;

@@ -29,7 +29,7 @@ public class LevelManager : MonoBehaviour
     {
         this.PlayerController = GameObject.Find("PlayerCharacter").GetComponent<FirstPersonController>();
 
-        this.PlayerController.m_MouseLook.SetCursorLock(true);
+        this.UnPause();
 
         Physics.gravity = new Vector3(0, -9.8f, 0);
 
@@ -82,6 +82,8 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 0;
         this.PlayerController.m_MouseLook.SetCursorLock(false);
         this.PlayerController.enabled = false;
+        AudioListener.volume = 0.3f;
+
     }
 
     public void UnPause()
@@ -90,6 +92,8 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 1;
         this.PlayerController.m_MouseLook.SetCursorLock(true);
         this.PlayerController.enabled = true;
+        AudioListener.volume = 1.0f;
+
     }
 
     public void Resart()
