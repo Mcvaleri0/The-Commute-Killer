@@ -22,7 +22,9 @@ public class Agent : MonoBehaviour
     {
         MaxHP,
         HP,
-        Speed
+        Speed,
+        Accelaration,
+        Drag
     }
 
     public Dictionary<Attribute, float> Attributes;
@@ -53,7 +55,9 @@ public class Agent : MonoBehaviour
         {
             [Attribute.MaxHP] = 10,
             [Attribute.HP]    = 10,
-            [Attribute.Speed] = 5
+            [Attribute.Speed] = 1,
+            [Attribute.Accelaration] = 2,
+            [Attribute.Drag]  = 0.1f
         };
         
         this.Inventory = new Item[this.InventorySize];
