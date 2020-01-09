@@ -37,18 +37,9 @@ public class SkyboxCamera : MonoBehaviour
         this.SkyBoxRotation = rotation;
     }
 
-    // Update is called once per 
-
-    private void FixedUpdate()
+    //this is called by the fpscontroller
+    public void SkyboxUpdate()
     {
-        SkyCamera.transform.position = MainCamera.transform.position;
-        SkyCamera.transform.rotation = MainCamera.transform.rotation;
-        //SkyCamera.transform.Rotate(SkyBoxRotation);
-    }
-
-    void Update()
-    {
-
-        
+        SkyCamera.transform.rotation = Quaternion.Euler(this.SkyBoxRotation) * MainCamera.transform.rotation;
     }
 }

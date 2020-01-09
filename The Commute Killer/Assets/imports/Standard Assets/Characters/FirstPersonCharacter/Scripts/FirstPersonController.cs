@@ -39,6 +39,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
 
+        public SkyboxCamera SkyboxCamera;
+
         // Use this for initialization
         private void Start()
         {
@@ -51,6 +53,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_NextStep = m_StepCycle/2f;
             m_Jumping = false;
 			m_MouseLook.Init(transform , m_Camera.transform);
+
+            SkyboxCamera = GameObject.Find("SkyBoxCamera").GetComponent<SkyboxCamera>();
         }
 
 
@@ -159,6 +163,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 newCameraPosition.y = m_OriginalCameraPosition.y - m_JumpBob.Offset();
             }
             m_Camera.transform.localPosition = newCameraPosition;
+
         }
 
 
@@ -198,6 +203,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void RotateView()
         {
             m_MouseLook.LookRotation (transform, m_Camera.transform);
+            this.SkyboxCamera.SkyboxUpdate();
         }
 
 
