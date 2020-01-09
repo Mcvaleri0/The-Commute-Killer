@@ -9,6 +9,7 @@ public class DayCycleManager : MonoBehaviour
     private TimeManager TimeManager;
     private Material SkyboxMaterial;
     private Light Sun;
+    private SkyboxCamera SkyboxCam;
     public float blend;
 
     // Start is called before the first frame update
@@ -19,6 +20,8 @@ public class DayCycleManager : MonoBehaviour
         this.SkyboxMaterial = RenderSettings.skybox;
 
         this.Sun = GameObject.Find("Sun").GetComponent<Light>();
+
+        this.SkyboxCam = GameObject.Find("SkyBoxCamera").GetComponent<SkyboxCamera>();
 
     }
 
@@ -53,6 +56,10 @@ public class DayCycleManager : MonoBehaviour
         Color.RGBToHSV(Sun.color, out H, out S, out V);
         Sun.color = Color.HSVToRGB(0.8f, 1 - blend, V);
         Sun.intensity = Mathf.Clamp(blend, 0.1f, 1);
+
+        //update skybox rotation
+        var rot = 90 - (180 * blend);
+        //this.SkyboxCam.SetSkyBoxRotation(new Vector3(0, rot, 0));
 
         //update enviroment
         DynamicGI.UpdateEnvironment();
