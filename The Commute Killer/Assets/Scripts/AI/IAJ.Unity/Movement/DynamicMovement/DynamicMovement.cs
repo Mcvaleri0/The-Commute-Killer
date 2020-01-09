@@ -16,5 +16,10 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
         }
         public abstract MovementOutput GetMovement();
 
+        public bool Possible()
+        {
+            return true;
+        }
+
     }
 }
