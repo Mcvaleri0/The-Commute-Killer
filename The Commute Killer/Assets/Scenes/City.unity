@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.62331223, g: 0.69587636, b: 0.9642793, a: 1}
+  m_IndirectSpecularColor: {r: 0.6090525, g: 0.68071836, b: 0.9472361, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -45757,13 +45757,30 @@ GameObject:
   - component: {fileID: 3192394782441685172}
   - component: {fileID: 3192394782441685178}
   - component: {fileID: 731013330}
+  - component: {fileID: 3192394781670312277}
   m_Layer: 0
   m_Name: TestNpc (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
+--- !u!114 &3192394781670312277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3192394781670312276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a51c1b097cbe3114c96ce93e2b412373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Algorithm: 0
+  Open: 0
+  Closed: 0
+  H: 0
 --- !u!137 &3192394781675587040
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -45970,7 +45987,7 @@ MonoBehaviour:
   Inventory: []
   HandPosition: {x: 16, y: 0, z: 60}
   AvailableActions: 
-  GoalPosition: {x: 12.6, y: -0.76, z: 61.41}
+  GoalPosition: {x: -10.84, y: -0.7760334, z: 53.24}
   speed: 0
   Target: 0
 --- !u!1001 &3260482873732150053
