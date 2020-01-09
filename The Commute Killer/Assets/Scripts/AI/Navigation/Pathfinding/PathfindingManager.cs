@@ -172,6 +172,10 @@ public class PathfindingManager : MonoBehaviour {
             j = 2;
         }
 
+        var count = smoothedPath.PathPositions.Count;
+
+        smoothedPath.LocalPaths.Add(new LineSegmentPath(smoothedPath.PathPositions[count - 2], smoothedPath.PathPositions[count - 1]));
+
         return smoothedPath;
     }
 
