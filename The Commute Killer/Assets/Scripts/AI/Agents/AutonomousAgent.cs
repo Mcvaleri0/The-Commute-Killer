@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.IAJ.Unity.Movement.DynamicMovement;
@@ -45,7 +45,7 @@ public class AutonomousAgent : Agent
         this.DCharacter = new DynamicCharacter(this.gameObject)
         {
             MaxSpeed = this.Attributes[Attribute.Speed],
-            Drag = 0.01f,
+            Drag = this.Attributes[Attribute.Drag],
             Controller = GetComponent<CharacterController>()
         };
 
@@ -88,7 +88,7 @@ public class AutonomousAgent : Agent
                 break;
 
             case 1: // Looking for Path
-                var solution = this.Pathfinding.GetCurrentSolution();
+                var solution = this.Pathfinding.GetCurrentSmoothSolution();
 
                 if(solution != null)
                 {
@@ -97,8 +97,8 @@ public class AutonomousAgent : Agent
                     this.DCharacter.Movement = new DynamicFollowPath()
                     {
                         Path = this.Path,
-                        MaxSpeed = 10f,
-                        MaxAcceleration = 20,
+                        MaxSpeed = this.Attributes[Attribute.Speed],
+                        MaxAcceleration = this.Attributes[Attribute.Accelaration],
                         PathOffset = 1f
                     };
 

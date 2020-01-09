@@ -79,6 +79,8 @@ public class PathfindingManager : MonoBehaviour {
 
             if (finished)
             {
+                if (this.CurrentSolution != null) Debug.Log("Success - " + this.PathFinding.TotalExploredNodes);
+
                 this.PathFinding.InProgress = false;
             }
 
@@ -109,6 +111,78 @@ public class PathfindingManager : MonoBehaviour {
     public GlobalPath GetCurrentSolution()
     {
         return this.CurrentSolution;
+    }
+
+
+    public GlobalPath GetCurrentSmoothSolution()
+    {
+        if(this.CurrentSolution != null)
+        {
+            return SmoothPath(this.StartPosition, this.CurrentSolution);
+        }
+
+        return null;
+    }
+
+
+    protected GlobalPath SmoothPath(Vector3 position, GlobalPath actual)
+    {
+        var smoothedPath = new GlobalPath();
+        smoothedPath.PathPositions.Add(position);
+        smoothedPath.PathPositions.AddRange(actual.PathPositions);
+
+        smoothedPath.PathNodes.AddRange(actual.PathNodes);
+
+        var i = 0;
+        var j = 2;
+
+        while (i + j < smoothedPath.PathPositions.Count)
+        {
+            var pos   = smoothedPath.PathPositions[i];
+            var reach = smoothedPath.PathPositions[i + j];
+
+            // Find the furthest node we can reach from current
+            while(Walkable(pos, reach))
+            {
+                j++;
+
+                if(i + j < smoothedPath.PathNodes.Count)
+                {
+                    reach = smoothedPath.PathPositions[i + j];
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            j--;
+
+            // Remove all nodes inbetween
+            for (var k = 1; k < j; k++)
+            {
+                smoothedPath.PathNodes.RemoveAt(i + 1);
+                smoothedPath.PathPositions.RemoveAt(i + 2);
+            }
+
+            // Add that path segment
+            smoothedPath.LocalPaths.Add(new LineSegmentPath(pos, smoothedPath.PathPositions[i + 1]));
+
+            i++;
+            j = 2;
+        }
+
+        var count = smoothedPath.PathPositions.Count;
+
+        smoothedPath.LocalPaths.Add(new LineSegmentPath(smoothedPath.PathPositions[count - 2], smoothedPath.PathPositions[count - 1]));
+
+        return smoothedPath;
+    }
+
+    protected bool Walkable(Vector3 p1, Vector3 p2)
+    {
+        Vector3 direction = p2 - p1;
+        return !Physics.Raycast(p1, direction, direction.magnitude);
     }
 
 
