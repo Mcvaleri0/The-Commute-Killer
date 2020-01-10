@@ -36,7 +36,7 @@ public class AutonomousAgent : Agent
     #region/* Routine */
     private int RoutineState = 0; //[ 0 - Idle | 1 - Acting ]
 
-    public RoutineManager RoutineM;
+    private RoutineManager RoutineM;
 
     public Action CurrentAction { get; private set; }
     #endregion
@@ -108,7 +108,7 @@ public class AutonomousAgent : Agent
                         MaxSpeed = this.Attributes[Attribute.Speed],
                         MaxAcceleration = this.Attributes[Attribute.Accelaration],
                         PathOffset = 1f,
-                        PathManager = this.Pathfinding.NavManager
+                        PathManager = this.PathfindingM.NavManager
                     };
 
                     this.MovementState = 2;
@@ -223,8 +223,10 @@ public class AutonomousAgent : Agent
     }
     #endregion
 
-    private void OnDrawGizmos()
+    new private void OnDrawGizmos()
     {
+        base.OnDrawGizmos();
+
         if(this.Path != null)
         {
             Gizmos.color = Color.blue;

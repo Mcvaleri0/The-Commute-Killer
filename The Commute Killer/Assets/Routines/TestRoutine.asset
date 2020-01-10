@@ -10,7 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eeb066e065f67d543a3ff9a650597be3, type: 3}
-  m_Name: New Routine
+  m_Name: TestRoutine
   m_EditorClassIdentifier: 
   Id: 0
-  RoutineActions: []
+  RoutineActions:
+  - {fileID: 11400000, guid: 2fe4beae7c94c204286f8dd600c2fe52, type: 2}
+  StartHour: 8
+  StartMinute: 40
+  EndHour: 14
+  EndMinute: 0

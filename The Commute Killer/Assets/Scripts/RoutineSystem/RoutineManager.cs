@@ -8,57 +8,68 @@ public class RoutineManager : MonoBehaviour
 {
     public List<Routine> Routines; // List of a NPC's Routines
 
-    public TimeManager TimeManager;
+    private List<Routine> ActiveRoutines; // List of currently Active Routines
 
-    private Routine CurrentRoutine;
+    private TimeManager TimeManager;
 
-    private int Step = 0;
+    public Routine CurrentRoutine { get; private set; }
 
-    private int RoutineStep = 0;
-
-    private Agent Agent;
+    public Action CurrentAction { get; private set; }
     
     void Start()
     {
-        this.Agent = GetComponent<Agent>();
+        this.TimeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
 
-        /* Routine1  FIXME
-        Agent agent1 = new Agent();
+        this.ActiveRoutines = new List<Routine>();
 
-        List<RoutineAction> routineActions = new List<RoutineAction>() {
-            new RoutineAction(Action.IDs.PickUp, new DateTime(1989, 9, 6, 8, 30, 0), new DateTime(1989, 9, 6, 8, 30, 0)),
-            new RoutineAction(Action.IDs.PickUp, new DateTime(1989, 9, 6, 8, 30, 0), new DateTime(1989, 9, 6, 8, 30, 0))
-        };
-
-        DateTime iniTime = new DateTime(1989, 9, 6, 8, 30, 0);
-        DateTime endTime = new DateTime(1989, 9, 6, 9, 00, 0);
-
-        var routine1 = new Routine(0, agent1, routineActions, iniTime, endTime);
-        */
-    }
-
-
-    private void Update()
-    {
-        // Update Routine
-        var step = this.CurrentRoutine.Step(this.TimeManager.GetCurrentTime());
-
-        // If the step has changed
-        if (step != this.RoutineStep)
+        foreach(var routine in this.Routines)
         {
-            this.RoutineStep = step; // Update it
-        }
-
-        // If this Routine is finished
-        if (this.CurrentRoutine.Finished())
-        {
-            // Get next Routine
-            this.CurrentRoutine = this.Routines[++this.Step];
+            routine.Initialize();
         }
     }
 
+    // Return the next Action to be Executed
     public Action NextAction()
     {
-        return this.CurrentRoutine.CurrentAction;
+        var currentTime = this.TimeManager.GetCurrentTime();
+
+        // Check for routines that can begin
+        foreach (var routine in this.Routines)
+        {
+            // If a Routine can begin
+            if (routine.CanBegin(currentTime))
+            {
+                this.ActiveRoutines.Add(Instantiate(routine)); // Add it to the active list
+                continue;
+            }
+        }
+
+        foreach(var routine in this.ActiveRoutines)
+        {
+            // If a Routine has been concluded
+            if (routine.Finished(currentTime))
+            {
+                this.ActiveRoutines.Remove(routine); // Remove it from the active list
+                continue;
+            }
+        }
+
+        // Foreach Active Routine
+        foreach (var routine in this.ActiveRoutines)
+        {
+            routine.Step(currentTime); // Poll the Routine at Current Time
+
+            // If an Action from the routine can be executed
+            if (routine.CurrentAction != null)
+            {
+                this.CurrentRoutine = routine;
+
+                this.CurrentAction  = routine.CurrentAction;
+
+                break;
+            }
+        }
+
+        return this.CurrentAction;
     }
 }

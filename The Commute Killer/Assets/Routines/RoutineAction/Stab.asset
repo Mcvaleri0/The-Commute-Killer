@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: Stab
   m_EditorClassIdentifier: 
   ActionId: 3
-  Agent: {fileID: 0}
-  Target: {fileID: 0}
+  AgentName: Victim
+  TargetName: PlayerCharacter
+  StartHour: 8
+  StartMinute: 40
+  EndHour: 14
+  EndMinute: 0
   ExecutePosition: {x: 0, y: 0, z: 0}
   Distance: 0
   PrecedingActions: []

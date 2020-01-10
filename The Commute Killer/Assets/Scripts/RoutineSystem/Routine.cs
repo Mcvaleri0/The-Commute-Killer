@@ -12,30 +12,82 @@ public class Routine : ScriptableObject
     public List<RoutineAction> RoutineActions;
 
     #region /* Time */
-    public DateTime IniTime;
+    public int StartHour;
+    public int StartMinute;
 
-    public DateTime EndTime;
+    public int EndHour;
+    public int EndMinute;
     #endregion
 
-    private AutonomousAgent Agent { get; set; }
-
-    private int CurrentStep = 0;
-
     private int State = 0; // [ 0 - Idle | 1 - Executing ]
+
+    private RoutineAction CurrentRoutineAction;
 
     public Action CurrentAction { get; private set; }
     #endregion
 
 
+    public void Initialize()
+    {
+        #region Init Time Interval
+        var sMinute = 59;
+        var sHour   = 23;
+
+        var eMinute = 59;
+        var eHour   = 23;
+
+        foreach(var a in RoutineActions)
+        {
+            if(a.StartHour < sHour)
+            {
+                sHour   = a.StartHour;
+                sMinute = a.StartMinute;
+            }
+            else if(a.StartHour == sHour)
+            {
+                if(a.StartMinute < sMinute)
+                {
+                    sMinute = a.StartMinute;
+                }
+            }
+
+            if (a.EndHour < eHour)
+            {
+                eHour   = a.EndHour;
+                eMinute = a.EndMinute;
+            }
+            else if (a.EndHour == eHour)
+            {
+                if (a.EndMinute < eMinute)
+                {
+                    eMinute = a.EndMinute;
+                }
+            }
+        }
+
+        this.StartHour   = sHour;
+        this.StartMinute = sMinute;
+
+        this.EndHour   = eHour;
+        this.EndMinute = eMinute;
+        #endregion
+
+        foreach(var rAction in this.RoutineActions)
+        {
+            rAction.Initialize();
+        }
+    }
+
+
     #region === Routine Methods ===
     // Returns the step at which the routine is
-    public int Step(DateTime currentTime)
+    public void Step(DateTime currentTime)
     {
         switch(this.State)
         {
             case 0: // Idle
                 // If an Action can be performed
-                if(this.AdvanceRoutine(currentTime))
+                if(DetermineAction(currentTime))
                 {
                     this.State = 1; // Go to Executing
                 }
@@ -45,35 +97,28 @@ public class Routine : ScriptableObject
                  // If the current action has been finished
                 if (this.CurrentAction.Finished())
                 {
-                    var currentRAction = this.RoutineActions[this.CurrentStep];
-                    currentRAction.Concluded(); // Mark it as concluded in the routine
+                    this.CurrentRoutineAction.Concluded(); // Mark it as concluded in the routine
 
-                    // If no Action can be performed yet
-                    if(!AdvanceRoutine(currentTime))
-                    {
-                        this.State = 0; // Go to Idle
-                    }
+                    this.CurrentRoutineAction = null;
+                    this.CurrentAction        = null;
+
+                    this.State = 0; // Go to Idle
                 }
                 break;
         }
-
-        return this.CurrentStep;
     }
 
-
-    private bool AdvanceRoutine(DateTime currentTime)
+    // Returns True if a Routine Action can be Initiated
+    private bool DetermineAction(DateTime currentTime)
     {
-        // Foreach of the remaining actions
-        for (var i = this.CurrentStep + 1; i < this.RoutineActions.Count; i++)
+        // Foreach of the Actions
+        foreach (var rAction in this.RoutineActions)
         {
-            var rAction = this.RoutineActions[i]; // Get Routine Action
-
-            // If the action can start
-            if (rAction.CanStart(currentTime, out Action action))
+            // If the action can be initiated
+            if(rAction.CanStart(currentTime, out Action action))
             {
-                this.CurrentStep = i; // Advance the Routine
-
                 this.CurrentAction = action;
+                this.CurrentRoutineAction = rAction;
 
                 return true;
             }
@@ -82,15 +127,26 @@ public class Routine : ScriptableObject
         return false;
     }
 
-    // Return True if the Routine has been concluded
-    public bool Finished()
+    // Return True if the Routine can begin
+    public bool CanBegin(DateTime currentTime)
     {
-        if(this.CurrentStep == this.RoutineActions.Count)
-        {
-            return true;
-        }
+        float current = currentTime.Hour + currentTime.Minute / 60f;
 
-        return false;
+        float start = this.StartHour + this.StartMinute / 60f;
+
+        float end = this.EndHour + this.EndMinute / 60f;
+
+        return start <= current && current < end;
+    }
+
+    // Return True if the Routine has been concluded
+    public bool Finished(DateTime currentTime)
+    {
+        float current = currentTime.Hour + currentTime.Minute / 60f;
+
+        float end = this.EndHour + this.EndMinute / 60f;
+
+        return end < current;
     }
     #endregion
 
@@ -107,7 +163,6 @@ public class Routine : ScriptableObject
         return other.Id == this.Id;
     }
 
-    // override object.GetHashCode
     public override int GetHashCode()
     {
         return base.GetHashCode();

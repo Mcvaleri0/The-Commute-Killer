@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.34591526, g: 0.3861748, b: 0.6007035, a: 1}
+  m_IndirectSpecularColor: {r: 0.611163, g: 0.68266463, b: 0.9489283, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4710,7 +4710,6 @@ MonoBehaviour:
   GoalPosition: {x: 12.68, y: -0.539, z: 75.28}
   speed: 0
   Target: 0
-  RoutineM: {fileID: 0}
 --- !u!54 &252896048
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5638,7 +5637,6 @@ MonoBehaviour:
   GoalPosition: {x: -7.4, y: -5.78, z: 66.1}
   speed: 0
   Target: 1
-  RoutineM: {fileID: 0}
 --- !u!143 &315715878
 CharacterController:
   m_ObjectHideFlags: 0
@@ -5703,6 +5701,19 @@ MonoBehaviour:
   Open: 2
   Closed: 2
   H: 2
+--- !u!114 &315715883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315715876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d7c8c20ccebe8b4295e750e631079ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Routines: []
 --- !u!1 &326718208
 GameObject:
   m_ObjectHideFlags: 0
@@ -5812,7 +5823,6 @@ MonoBehaviour:
   GoalPosition: {x: -5.783, y: -5.726, z: 58.22}
   speed: 0
   Target: 0
-  RoutineM: {fileID: 0}
 --- !u!114 &330191157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22221,7 +22231,6 @@ MonoBehaviour:
   GoalPosition: {x: 14.92, y: -0.701, z: 52.377}
   speed: 0
   Target: 0
-  RoutineM: {fileID: 0}
 --- !u!143 &1014035588
 CharacterController:
   m_ObjectHideFlags: 0
@@ -29177,6 +29186,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 26.72
       objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: 31d43240e2467044bb2b7dc423e251a3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -32.4
+      objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 31d43240e2467044bb2b7dc423e251a3, type: 3}
       propertyPath: m_LocalPosition.z
       value: -14.94
@@ -29184,6 +29197,10 @@ PrefabInstance:
     - target: {fileID: 400006, guid: 31d43240e2467044bb2b7dc423e251a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -19.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 31d43240e2467044bb2b7dc423e251a3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.82
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: 31d43240e2467044bb2b7dc423e251a3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -29273,14 +29290,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: d07542e8c184d2f42b7f738ce494aa38, type: 2}
-    - target: {fileID: 400000, guid: 31d43240e2467044bb2b7dc423e251a3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.82
-      objectReference: {fileID: 0}
-    - target: {fileID: 400004, guid: 31d43240e2467044bb2b7dc423e251a3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -32.4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31d43240e2467044bb2b7dc423e251a3, type: 3}
 --- !u!1 &1355945035 stripped
@@ -29364,7 +29373,6 @@ MonoBehaviour:
   GoalPosition: {x: -5.741, y: -5.726, z: 51.74}
   speed: 0
   Target: 0
-  RoutineM: {fileID: 0}
 --- !u!114 &1356745518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32322,7 +32330,6 @@ MonoBehaviour:
   GoalPosition: {x: -15.88, y: -0.79, z: 57.3}
   speed: 0
   Target: 0
-  RoutineM: {fileID: 0}
 --- !u!1 &1469108281
 GameObject:
   m_ObjectHideFlags: 0
@@ -32505,7 +32512,6 @@ MonoBehaviour:
   GoalPosition: {x: -18.823, y: -0.779, z: 67.18}
   speed: 0
   Target: 0
-  RoutineM: {fileID: 0}
 --- !u!114 &1472436557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37310,7 +37316,6 @@ MonoBehaviour:
   GoalPosition: {x: -6.248, y: -5.726, z: 52.683}
   speed: 0
   Target: 0
-  RoutineM: {fileID: 0}
 --- !u!143 &1733137969
 CharacterController:
   m_ObjectHideFlags: 0
@@ -38103,7 +38108,6 @@ MonoBehaviour:
   GoalPosition: {x: 25.14, y: -0.82, z: 64.51}
   speed: 0
   Target: 0
-  RoutineM: {fileID: 0}
 --- !u!143 &1764958264
 CharacterController:
   m_ObjectHideFlags: 0
@@ -41858,7 +41862,6 @@ MonoBehaviour:
   GoalPosition: {x: 3.222, y: -0.813, z: 79}
   speed: 0
   Target: 0
-  RoutineM: {fileID: 0}
 --- !u!114 &2011721558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43616,7 +43619,6 @@ MonoBehaviour:
   GoalPosition: {x: -5.475, y: -5.767, z: 56.547}
   speed: 0
   Target: 0
-  RoutineM: {fileID: 0}
 --- !u!114 &2125582954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46221,7 +46223,6 @@ MonoBehaviour:
   GoalPosition: {x: 0, y: 0, z: 0}
   speed: 0
   Target: 0
-  RoutineM: {fileID: 0}
 --- !u!64 &2528167686395856864
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -46324,7 +46325,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.9, y: -0.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: [{fileID: 858535671}]
+  m_Children:
+  - {fileID: 858535671}
   m_Father: {fileID: 619750706}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -48452,7 +48454,6 @@ MonoBehaviour:
   GoalPosition: {x: -10.84, y: -0.7760334, z: 53.24}
   speed: 0
   Target: 0
-  RoutineM: {fileID: 0}
 --- !u!1001 &3260482873732150053
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49689,7 +49690,6 @@ MonoBehaviour:
   GoalPosition: {x: -5.717, y: -5.684, z: 54.379}
   speed: 0
   Target: 0
-  RoutineM: {fileID: 0}
 --- !u!64 &8515633469648141488
 MeshCollider:
   m_ObjectHideFlags: 0

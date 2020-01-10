@@ -343,7 +343,7 @@ public class Agent : MonoBehaviour
 
     public Agent GetInFront()
     {
-        Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 2f);
+        Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 1f);
 
         if(hit.transform != null)
         {
@@ -363,5 +363,10 @@ public class Agent : MonoBehaviour
         GameObject.Find("EventManager").GetComponent<EventManager>().TriggerEvent(Event.Killed);
 
         Destroy(this);
+    }
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(transform.position, transform.position + transform.forward.normalized);
     }
 }

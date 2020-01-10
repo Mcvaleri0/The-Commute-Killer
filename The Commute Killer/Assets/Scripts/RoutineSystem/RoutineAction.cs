@@ -10,13 +10,24 @@ public class RoutineAction : ScriptableObject
 
     public Action.IDs ActionId;
 
-    public Agent Agent;
+    private Agent Agent;
 
-    public GameObject Target;
+    private GameObject Target;
+
+    public String AgentName;
+
+    public String TargetName;
 
     // Time window
-    public DateTime StartTime;
-    public DateTime EndTime;
+    [Range(0,23)]
+    public int StartHour;
+    [Range(0,59)]
+    public int StartMinute;
+
+    [Range(0,23)]
+    public int EndHour;
+    [Range(0,59)]
+    public int EndMinute;
 
     // Dependencies
     public Vector3 ExecutePosition;
@@ -24,6 +35,19 @@ public class RoutineAction : ScriptableObject
     public float Distance;
 
     public List<RoutineAction> PrecedingActions;
+
+    public void Initialize()
+    {
+        if(this.AgentName != null && this.AgentName != "")
+        {
+            this.Agent = GameObject.Find(this.AgentName).GetComponent<Agent>();
+        }
+
+        if (this.TargetName != null && this.TargetName != "")
+        {
+            this.Target = GameObject.Find(this.TargetName);
+        }
+    }
 
     // Check if action can be initiated
     public bool CanStart(DateTime currentTime, out Action action)
@@ -37,13 +61,13 @@ public class RoutineAction : ScriptableObject
         }
 
         // Check time window
-        if (currentTime < this.StartTime || this.EndTime < currentTime)
+        if(!InTime(currentTime))
         {
             return false;
         }
 
         // If there's a position to execute the action at
-        if (this.ExecutePosition != null)
+        if (this.ExecutePosition != null && this.ExecutePosition != Vector3.zero)
         {
             var agentPos = this.Agent.GetPosition();
 
@@ -60,7 +84,7 @@ public class RoutineAction : ScriptableObject
             var targeted = this.Agent.GetInFront();
 
             // Check if Target is in front
-            if (targeted == this.Target)
+            if (targeted != this.Target)
             {
                 return false;
             }
@@ -79,7 +103,7 @@ public class RoutineAction : ScriptableObject
         var genAction = GenerateAction();
 
         // Check that the Action can be executed
-        if (!action.CanExecute())
+        if (!genAction.CanExecute())
         {
             return false;
         }
@@ -88,6 +112,19 @@ public class RoutineAction : ScriptableObject
 
         return true;
     }
+
+
+    private bool InTime(DateTime currentTime)
+    {
+        float current = currentTime.Hour + currentTime.Minute / 60f;
+
+        float start = this.StartHour + this.StartMinute / 60f;
+
+        float end = this.EndHour + this.EndMinute / 60f;
+
+        return start <= current && current < end;
+    }
+
 
     // Set the Routine Action as having concluded
     public void Concluded()

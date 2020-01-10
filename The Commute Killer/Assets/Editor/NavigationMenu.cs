@@ -131,8 +131,8 @@ public class NavigationMenu : ScriptableObject
             }
 
             var triangle = new Triangle(triangleVertices);
-            //triangle.ConnectVertices();
-            nodeCounter = triangle.Subdivide(graph, nodeCounter); // Subdivide Triangle and update Node Count
+            triangle.ConnectVertices();
+            //nodeCounter = triangle.Subdivide(graph, nodeCounter); // Subdivide Triangle and update Node Count
         }
 
         int scene = SceneManager.GetActiveScene().buildIndex;
@@ -154,8 +154,6 @@ public class NavigationMenu : ScriptableObject
     {
         NavCluster cluster;
         NavGateway gateway;
-
-        //FIXME - You should attribute the clusters to the nodes here
 
         // Get NavZone gameobjects
         var zones = GameObject.FindGameObjectsWithTag("Zone");
@@ -201,13 +199,27 @@ public class NavigationMenu : ScriptableObject
 
         foreach (var node in navGraph.Nodes)
         {
+            var assigned = false;
+
             foreach (var c in clusterGraph.Clusters)
             {
                 if (MathHelper.PointInsideBoundingBox(node.Position, c.Min, c.Max))
                 {
                     node.Cluster = c;
+
+                    assigned = true;
+
                     break;
                 }
+            }
+
+            if(assigned)
+            {
+                continue;
+            }
+            else
+            {
+                Debug.Log("No Cluster found for this Node: " + node.Id);
             }
         }
 
