@@ -21,9 +21,9 @@ public class DayCycleManager : MonoBehaviour
 
         this.SkyboxMaterial = RenderSettings.skybox;
 
-        this.Sun = GameObject.Find("Sun").GetComponent<Light>();
+        this.Sun            = GameObject.Find("Sun").GetComponent<Light>();
 
-        this.SkyboxCam = GameObject.Find("SkyBoxCamera").GetComponent<SkyboxCamera>();
+        this.SkyboxCam      = GameObject.Find("SkyBoxCamera").GetComponent<SkyboxCamera>();
 
     }
 
