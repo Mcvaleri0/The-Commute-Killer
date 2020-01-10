@@ -14,8 +14,9 @@ public class Agent : MonoBehaviour
 
     public Item[] Inventory;
 
-    public Vector3 HandPosition;
+    public Transform HandPivot;
     #endregion
+
 
     #region /* Attributes */
     public enum Attribute
@@ -30,11 +31,13 @@ public class Agent : MonoBehaviour
     public Dictionary<Attribute, float> Attributes;
     #endregion
 
+
     #region /* Actions */
     public List<Action.IDs> AvailableActions; // Actions the Agent can perform
 
     public List<Action> PerformedActions;
     #endregion
+
 
     #region /* Movement */
     private DynamicCharacter DynamicC;
@@ -72,12 +75,20 @@ public class Agent : MonoBehaviour
         };
 
         this.PerformedActions = new List<Action>();
-
-
+        
         this.DynamicC = new DynamicCharacter(this.gameObject)
         {
             MaxSpeed = 5f
         };
+
+        if(this.OnHand != null)
+        {
+            var pickUp = Action.GetAction(Action.IDs.PickUp, this, this.OnHand.gameObject);
+
+            this.OnHand = null;
+
+            pickUp.Execute();
+        }
     }
 
     protected void Update()
@@ -300,10 +311,13 @@ public class Agent : MonoBehaviour
 
     protected Action.IDs DetermineAction(List<Action.IDs> possibleActions)
     {
+        // If there are possible actions
         if (possibleActions != null) 
         {
+            // Foreach possible action
             foreach (Action.IDs aId in possibleActions)
             {
+                // If that Action is available
                 if (this.AvailableActions.FindIndex(x => x == aId) != -1)
                 {
                     return aId;
@@ -324,35 +338,6 @@ public class Agent : MonoBehaviour
         }
 
         return false;
-    }
-
-    protected Action CreateAction(Action.IDs actionId, GameObject target = null)
-    {
-        switch (actionId)
-        {
-            default:
-                break;
-
-            case Action.IDs.Sabotage:
-                return new Sabotage(this, target);
-
-            case Action.IDs.Stab:
-                return new Stab(this, target);
-
-            case Action.IDs.PickUp:
-                return new PickUp(this, target);
-
-            case Action.IDs.Drop:
-                return new Drop(this, target);
-
-            case Action.IDs.Use:
-                return new Use(this, target);
-
-            case Action.IDs.Insert:
-                return new Insert(this, target);
-        }
-
-        return null;
     }
     #endregion
 

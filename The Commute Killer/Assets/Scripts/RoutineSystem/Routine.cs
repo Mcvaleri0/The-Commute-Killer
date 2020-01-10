@@ -3,128 +3,113 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class Routine : MonoBehaviour
+[CreateAssetMenu]
+public class Routine : ScriptableObject
 {
-    private TimeManager TimeM;
-    private RoutineManager RoutineM;
+    #region /* Attributes */
+    public int Id;
 
-    //routine id
-    private int Id { get; set; }
+    public List<RoutineAction> RoutineActions;
 
-    //State, used to track the routine
-    private int State { get; set; } = 0; // [ 0 - To Start | 1 - In Progress | 2 - Finished ]
+    #region /* Time */
+    public DateTime IniTime;
 
-    //agent
-    private Agent Agent { get; set; }
-
-    //Routine actions that make up this routine
-    private List<RoutineAction> RoutineActions { get; set; } = new List<RoutineAction>();
-    private int CurrentAction_i = 0;
-
-    //time window
-    private DateTime IniTime { get; set; }
-    private DateTime EndTime { get; set; }
-
-    public Routine(int id, Agent agent, List<RoutineAction> routineActions, DateTime iniTime, DateTime endTime)
-    {
-        this.Id             = id;
-        this.Agent          = agent;
-        this.RoutineActions = routineActions;
-        this.IniTime        = iniTime;
-        this.EndTime        = endTime;
-
-        foreach (RoutineAction action in this.RoutineActions)
-        {
-            action.SetAgent(this.Agent);
-        }
-    }
-
-    #region === Unity Events ===
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        TimeM = GameObject.Find("TimeManager").GetComponent<TimeManager>();
-        RoutineM = GameObject.Find("RoutineManager").GetComponent<RoutineManager>();
-    }
-
-
+    public DateTime EndTime;
     #endregion
 
-    #region === Getters and setter ===
+    private AutonomousAgent Agent { get; set; }
 
-    public int GetId()
-    {
-        return Id;
-    }
+    private int CurrentStep = 0;
 
-    public int GetCurrentTime()
-    {
-        return Id;
-    }
+    private int State = 0; // [ 0 - Idle | 1 - Executing ]
 
+    public Action CurrentAction { get; private set; }
     #endregion
+
 
     #region === Routine Methods ===
-
-    //gives the next action that should be performed
-    protected RoutineAction ActionUpdate()
+    // Returns the step at which the routine is
+    public int Step(DateTime currentTime)
     {
-        var time = this.TimeM.GetCurrentTime();
-
-        var currentAction = this.RoutineActions[CurrentAction_i];
-
-        if(currentAction.WillEnd(time))
+        switch(this.State)
         {
-            for(var i = CurrentAction_i+1; i < this.RoutineActions.Count; i++)
-            {
-                var action = this.RoutineActions[i];
-
-                if (action.CanStart(time))
+            case 0: // Idle
+                // If an Action can be performed
+                if(this.AdvanceRoutine(currentTime))
                 {
-                    this.CurrentAction_i = i;
-                    currentAction.Executed = true;
-                    return action;
+                    this.State = 1; // Go to Executing
                 }
+                break;
+
+            case 1: // Executing
+                 // If the current action has been finished
+                if (this.CurrentAction.Finished())
+                {
+                    var currentRAction = this.RoutineActions[this.CurrentStep];
+                    currentRAction.Concluded(); // Mark it as concluded in the routine
+
+                    // If no Action can be performed yet
+                    if(!AdvanceRoutine(currentTime))
+                    {
+                        this.State = 0; // Go to Idle
+                    }
+                }
+                break;
+        }
+
+        return this.CurrentStep;
+    }
+
+
+    private bool AdvanceRoutine(DateTime currentTime)
+    {
+        // Foreach of the remaining actions
+        for (var i = this.CurrentStep + 1; i < this.RoutineActions.Count; i++)
+        {
+            var rAction = this.RoutineActions[i]; // Get Routine Action
+
+            // If the action can start
+            if (rAction.CanStart(currentTime, out Action action))
+            {
+                this.CurrentStep = i; // Advance the Routine
+
+                this.CurrentAction = action;
+
+                return true;
             }
         }
-        return null;
+
+        return false;
     }
 
-    //get current action, if no new action to perform, return is null
-    public Action.IDs? GetCurrentAction()
+    // Return True if the Routine has been concluded
+    public bool Finished()
     {
-        switch (this.State) {
-
-            case 0: //To Start
-
-                if(this.TimeM.GetCurrentTime() >= IniTime)
-                {
-                   this.State = 1;
-                }
-                break;
-
-            case 1: //In progress
-
-                if (this.TimeM.GetCurrentTime() >= EndTime)
-                {
-                    this.State = 2;
-                    break;
-                }
-
-                var newAction = ActionUpdate();
-                if (newAction != null) {
-                    return newAction.GetAction();
-                }
-                break;
-
-            case 2: //Finished
-            default:
-                break;
+        if(this.CurrentStep == this.RoutineActions.Count)
+        {
+            return true;
         }
-        return null;
+
+        return false;
+    }
+    #endregion
+
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        var other = obj as Routine;
+
+        return other.Id == this.Id;
     }
 
-    #endregion
+    // override object.GetHashCode
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
 }

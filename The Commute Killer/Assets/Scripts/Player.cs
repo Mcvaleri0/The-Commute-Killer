@@ -65,7 +65,7 @@ public class Player : Agent
             // Drop Item On Hand
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                ExecuteAction(CreateAction(Action.IDs.Drop, this.DeterminedSelection));
+                ExecuteAction(Action.GetAction(Action.IDs.Drop, this, this.DeterminedSelection));
                 return;
             }
 
@@ -111,7 +111,7 @@ public class Player : Agent
         {
             foreach (Action.IDs id in this.OnHand.EnabledActions)
             {
-                var action = CreateAction(id, target);
+                var action = Action.GetAction(id, this, target);
 
                 if(action.CanExecute())
                 {
@@ -124,7 +124,7 @@ public class Player : Agent
         // Check Available Actions
         foreach (Action.IDs id in this.AvailableActions)
         {
-            var action = CreateAction(id, target);
+            var action = Action.GetAction(id, this, target);
                 
             if (action.CanExecute())
             {
@@ -139,7 +139,7 @@ public class Player : Agent
             // If there is a Fall Back Action
             if(this.OnHand.DefaultAction != Action.IDs.None)
             {
-                var action = CreateAction(this.OnHand.DefaultAction);
+                var action = Action.GetAction(this.OnHand.DefaultAction, this);
 
                 if(action.CanExecute())
                 {
@@ -152,6 +152,7 @@ public class Player : Agent
         this.DeterminedAction = null;
         return;
     }
+
 
     public void Teleport(Vector3 targetPos, Vector3 targetAngles)
     {

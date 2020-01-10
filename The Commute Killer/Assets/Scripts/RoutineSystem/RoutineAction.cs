@@ -3,118 +3,100 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoutineAction : MonoBehaviour
+[CreateAssetMenu]
+public class RoutineAction : ScriptableObject
 {
-    public bool Executed = false; 
+    public bool Executed { get; private set; } = false;
 
-    private Action.IDs Action;
-    private Agent      Agent;
+    public Action.IDs ActionId;
 
-    //time window
-    private DateTime IniTime;
-    private DateTime EndTime;
+    public Agent Agent;
 
-    //dependencies to initiate routine action
-    private Vector3             IniTargetPosition;
-    private GameObject          IniTargetObject;
-    private float               IniMinDistance;
-    private List<RoutineAction> IniActionDependencies;
+    public GameObject Target;
 
-    //dependencies to end routine action
-    private Vector3         EndTargetPosition;
-    private GameObject      EndTargetObject;
-    private float           EndMinDistance;
+    // Time window
+    public DateTime StartTime;
+    public DateTime EndTime;
 
+    // Dependencies
+    public Vector3 ExecutePosition;
 
-    public RoutineAction(Action.IDs action, DateTime iniTime, DateTime endTime)
+    public float Distance;
+
+    public List<RoutineAction> PrecedingActions;
+
+    // Check if action can be initiated
+    public bool CanStart(DateTime currentTime, out Action action)
     {
-        this.Action  = action;
-        this.IniTime = iniTime;
-        this.EndTime = endTime;
-    }
+        action = null;
 
-
-    public Action.IDs GetAction()
-    {
-        return this.Action;
-    }
-
-    public void SetAgent(Agent agent)
-    {
-        this.Agent = agent;
-    }
-
-    //check if routine action can start
-    public bool CanStart(DateTime currentTime)
-    {
-        //check that it hasn't already been executed
+        // Check that it hasn't already been executed
         if (this.Executed)
         {
             return false;
         }
-        //check time
-        if (currentTime < this.IniTime)
+
+        // Check time window
+        if (currentTime < this.StartTime || this.EndTime < currentTime)
         {
             return false;
         }
-        //check distance to target position
-        if (this.IniTargetPosition != null)
+
+        // If there's a position to execute the action at
+        if (this.ExecutePosition != null)
         {
             var agentPos = this.Agent.GetPosition();
-            if (Vector3.Distance(agentPos, this.IniTargetPosition) > this.IniMinDistance)
+
+            // Check distance to target position
+            if (Vector3.Distance(agentPos, this.ExecutePosition) > this.Distance)
             {
                 return false;
             }
         }
-        //check distance to target object
-        if (this.IniTargetPosition != null)
+
+        // If there is a Target
+        if (this.Target != null)
         {
-            var agentPos = this.Agent.GetPosition();
-            if (Vector3.Distance(agentPos, IniTargetObject.transform.position) > this.IniMinDistance)
+            var targeted = this.Agent.GetInFront();
+
+            // Check if Target is in front
+            if (targeted == this.Target)
             {
                 return false;
             }
         }
-        //check if actions in dependency list were completed
-        foreach (RoutineAction act in IniActionDependencies)
+
+        // Check if actions in dependency list were completed
+        foreach (RoutineAction act in this.PrecedingActions)
         {
             if(act.Executed != true)
             {
                 return false;
             }
-        } 
+        }
+
+        // Generate the Action
+        var genAction = GenerateAction();
+
+        // Check that the Action can be executed
+        if (!action.CanExecute())
+        {
+            return false;
+        }
+
+        action = genAction;
 
         return true;
     }
 
-
-    public bool WillEnd(DateTime currentTime)
+    // Set the Routine Action as having concluded
+    public void Concluded()
     {
-        //check time
-        if (currentTime > EndTime)
-        {
-            return true;
-        }
-        //check distance to target position
-        if (EndTargetPosition != null)
-        {
-            var agentPos = this.Agent.GetPosition();
-            if (Vector3.Distance(agentPos, EndTargetPosition) <= this.EndMinDistance)
-            {
-                return true;
-            }
-        }
-        //check distance to target object
-        if (EndTargetObject != null)
-        {
-            var agentPos = this.Agent.GetPosition();
-            if (Vector3.Distance(agentPos, EndTargetObject.transform.position) <= this.EndMinDistance)
-            {
-                return true;
-            }
-        }
-
-        return true;
+        this.Executed = true;
     }
 
+    public Action GenerateAction()
+    {
+        return Action.GetAction(ActionId, this.Agent, this.Target);
+    }
 }
