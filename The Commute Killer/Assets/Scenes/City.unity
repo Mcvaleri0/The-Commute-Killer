@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.62229264, g: 0.6954661, b: 0.96458566, a: 1}
+  m_IndirectSpecularColor: {r: 0.6113356, g: 0.6831699, b: 0.9501277, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -717,7 +717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af4cde13b72c5a14c8d75119b4a81250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeMultiplier: 2000
+  TimeMultiplier: 60
   StoryYear: 1989
   StoryMonth: 9
   StoryDay: 6

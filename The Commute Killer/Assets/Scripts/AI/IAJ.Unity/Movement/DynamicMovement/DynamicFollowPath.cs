@@ -51,15 +51,28 @@ public class DynamicFollowPath : DynamicArrive
     }
 
 
-    public new bool Possible()
+    public override bool Possible()
     {
         GlobalPath global = (GlobalPath)this.Path;
 
-        int index = Mathf.FloorToInt(this.CurrentParam);
-        NavNode CurrentNode = global.PathNodes[index];
-
-        index = Mathf.FloorToInt(this.TargetParam);
+        int index = Mathf.FloorToInt(this.TargetParam);
+        // FIXME: right now it is always possible reach the goal position from 
+        //        the last node but that could not be the case thanks to path 
+        //        smothing because the last node and the goal position could not
+        //        be part of the same cluster.
+        //        Without the smoth this is not a problem because, in that case,
+        //        the last node and the goal position are always in the same cluster
+        if (index == global.PathNodes.Count)
+        {
+            return true;
+        }
         NavNode TargetNode = global.PathNodes[index];
+
+        if (this.CurrentParam != -1)
+        {
+            index = Mathf.FloorToInt(this.CurrentParam);
+        }
+        NavNode CurrentNode = global.PathNodes[index];
 
         return !this.PathManager.PathBlocked(CurrentNode, TargetNode);
     }

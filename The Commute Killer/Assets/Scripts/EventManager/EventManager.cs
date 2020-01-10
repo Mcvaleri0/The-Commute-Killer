@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
-    private MapController Map;
+    private NavigationManager NavManager;
 
     private DetectionSystem Detection;
 
@@ -19,7 +19,7 @@ public class EventManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //this.Map = GameObject.Find("Map").GetComponent<MapController>();
+        this.NavManager = GameObject.Find("NavigationManager").GetComponent<NavigationManager>();
 
         this.Detection = GameObject.Find("DetectionSystem").GetComponent<DetectionSystem>();
 
@@ -65,35 +65,35 @@ public class EventManager : MonoBehaviour
                 return true;
 
             case Event.Hydrant_ON:
-                //this.Map.BlockArc(35, 46, true);
+                //this.NavManager.CloseGateway(16);
                 return true;
 
             case Event.Hydrant_OFF:
-                //this.Map.BlockArc(35, 46, false);
+                //this.NavManager.OpenGateway(16);
                 return true;
 
             case Event.Hydrant_1_ON:
-                //this.Map.BlockArc(1, 38, true);
+                //this.NavManager.CloseGateway(11);
                 return true;
 
             case Event.Hydrant_1_OFF:
-                //this.Map.BlockArc(1, 38, false);
+                //this.NavManager.OpenGateway(11);
                 return true;
 
             case Event.InteractibleGardenGate_1_Close:
-                //this.Map.BlockArc(32, 33, true);
+                //this.NavManager.CloseGateway(4);
                 return true;
 
             case Event.InteractibleGardenGate_1_Open:
-                //this.Map.BlockArc(32, 33, false);
+                //this.NavManager.OpenGateway(4);
                 return true;
 
             case Event.InteractibleGardenGate_Close:
-                //this.Map.BlockArc(34, 35, true);
+                //this.NavManager.CloseGateway(5);
                 return true;
             
             case Event.InteractibleGardenGate_Open:
-                //this.Map.BlockArc(34, 35, false);
+                //this.NavManager.OpenGateway(5);
                 return true;
 
             case Event.Killed:

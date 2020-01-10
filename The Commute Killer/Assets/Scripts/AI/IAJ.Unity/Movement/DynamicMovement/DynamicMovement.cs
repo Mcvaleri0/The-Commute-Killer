@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
 {
@@ -16,9 +17,9 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
         }
         public abstract MovementOutput GetMovement();
 
-        public bool Possible()
+        public virtual bool Possible()
         {
-            return true;
+            throw new NotImplementedException();
         }
 
     }
