@@ -10,11 +10,14 @@ public class DynamicFollowPath : DynamicArrive
     public Path Path { get; set; }
     public float PathOffset { get; set; }
     public float CurrentParam { get; set; }
+    private float TargetParam { get; set; }
+    public NavigationManager PathManager { get; set; }
 
 
     public DynamicFollowPath()
     {
-        CurrentParam = 0;
+        this.CurrentParam = -1;
+        this.TargetParam  = 0;
         Target = new KinematicData();
     }
 
@@ -37,14 +40,40 @@ public class DynamicFollowPath : DynamicArrive
         while (Target.position == Vector3.zero ||
               (Target.position - Character.position).sqrMagnitude < (this.SlowRadius*this.SlowRadius)/2)
         {
-
-            float targetParam = CurrentParam + PathOffset;
-
-            Target.position = Path.GetPosition(targetParam);
-
             this.CurrentParam++;
+
+            this.TargetParam = CurrentParam + PathOffset;
+
+            Target.position = Path.GetPosition(this.TargetParam);
         }
 
         return base.GetMovement();
+    }
+
+
+    public override bool Possible()
+    {
+        GlobalPath global = (GlobalPath)this.Path;
+
+        int index = Mathf.FloorToInt(this.TargetParam);
+        // FIXME: right now it is always possible reach the goal position from 
+        //        the last node but that could not be the case thanks to path 
+        //        smothing because the last node and the goal position could not
+        //        be part of the same cluster.
+        //        Without the smoth this is not a problem because, in that case,
+        //        the last node and the goal position are always in the same cluster
+        if (index == global.PathNodes.Count)
+        {
+            return true;
+        }
+        NavNode TargetNode = global.PathNodes[index];
+
+        if (this.CurrentParam != -1)
+        {
+            index = Mathf.FloorToInt(this.CurrentParam);
+        }
+        NavNode CurrentNode = global.PathNodes[index];
+
+        return !this.PathManager.PathBlocked(CurrentNode, TargetNode);
     }
 }

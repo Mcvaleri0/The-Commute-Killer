@@ -77,8 +77,6 @@ public class AutonomousAgent : Agent
         RoutineStateMachine();
 
         MovementStateMachine();
-
-        this.DCharacter.Update();
     }
     #endregion
 
@@ -109,7 +107,8 @@ public class AutonomousAgent : Agent
                         Path = this.Path,
                         MaxSpeed = this.Attributes[Attribute.Speed],
                         MaxAcceleration = this.Attributes[Attribute.Accelaration],
-                        PathOffset = 1f
+                        PathOffset = 1f,
+                        PathManager = this.Pathfinding.NavManager
                     };
 
                     this.MovementState = 2;
@@ -161,7 +160,15 @@ public class AutonomousAgent : Agent
 
     private bool MoveToTarget()
     {
-        this.DCharacter.Update();
+        if (this.DCharacter.MovementPossible())
+        {
+            this.DCharacter.Update();
+        }
+        else
+        {
+            this.InitializeMovement();
+            this.MovementState = 1;
+        }
 
         return true;
     }

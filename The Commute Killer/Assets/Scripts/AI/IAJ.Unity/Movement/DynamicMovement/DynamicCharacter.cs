@@ -13,6 +13,7 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
 
         public CharacterController Controller;
 
+
         public DynamicMovement Movement
         {
             get { return this.movement; }
@@ -59,6 +60,12 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
 
             // move controller -> has to take in consideration the delta time
             this.Controller.Move(motion);
+        }
+    
+    
+        public bool MovementPossible()
+        {
+            return this.Movement.Possible();
         }
     }
 }

@@ -10,7 +10,7 @@ public class PathfindingManager : MonoBehaviour {
 
 	private Vector3 EndPosition;
 
-    private NavigationManager NavManager;
+    public NavigationManager NavManager { get; private set; }
     #endregion
 
 

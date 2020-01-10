@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
 {
@@ -15,6 +16,11 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
             this.MovementDebugColor = Color.black;
         }
         public abstract MovementOutput GetMovement();
+
+        public virtual bool Possible()
+        {
+            throw new NotImplementedException();
+        }
 
     }
 }
