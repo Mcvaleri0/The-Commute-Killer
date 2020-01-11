@@ -3,6 +3,45 @@ guid: 8709cfedc3aaf4a4c841a7788b2d094e
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
+    100000: Car1
+    100002: Car2
+    100004: Car3
+    100006: Car4
+    100008: Car5
+    100010: Car6
+    100012: Car7
+    100014: //RootNode
+    400000: Car1
+    400002: Car2
+    400004: Car3
+    400006: Car4
+    400008: Car5
+    400010: Car6
+    400012: Car7
+    400014: //RootNode
+    2100000: Material
+    2300000: Car1
+    2300002: Car2
+    2300004: Car3
+    2300006: Car4
+    2300008: Car5
+    2300010: Car6
+    2300012: Car7
+    3300000: Car1
+    3300002: Car2
+    3300004: Car3
+    3300006: Car4
+    3300008: Car5
+    3300010: Car6
+    3300012: Car7
+    4300000: Car1
+    4300002: Car2
+    4300004: Car3
+    4300006: Car4
+    4300008: Car5
+    4300010: Car6
+    4300012: Car7
+    9500000: //RootNode
     2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
@@ -57,7 +96,7 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
     previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
