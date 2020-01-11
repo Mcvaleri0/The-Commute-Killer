@@ -20,10 +20,6 @@ public class Item : Interactable
 
     #region /* Scene */
     private GameObject OriginalParent { get; set; }
-
-    public Vector3 PosRelative { get; set; }
-
-    public Quaternion NewRotation { get; set; }
     #endregion
 
     #region /* Item Attributes */
@@ -38,17 +34,18 @@ public class Item : Interactable
     public Action.IDs DefaultAction { get; protected set; } = Action.IDs.None;
     #endregion
 
+    #region Effects
     public AudioSource AudioSource;
     public Dictionary<Action.IDs, AudioClip> ActionSounds;
+
+    public ParticleSystem ParticleSystem;
+    #endregion
 
     public int AnimationState = 0; // [ 0 - To Start | 1 - On Going | 2 - Finished ]
 
     new public void Start()
     {
         base.Start();
-
-        this.PosRelative = new Vector3(0.9f, -0.4f, 0.5f);
-        this.NewRotation = Quaternion.Euler(-90, 90, 90);
 
         if(this.transform.parent != null) this.OriginalParent = this.transform.parent.gameObject;
 
@@ -57,13 +54,14 @@ public class Item : Interactable
         this.AudioSource = gameObject.AddComponent<AudioSource>();
         this.AudioSource.playOnAwake = false;
         this.ActionSounds = new Dictionary<Action.IDs, AudioClip>();
+
+        this.ParticleSystem = SelectableParticles.GetComponent<ParticleSystem>();
     }
 
     public void Update()
     {
+        var emiss = this.ParticleSystem.emission;
 
-        var ps = SelectableParticles.GetComponent<ParticleSystem>();
-        var emiss = ps.emission;
         if (Owner != null)
         {
             emiss.enabled = false;
@@ -71,9 +69,11 @@ public class Item : Interactable
         else {
             emiss.enabled = true;
         }
+
+        if(this.Owner != null) this.transform.localPosition = Vector3.zero;
     }
 
-    //Add a way to tell it to animate and detect when it is done
+    //FIXME - Add a way to tell it to animate and detect when it is done
     public virtual void Animate() { }
 
     #region === Interactable Methods ===
@@ -123,7 +123,7 @@ public class Item : Interactable
         }
         
         this.Owner = interactor.gameObject;
-        this.transform.parent = interactor.transform;
+        this.transform.parent = interactor.HandPivot.transform;
 
         return true;
     }
@@ -157,8 +157,11 @@ public class Item : Interactable
             this.GetComponent<Renderer>().enabled = true;
         }
         
-        this.transform.localPosition = this.PosRelative;
-        this.transform.localRotation = this.NewRotation;
+        this.transform.localPosition = Vector3.zero;
+
+        var rotation = new Quaternion();
+
+        this.transform.localRotation = rotation;
     }
 
     public void Unequip()

@@ -38,6 +38,7 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
         // Update is called once per frame
         public void Update()
         {
+
             Vector3 motion = Vector3.zero;
 
             if (this.Movement != null)

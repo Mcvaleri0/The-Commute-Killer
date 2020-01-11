@@ -301,7 +301,7 @@ public class PathfindingManager : MonoBehaviour {
     #region Debugging
     public void OnDrawGizmos()
     {
-        if (true)
+        if (false)
         {
             if(this.PathFinding != null)
             {

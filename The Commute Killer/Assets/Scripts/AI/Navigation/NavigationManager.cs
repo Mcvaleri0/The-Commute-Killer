@@ -42,34 +42,6 @@ public class NavigationManager : MonoBehaviour
 
     }
 
-
-    private void OnDrawGizmos()
-    {
-        if(this.Graph != null)
-        {
-            foreach(NavNode n in this.Graph.Nodes)
-            {
-                Gizmos.DrawSphere(n.Position, 0.1f);
-
-                foreach(NavNode a in n.Adjacents)
-                {
-                    if(a.Id > n.Id)
-                    {
-                        Gizmos.color = Color.white;
-
-                        //if(a.Adjacents.Contains(n))
-                        //{
-                        //    Gizmos.color = Color.black;
-                        //}
-
-                        Gizmos.DrawLine(n.Position, a.Position);
-                    }
-                }
-            }
-        }
-    }
-
-
     public bool PathBlocked(NavNode startNode, NavNode endNode)
     {
         if (startNode.Cluster == endNode.Cluster)
@@ -165,6 +137,33 @@ public class NavigationManager : MonoBehaviour
             for(var j = 0; j < or_row.entries.Length; i++)
             {
                 or_row.entries[j].ShortestDistance = cl_row.entries[j].ShortestDistance;
+            }
+        }
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        if (this.Graph != null)
+        {
+            foreach (NavNode n in this.Graph.Nodes)
+            {
+                Gizmos.DrawSphere(n.Position, 0.1f);
+
+                foreach (NavNode a in n.Adjacents)
+                {
+                    if (a.Id > n.Id)
+                    {
+                        Gizmos.color = Color.white;
+
+                        //if(a.Adjacents.Contains(n))
+                        //{
+                        //    Gizmos.color = Color.black;
+                        //}
+
+                        Gizmos.DrawLine(n.Position, a.Position);
+                    }
+                }
             }
         }
     }

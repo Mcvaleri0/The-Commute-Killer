@@ -7,6 +7,80 @@ using System.Collections.Generic;
 
 public class NavigationMenu : ScriptableObject
 {
+    struct Triangle
+    {
+        public NavNode[] Nodes;
+
+        public Triangle[] Subdivided;
+
+        public Triangle(NavNode node0, NavNode node1, NavNode node2)
+        {
+            this.Nodes = new NavNode[3];
+
+            this.Nodes[0] = node0;
+            this.Nodes[1] = node1;
+            this.Nodes[2] = node2;
+
+            this.Subdivided = new Triangle[4];
+        }
+
+        public Triangle(NavNode[] nodes)
+        {
+            this.Nodes = nodes;
+
+            this.Subdivided = new Triangle[4];
+        }
+
+        public int Subdivide(NavGraph graph, int nodecounter)
+        {
+            var newNodes = new NavNode[3];
+
+            for(var i = 0; i < 3; i++)
+            {
+                var ind = (i + 1) % 3;
+
+                var pos = Vector3.Lerp(this.Nodes[i].Position, this.Nodes[ind].Position, 0.5f);
+
+                newNodes[i] = graph.QuantizeToNode(pos, 0.3f);
+
+                if(newNodes[i] == null)
+                {
+                    newNodes[i] = InstantiateNode(nodecounter, pos);
+                    graph.AddNode(newNodes[i]);
+                    nodecounter++;
+                }
+            }
+
+            this.Subdivided[0] = new Triangle(this.Nodes[0], newNodes[0], newNodes[2]);
+            this.Subdivided[0].ConnectVertices();
+
+            this.Subdivided[1] = new Triangle(this.Nodes[1], newNodes[1], newNodes[0]);
+            this.Subdivided[1].ConnectVertices();
+
+            this.Subdivided[2] = new Triangle(this.Nodes[2], newNodes[2], newNodes[1]);
+            this.Subdivided[2].ConnectVertices();
+
+            this.Subdivided[3] = new Triangle(  newNodes[0], newNodes[1], newNodes[2]);
+            this.Subdivided[3].ConnectVertices();
+
+            return nodecounter;
+        }
+
+        public void ConnectVertices()
+        {
+            for (var k = 0; k < 3; k++)
+            {
+                var node = this.Nodes[k];
+
+                var o1 = this.Nodes[(k + 1) % 3];
+                var o2 = this.Nodes[(k + 2) % 3];
+
+                node.AddAdjacent(o1);
+                node.AddAdjacent(o2);
+            }
+        }
+    }
+
     [MenuItem("Tools/AI/Navigation/Generate Graph")]
     private static void GenerateGraph()
     {
@@ -28,7 +102,7 @@ public class NavigationMenu : ScriptableObject
             Vector3 pos = positions[i];
 
             var node = graph.QuantizeToNode(pos, 0.3f);
-
+            
             if(node == null)
             {
                 node = InstantiateNode(nodeCounter, pos);
@@ -41,7 +115,7 @@ public class NavigationMenu : ScriptableObject
             indToNode.Add(i, node);
         }
 
-        var triangle = new NavNode[3]; // Temporary array to hold each triangle's NavNodes
+        var triangleVertices = new NavNode[3]; // Temporary array to hold each triangle's NavNodes
 
         // Foreach Triangle in the NavMesh
         for (var i = 0; i < indexes.Length; i += 3)
@@ -53,10 +127,12 @@ public class NavigationMenu : ScriptableObject
 
                 var node = indToNode[indexes[j]];  // Get NavNode
 
-                triangle[tInd] = node;
+                triangleVertices[tInd] = node;
             }
 
-            MakeTriangleEdges(triangle); // Add Edges between the NavNodes
+            var triangle = new Triangle(triangleVertices);
+            triangle.ConnectVertices();
+            //nodeCounter = triangle.Subdivide(graph, nodeCounter); // Subdivide Triangle and update Node Count
         }
 
         int scene = SceneManager.GetActiveScene().buildIndex;
@@ -73,27 +149,11 @@ public class NavigationMenu : ScriptableObject
         return node;
     }
 
-    private static void MakeTriangleEdges(NavNode[] nodes)
-    {
-        for (var k = 0; k < 3; k++)
-        {
-            var node = nodes[k];
-
-            var o1 = nodes[(k + 1) % 3];
-            var o2 = nodes[(k + 2) % 3];
-
-            node.AddAdjacent(o1);
-            node.AddAdjacent(o2);
-        }
-    }
-
     [MenuItem("Tools/AI/Navigation/Generate Cluster Graph")]
     private static void GenerateClusterGraph()
     {
         NavCluster cluster;
         NavGateway gateway;
-
-        //FIXME - You should attribute the clusters to the nodes here
 
         // Get NavZone gameobjects
         var zones = GameObject.FindGameObjectsWithTag("Zone");
@@ -139,13 +199,27 @@ public class NavigationMenu : ScriptableObject
 
         foreach (var node in navGraph.Nodes)
         {
+            var assigned = false;
+
             foreach (var c in clusterGraph.Clusters)
             {
                 if (MathHelper.PointInsideBoundingBox(node.Position, c.Min, c.Max))
                 {
                     node.Cluster = c;
+
+                    assigned = true;
+
                     break;
                 }
+            }
+
+            if(assigned)
+            {
+                continue;
+            }
+            else
+            {
+                Debug.Log("No Cluster found for this Node: " + node.Id);
             }
         }
 
