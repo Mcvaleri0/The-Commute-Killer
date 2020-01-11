@@ -82,6 +82,12 @@ public class AutonomousAgent : Agent
 
 
     #region === Movement Methods ===
+    public float GetVelocity()
+    {
+        return this.DCharacter.KinematicData.velocity.magnitude;
+    }
+
+
     private void MovementStateMachine()
     {
         switch (this.MovementState)

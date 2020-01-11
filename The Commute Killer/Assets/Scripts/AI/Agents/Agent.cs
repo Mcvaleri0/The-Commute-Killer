@@ -356,7 +356,7 @@ public class Agent : MonoBehaviour
     public void Die()
     {
        
-        this.GetComponent<Animator>().SetBool("isDying", true);
+        this.GetComponent<AnimationController>().SetState(AnimationController.States.Dead);
 
         gameObject.AddComponent<Cadaver>();
 

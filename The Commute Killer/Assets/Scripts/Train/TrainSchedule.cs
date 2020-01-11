@@ -35,7 +35,7 @@ public class TrainSchedule : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        Debug.Log("updating");
+        //Debug.Log("updating");
         DateTime[] aux;
         DateTime currentTime = this.manager.GetCurrentTime();
 
@@ -52,9 +52,9 @@ public class TrainSchedule : MonoBehaviour
         {
             if(currentTime.Hour == aux[i].Hour && currentTime.Minute == aux[i].Minute)
             {
-                Debug.Log("IT TIMEEE");
+                //Debug.Log("IT TIMEEE");
                 this.inStation = !this.inStation;
-                Debug.Log(this.inStation);
+                //Debug.Log(this.inStation);
                 if (this.inStation)
                 {
                     this.obj.SetActive(true);

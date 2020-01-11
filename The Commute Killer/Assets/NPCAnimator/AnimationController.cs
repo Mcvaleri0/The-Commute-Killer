@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class AnimationController : MonoBehaviour
 {
-    public Player player;
-    protected Animator anim;
-    protected CharacterController character;
+    public Player Player;
+    protected Animator Anim;
+    protected CharacterController Character;
+
+    protected AutonomousAgent AutoAgent;
 
     //the number value is used in the animator
     public enum States
@@ -21,16 +23,24 @@ public class AnimationController : MonoBehaviour
 
     void Start()
     {
-        anim = gameObject.GetComponent<Animator>();
-        character = gameObject.GetComponent<CharacterController>();
+        Anim = gameObject.GetComponent<Animator>();
+        AutoAgent = gameObject.GetComponent<AutonomousAgent>();
+        Character = gameObject.GetComponent<CharacterController>();
+        
     }
 
     void Update()
     {
         //pass params to animator
-        Vector3 velocity = character.velocity;
+        /*
+        Vector3 velocity = Character.velocity;
         float speed = velocity.magnitude;
-        anim.SetFloat("Speed", speed);
+        */
+
+        float speed = AutoAgent.GetVelocity();
+
+        //Debug.Log(speed);
+        Anim.SetFloat("Speed", speed);
   
     }
 
@@ -38,7 +48,7 @@ public class AnimationController : MonoBehaviour
     public void SetState(States state)
     {
         this.State = (int) state;
-        anim.SetInteger("State", State);
+        Anim.SetInteger("State", State);
     }
 
 }
