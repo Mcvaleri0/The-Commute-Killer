@@ -26,20 +26,28 @@ public class CarManager : MonoBehaviour
     /// </summary>
     private Transform Cars { get; set; }
 
+    public float MaxSpeed;
+
     #endregion
 
     #region /* Positions */
     // This region is considering that the alley is on the right side of the road
+
+    private bool RightLane { get; set; }
 
     /// <summary>
     /// Position where the car is instanciated when it belongs to the right lane
     /// </summary>
     public Vector3 InitialRightPosition;
 
+    public Vector3 GoalRightPosition;
+
     /// <summary>
     /// Position where the car is instanciated when it belongs to the left lane
     /// </summary>
     public Vector3 InitialLeftPosition;
+    
+    public Vector3 GoalLeftPosition;
 
     #endregion
 
@@ -76,9 +84,21 @@ public class CarManager : MonoBehaviour
         int CarTypeIndex = this.ChooseCarType();
         GameObject CarType = this.Prefabs[CarTypeIndex];
 
-        Vector3 Position = this.CorrectPosition(CarTypeIndex, this.InitialRightPosition);
+        Vector3    Position;
+        Quaternion Rotation;
 
-        Quaternion Rotation = Quaternion.Euler(-90, 0, 0);
+        this.RightLane = this.ChooseLane();
+        if (this.RightLane)
+        {
+            Position = this.InitialRightPosition;
+            Rotation = Quaternion.Euler(-90, 0, 0);
+        }
+        else
+        {
+            Position = this.InitialLeftPosition;
+            Rotation = Quaternion.Euler(-90, 0, 180);
+        }
+        Position = this.CorrectPosition(CarTypeIndex, Position);
 
         GameObject Car = Instantiate(CarType, Position, Rotation, this.Cars);
         this.InitializeCar(Car);
@@ -94,8 +114,16 @@ public class CarManager : MonoBehaviour
         Rigidbody body   = Car.AddComponent<Rigidbody>();
         body.isKinematic = true;
 
-        var Controller  = Car.AddComponent<CarController>();
-        Controller.Initialize(this.InitialLeftPosition);
+        var Controller = Car.AddComponent<CarController>();
+
+        if (this.RightLane)
+        {
+            Controller.Initialize(this.MaxSpeed, this.GoalRightPosition);
+        }
+        else
+        {
+            Controller.Initialize(this.MaxSpeed, this.GoalLeftPosition);
+        }
     }
 
     #endregion
@@ -104,9 +132,12 @@ public class CarManager : MonoBehaviour
 
     private int ChooseCarType()
     {
-        //int CarTypeIndex = Mathf.FloorToInt(Random.Range(0, this.Prefabs.Count-1));
+        return Random.Range(0, this.Prefabs.Count);
+    }
 
-        return 0;
+    private bool ChooseLane()
+    {
+        return Random.Range(0f, 1f) >= 0.5;
     }
 
     private Vector3 CorrectPosition(int CarType, Vector3 DesiredPosition)

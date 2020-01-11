@@ -12,7 +12,12 @@ public class CarController : MonoBehaviour
 
     private float MaxSpeed { get; set; }
 
-    private Vector3 Goal;
+    /// <summary>
+    /// This goal is a local position inside the Cars object
+    /// </summary>
+    private Vector3 Goal { get; set; }
+
+    private Vector3 Direction { get; set; }
 
     #endregion
 
@@ -28,10 +33,12 @@ public class CarController : MonoBehaviour
 
     #region === Movement Methods ===
 
-    public void Initialize(Vector3 GoalPosition)
+    public void Initialize(float Speed, Vector3 GoalPosition)
     {
-        this.MaxSpeed = 1f;
+        this.MaxSpeed = Speed;
         this.Goal = GoalPosition;
+
+        this.Direction = Vector3.left;
     }
 
     private void UpdateMovement()
@@ -48,7 +55,7 @@ public class CarController : MonoBehaviour
 
     private void Move()
     {
-        this.transform.Translate(Vector3.left * this.MaxSpeed * Time.deltaTime);
+        this.transform.Translate(this.Direction * this.MaxSpeed * Time.deltaTime);
     }
 
     private bool ReachGoal()
