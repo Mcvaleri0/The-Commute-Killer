@@ -33,6 +33,7 @@ public class NavCluster : ScriptableObject
         this.Max = new Vector3(this.Center.x + halfLength, this.Center.y + halfHeight, this.Center.z + halfWidth);
     }
 
+
     public void Initialize(NavZone zone)
     {
         this.Gateways = new List<NavGateway>();

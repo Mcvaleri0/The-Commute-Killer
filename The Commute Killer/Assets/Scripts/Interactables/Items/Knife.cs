@@ -8,6 +8,7 @@ public class Knife : Item
 
     public int CurrentAttackFrames { get; set; }
 
+
     new public void Start()
     {
         base.Start();
@@ -28,6 +29,7 @@ public class Knife : Item
         this.ActionSounds.Add(Action.IDs.Drop,   (AudioClip)Resources.Load("Audio/knife_off"));
         this.ActionSounds.Add(Action.IDs.Stab,   (AudioClip)Resources.Load("Audio/knife_stab1"));
     }
+
 
     new public void Update()
     {
@@ -54,6 +56,7 @@ public class Knife : Item
             }
         }
     }
+
 
     override public void Animate()
     {

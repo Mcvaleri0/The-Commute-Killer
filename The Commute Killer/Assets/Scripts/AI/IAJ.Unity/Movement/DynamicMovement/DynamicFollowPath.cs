@@ -53,7 +53,7 @@ public class DynamicFollowPath : DynamicArrive
 
     public override bool Possible()
     {
-        GlobalPath global = (GlobalPath)this.Path;
+        GlobalPath global = (GlobalPath) this.Path;
 
         int index = Mathf.FloorToInt(this.TargetParam);
         // FIXME: right now it is always possible reach the goal position from 
@@ -66,12 +66,14 @@ public class DynamicFollowPath : DynamicArrive
         {
             return true;
         }
+
         NavNode TargetNode = global.PathNodes[index];
 
         if (this.CurrentParam != -1)
         {
             index = Mathf.FloorToInt(this.CurrentParam);
         }
+
         NavNode CurrentNode = global.PathNodes[index];
 
         return !this.PathManager.PathBlocked(CurrentNode, TargetNode);

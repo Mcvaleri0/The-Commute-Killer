@@ -51,7 +51,7 @@ public class NavigationManager : MonoBehaviour
 
         var gate = FindConnectingGateway(startNode, endNode);
 
-        return this.GatewayOpen[gate.Id];
+        return !this.GatewayOpen[gate.Id];
     }
 
 
@@ -144,6 +144,7 @@ public class NavigationManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        /*
         if (this.Graph != null)
         {
             foreach (NavNode n in this.Graph.Nodes)
@@ -164,6 +165,31 @@ public class NavigationManager : MonoBehaviour
                         Gizmos.DrawLine(n.Position, a.Position);
                     }
                 }
+            }
+        }
+        */
+
+        if(this.ClusterGraph != null)
+        {
+            foreach(var cluster in this.ClusterGraph.Clusters)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawSphere(cluster.Center, 0.3f);
+
+                Gizmos.color = Color.blue;
+                foreach(var gate in cluster.Gateways)
+                {
+                    Gizmos.DrawLine(cluster.Center, gate.Center);
+                }
+            }
+
+            Gizmos.color = Color.green;
+
+            foreach(var gateway in this.ClusterGraph.Gateways)
+            {
+                if (this.GatewayOpen != null && !this.GatewayOpen[gateway.Id]) Gizmos.color = Color.yellow;
+
+                Gizmos.DrawSphere(gateway.Center, 0.1f);
             }
         }
     }

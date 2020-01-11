@@ -200,6 +200,8 @@ public class AutonomousAgent : Agent
     #region === Routine Methods ===
     private void RoutineStateMachine()
     {
+        if (this.RoutineM == null) return;
+
         switch(this.RoutineState)
         {
             case 0: // Idle
@@ -235,7 +237,7 @@ public class AutonomousAgent : Agent
 
         if(this.Path != null)
         {
-            Gizmos.color = Color.blue;
+            Gizmos.color = Color.magenta;
 
             Vector3 prev = Vector3.zero;
 
