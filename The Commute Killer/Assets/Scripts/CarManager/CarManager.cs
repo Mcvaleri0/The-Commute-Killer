@@ -51,6 +51,16 @@ public class CarManager : MonoBehaviour
 
     #endregion
 
+    #region /* Time Intervals */
+
+    private TimeManager TimeManager { get; set; }
+
+    private DateTime TimeNextCar { get; set; }
+
+    public double TimeInterval;
+
+    #endregion
+
 
     #region === Unity Events ===
 
@@ -65,11 +75,14 @@ public class CarManager : MonoBehaviour
         }
 
         this.Cars = this.transform.Find("Cars");
+        this.TimeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
+
+        this.UpdateTimeNextCar(this.TimeManager.GetCurrentTime());
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (this.TimeToInstanciateCar())
         {
             this.NewCar();
         }
@@ -128,6 +141,30 @@ public class CarManager : MonoBehaviour
 
     #endregion
 
+    #region === Time Control Methods ===
+
+    private bool TimeToInstanciateCar()
+    {
+        DateTime CurrentTime = this.TimeManager.GetCurrentTime();
+
+        if (CurrentTime >= this.TimeNextCar)
+        {
+            this.UpdateTimeNextCar(CurrentTime);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void UpdateTimeNextCar(DateTime CurrentTime)
+    {
+        this.TimeNextCar = CurrentTime.AddMinutes(this.TimeInterval);
+    }
+
+    #endregion
+
     #region === Auxiliary Functions ===
 
     private int ChooseCarType()
@@ -137,7 +174,7 @@ public class CarManager : MonoBehaviour
 
     private bool ChooseLane()
     {
-        return Random.Range(0f, 1f) >= 0.5;
+        return Random.Range(0f, 1f) > 0.5;
     }
 
     private Vector3 CorrectPosition(int CarType, Vector3 DesiredPosition)
