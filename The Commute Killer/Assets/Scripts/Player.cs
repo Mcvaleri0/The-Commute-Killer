@@ -88,6 +88,7 @@ public class Player : Agent
         }
     }
 
+
     protected void DetermineSelection()
     {
         GameObject selection = null;
@@ -101,6 +102,7 @@ public class Player : Agent
 
         this.DeterminedSelection = selection; 
     }
+
 
     protected void DetermineAction()
     {
