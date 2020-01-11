@@ -9,6 +9,8 @@ TagManager:
   - Path_Point
   - Zone
   - Gateway
+  - Car
+  - NPC
   layers:
   - Default
   - TransparentFX

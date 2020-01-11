@@ -27,6 +27,10 @@ public class CarManager : MonoBehaviour
     private Transform Cars { get; set; }
 
     public float MaxSpeed;
+    public float LookAHeadDistance;
+
+    public float VisionAngleRightCar;
+    public float VisionAngleLeftCar;
 
     #endregion
 
@@ -119,6 +123,8 @@ public class CarManager : MonoBehaviour
 
     private void InitializeCar(GameObject Car)
     {
+        Car.tag = "Car";
+
         Vector3 Scale = new Vector3(60, 60, 60);
         Car.transform.localScale = Scale;
 
@@ -131,11 +137,11 @@ public class CarManager : MonoBehaviour
 
         if (this.RightLane)
         {
-            Controller.Initialize(this.MaxSpeed, this.GoalRightPosition);
+            Controller.Initialize(this.MaxSpeed, this.GoalRightPosition, this.LookAHeadDistance, this.VisionAngleRightCar, this.RightLane);
         }
         else
         {
-            Controller.Initialize(this.MaxSpeed, this.GoalLeftPosition);
+            Controller.Initialize(this.MaxSpeed, this.GoalLeftPosition, this.LookAHeadDistance, this.VisionAngleLeftCar, this.RightLane);
         }
     }
 
