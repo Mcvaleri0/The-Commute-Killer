@@ -95,7 +95,7 @@ public class CarManager : MonoBehaviour
         body.isKinematic = true;
 
         var Controller  = Car.AddComponent<CarController>();
-        Controller.Initialize(body, this.InitialLeftPosition);
+        Controller.Initialize(this.InitialLeftPosition);
     }
 
     #endregion

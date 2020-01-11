@@ -10,14 +10,6 @@ public class CarController : MonoBehaviour
 {
     #region /* Movement */
 
-    private KinematicData KinematicData { get; set; }
-
-    private Rigidbody Body { get; set; }
-
-    private DynamicMovement Movement { get; set; }
-
-    private float Drag { get; set; }
-
     private float MaxSpeed { get; set; }
 
     private Vector3 Goal;
@@ -29,45 +21,46 @@ public class CarController : MonoBehaviour
 
     private void Update()
     {
-        if (Vector3.Distance(this.transform.localPosition, Goal) > 1f/* Movement possible */)
-        {
-            this.UpdateMovement();
-        }
-        else
-        {
-            Debug.Log("devia de ter parado");
-        }
+        this.UpdateMovement();
     }
 
     #endregion
 
     #region === Movement Methods ===
 
-    public void Initialize(Rigidbody Body, Vector3 GoalPosition)
+    public void Initialize(Vector3 GoalPosition)
     {
-        this.Body = Body;
-        this.Drag = 0.1f;
         this.MaxSpeed = 1f;
         this.Goal = GoalPosition;
-
-        this.KinematicData = new KinematicData(new StaticData(this.transform.position))
-        {
-            velocity = Vector3.one
-        };
-
-        this.Movement = new DynamicArrive()
-        {
-            MaxSpeed = this.MaxSpeed,
-            Target = new KinematicData(new StaticData(GoalPosition)),
-            Character = this.KinematicData,
-            MaxAcceleration = 1f
-        };
     }
 
     private void UpdateMovement()
     {
-        this.transform.Translate(Vector3.left * Time.deltaTime);
+        if (this.ReachGoal())
+        {
+            Destroy(this.gameObject);
+        }
+        else if (this.CanMove())
+        {
+            this.Move();
+        }
     }
+
+    private void Move()
+    {
+        this.transform.Translate(Vector3.left * this.MaxSpeed * Time.deltaTime);
+    }
+
+    private bool ReachGoal()
+    {
+        return Vector3.Distance(this.transform.localPosition, Goal) <= 1f;
+    }
+
+    private bool CanMove()
+    {
+        return true;
+    }
+
 
     #endregion
 
