@@ -51,6 +51,11 @@ public class NavCluster : ScriptableObject
     }
 
 
+    public Vector3 GetSize()
+    {
+        return this.Max - this.Min;
+    }
+
     public override bool Equals(object other)
     {
         var oCluster = other as NavCluster;
@@ -62,7 +67,6 @@ public class NavCluster : ScriptableObject
 
         return false;
     }
-
 
     public override int GetHashCode()
     {
