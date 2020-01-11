@@ -37,13 +37,6 @@ public class CarController : MonoBehaviour
         this.UpdateMovement();
     }
 
-    private void OnDrawGizmos()
-    {
-        var dir = Quaternion.Euler(0, this.AngleVision, 0) * this.Direction;
-        Ray ray = new Ray(this.transform.position, dir);
-        Gizmos.DrawLine(this.transform.position, ray.GetPoint(Mathf.Sqrt(this.LookAheadSQR)));
-    }
-
     #endregion
 
     #region === Movement Methods ===

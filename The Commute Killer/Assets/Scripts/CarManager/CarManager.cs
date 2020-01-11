@@ -166,7 +166,7 @@ public class CarManager : MonoBehaviour
 
     private void UpdateTimeNextCar(DateTime CurrentTime)
     {
-        this.TimeNextCar = CurrentTime.AddMinutes(this.TimeInterval);
+        this.TimeNextCar = CurrentTime.AddSeconds(this.TimeInterval * this.TimeManager.TimeMultiplier);
     }
 
     #endregion
