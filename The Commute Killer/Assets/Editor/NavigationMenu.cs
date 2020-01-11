@@ -173,8 +173,10 @@ public class NavigationMenu : ScriptableObject
         for (int i = 0; i < gateways.Length; i++)
         {
             var gatewayGO = gateways[i];
+
             gateway = ScriptableObject.CreateInstance<NavGateway>();
             gateway.Initialize(i, gatewayGO);
+
             clusterGraph.Gateways.Add(gateway);
         }
 

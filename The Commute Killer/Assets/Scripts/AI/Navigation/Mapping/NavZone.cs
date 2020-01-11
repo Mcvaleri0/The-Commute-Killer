@@ -16,6 +16,7 @@ public class NavZone : MonoBehaviour
 
     public Awareness AwarenessLevel;
 
+
     public float In(Vector3 p)
     {
         if(Between(this.StartPoint.x, p.x, this.EndPoint.x))
@@ -28,6 +29,7 @@ public class NavZone : MonoBehaviour
 
         return Mathf.Infinity;
     }
+
 
     private bool Between(float bound1, float val, float bound2) 
     {
@@ -49,39 +51,12 @@ public class NavZone : MonoBehaviour
         return false;
     }
 
+
     public Vector3 GetCenter()
-    {
-        var center = new Vector3();
-
-        if(this.StartPoint.x < this.EndPoint.x)
-        {
-            center.x = this.EndPoint.x - this.StartPoint.x;
-        }
-        else
-        {
-            center.x = this.EndPoint.x - this.StartPoint.x;
-        }
-
-        if (this.StartPoint.y < this.EndPoint.y)
-        {
-            center.y = this.EndPoint.y - this.StartPoint.y;
-        }
-        else
-        {
-            center.y = this.EndPoint.y - this.StartPoint.y;
-        }
-
-        if (this.StartPoint.z < this.EndPoint.z)
-        {
-            center.z = this.EndPoint.z - this.StartPoint.z;
-        }
-        else
-        {
-            center.z = this.EndPoint.z - this.StartPoint.z;
-        }
-
-        return center;
+    {    
+        return Vector3.Lerp(this.StartPoint, this.EndPoint, 0.5f);
     }
+
 
     public void OnDrawGizmos()
     {
