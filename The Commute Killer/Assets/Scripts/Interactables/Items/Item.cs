@@ -116,11 +116,6 @@ public class Item : Interactable
         {
             Destroy(this.GetComponent<CharacterController>());
         }
-
-        if(this.GetComponent<Renderer>() != null)
-        {
-            this.GetComponent<Renderer>().enabled = false;
-        }
         
         this.Owner = interactor.gameObject;
         this.transform.parent = interactor.HandPivot.transform;
@@ -145,7 +140,6 @@ public class Item : Interactable
 
         this.GetComponent<Rigidbody>().useGravity = true;
         this.GetComponent<Collider>().enabled     = true;
-        this.GetComponent<Renderer>().enabled     = true;
     }
     #endregion
 
