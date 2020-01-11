@@ -800,7 +800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af4cde13b72c5a14c8d75119b4a81250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeMultiplier: 1000
+  TimeMultiplier: 60
   StoryYear: 1989
   StoryMonth: 9
   StoryDay: 6
