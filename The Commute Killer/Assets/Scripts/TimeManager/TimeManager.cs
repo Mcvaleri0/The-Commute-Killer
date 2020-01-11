@@ -57,7 +57,7 @@ public class TimeManager : MonoBehaviour
     {
         this.InitializeTime();
 
-        this.VictimController = GameObject.Find("Victim").GetComponent<AutonomousAgent>();
+        //this.VictimController = GameObject.Find("Victim").GetComponent<AutonomousAgent>();
         this.LevelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
 
         this.InitializePrompt();
