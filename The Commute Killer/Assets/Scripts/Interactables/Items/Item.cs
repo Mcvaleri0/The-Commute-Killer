@@ -63,6 +63,7 @@ public class Item : Interactable
     {
 
         var ps = SelectableParticles.GetComponent<ParticleSystem>();
+
         var emiss = ps.emission;
         if (Owner != null)
         {
@@ -71,6 +72,8 @@ public class Item : Interactable
         else {
             emiss.enabled = true;
         }
+
+        this.transform.localPosition = Vector3.zero;
     }
 
     //Add a way to tell it to animate and detect when it is done
@@ -123,7 +126,7 @@ public class Item : Interactable
         }
         
         this.Owner = interactor.gameObject;
-        this.transform.parent = interactor.transform;
+        this.transform.parent = interactor.HandPivot.transform;
 
         return true;
     }
@@ -157,8 +160,11 @@ public class Item : Interactable
             this.GetComponent<Renderer>().enabled = true;
         }
         
-        this.transform.localPosition = this.PosRelative;
-        this.transform.localRotation = this.NewRotation;
+        this.transform.localPosition = Vector3.zero;
+
+        var rotation = new Quaternion();
+
+        this.transform.localRotation = rotation;
     }
 
     public void Unequip()

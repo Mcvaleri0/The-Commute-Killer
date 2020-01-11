@@ -25,13 +25,11 @@ public class TimeManager : MonoBehaviour
     #endregion
 
     #region Time Variables
-
     private DateTime InitialTime { get; set; }
     private DateTime CurrentTime { get; set; }
     private DateTime NextDay { get; set; }
     private DateTime TimeLimit { get; set; }
     private DateTime TimeForVictimToMove { get; set; }
-
     #endregion
 
     #region Prompt Variables

@@ -6,7 +6,7 @@ using Assets.Scripts.IAJ.Unity.Movement.DynamicMovement;
 public class AutonomousAgent : Agent
 {
     #region /* Pathfinding */
-    private PathfindingManager Pathfinding;
+    private PathfindingManager PathfindingM;
 
     private GlobalPath Path;
     #endregion
@@ -20,18 +20,25 @@ public class AutonomousAgent : Agent
     public float speed;
 
     public bool Target = false;
-    #endregion
-
 
     #region /* Movement Targets */
     private Vector3 InitialGoalPosition { get; set; }
 
     private Vector3 InitialPosition { get; set; }
 
-    public bool GoalHome {  get; private set; } // True if it's current goal is the initial position
+    public bool GoalHome { get; private set; } // True if it's current goal is the initial position
 
     private EventManager EventManager { get; set; }
+    #endregion
+    #endregion
 
+
+    #region/* Routine */
+    private int RoutineState = 0; //[ 0 - Idle | 1 - Acting ]
+
+    private RoutineManager RoutineM;
+
+    public Action CurrentAction { get; private set; }
     #endregion
 
 
@@ -40,7 +47,9 @@ public class AutonomousAgent : Agent
     {
         base.Start();
 
-        this.Pathfinding = GetComponent<PathfindingManager>();
+        this.PathfindingM = GetComponent<PathfindingManager>();
+
+        this.RoutineM = GetComponent<RoutineManager>();
 
         this.DCharacter = new DynamicCharacter(this.gameObject)
         {
@@ -65,15 +74,16 @@ public class AutonomousAgent : Agent
             return;
         }
 
+        RoutineStateMachine();
+
         MovementStateMachine();
     }
     #endregion
 
 
-    #region === Movement Functions ===
+    #region === Movement Methods ===
     private void MovementStateMachine()
     {
-
         switch (this.MovementState)
         {
             case 0: // Stopped
@@ -86,7 +96,7 @@ public class AutonomousAgent : Agent
                 break;
 
             case 1: // Looking for Path
-                var solution = this.Pathfinding.GetCurrentSmoothSolution();
+                var solution = this.PathfindingM.GetCurrentSolution();
 
                 if(solution != null)
                 {
@@ -98,7 +108,7 @@ public class AutonomousAgent : Agent
                         MaxSpeed = this.Attributes[Attribute.Speed],
                         MaxAcceleration = this.Attributes[Attribute.Accelaration],
                         PathOffset = 1f,
-                        PathManager = this.Pathfinding.NavManager
+                        PathManager = this.PathfindingM.NavManager
                     };
 
                     this.MovementState = 2;
@@ -145,7 +155,7 @@ public class AutonomousAgent : Agent
         var start = this.transform.position;
         var goal  = this.GoalPosition;
 
-        this.Pathfinding.InitializePathFinding(start, goal);
+        this.PathfindingM.InitializePathFinding(start, goal);
     }
 
     private bool MoveToTarget()
@@ -178,12 +188,45 @@ public class AutonomousAgent : Agent
 
         this.InitializeMovement();
     }
-
     #endregion
 
 
-    private void OnDrawGizmos()
+    #region === Routine Methods ===
+    private void RoutineStateMachine()
     {
+        switch(this.RoutineState)
+        {
+            case 0: // Idle
+                // Get next Action
+                var nextAction = this.RoutineM.NextAction();
+
+                // If there is an Action
+                if (nextAction != null)
+                {
+                    this.RoutineState = 1; // Go to Executing
+
+                    this.CurrentAction = nextAction;
+
+                    ExecuteAction(this.CurrentAction);
+                }
+                break;
+
+            case 1: // Acting
+
+                // If the current Action is finished
+                if(this.CurrentAction.Finished())
+                {
+                    this.RoutineState = 0; // Go to Idle
+                }
+                break;
+        }
+    }
+    #endregion
+
+    new private void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+
         if(this.Path != null)
         {
             Gizmos.color = Color.blue;

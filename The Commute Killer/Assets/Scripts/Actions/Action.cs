@@ -46,4 +46,38 @@ public abstract class Action
     public virtual bool CanExecute() { return false; }
 
     public virtual void Execute() { }
+
+    public bool Finished()
+    {
+        return this.State == 2;
+    }
+
+    public static Action GetAction(Action.IDs id, Agent actor, GameObject target = null)
+    {
+        switch (id)
+        {
+            default:
+                break;
+
+            case Action.IDs.Sabotage:
+                return new Sabotage(actor, target);
+
+            case Action.IDs.Stab:
+                return new Stab(actor, target);
+
+            case Action.IDs.PickUp:
+                return new PickUp(actor, target);
+
+            case Action.IDs.Drop:
+                return new Drop(actor, target);
+
+            case Action.IDs.Use:
+                return new Use(actor, target);
+
+            case Action.IDs.Insert:
+                return new Insert(actor, target);
+        }
+
+        return null;
+    }
 }
