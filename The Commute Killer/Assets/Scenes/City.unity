@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.6189499, g: 0.6909933, b: 0.9585887, a: 1}
+  m_IndirectSpecularColor: {r: 0.6183441, g: 0.6910536, b: 0.95939124, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4721,6 +4721,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Walking (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 100116, guid: d755b99ef7277d24abc54d29285750a9, type: 3}
+      propertyPath: m_TagString
+      value: NPC
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d755b99ef7277d24abc54d29285750a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7199,6 +7203,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: trial
       objectReference: {fileID: 0}
+    - target: {fileID: 100116, guid: d755b99ef7277d24abc54d29285750a9, type: 3}
+      propertyPath: m_TagString
+      value: NPC
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d755b99ef7277d24abc54d29285750a9, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -7782,6 +7790,10 @@ PrefabInstance:
     - target: {fileID: 100002, guid: 28104c4f64a838044996b32fad2275e5, type: 3}
       propertyPath: m_Name
       value: Walking (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 28104c4f64a838044996b32fad2275e5, type: 3}
+      propertyPath: m_TagString
+      value: NPC
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 28104c4f64a838044996b32fad2275e5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16463,6 +16475,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Walking
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 28104c4f64a838044996b32fad2275e5, type: 3}
+      propertyPath: m_TagString
+      value: NPC
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 28104c4f64a838044996b32fad2275e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -19357,6 +19373,10 @@ PrefabInstance:
     - target: {fileID: 100116, guid: d755b99ef7277d24abc54d29285750a9, type: 3}
       propertyPath: m_Name
       value: trial (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100116, guid: d755b99ef7277d24abc54d29285750a9, type: 3}
+      propertyPath: m_TagString
+      value: NPC
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d755b99ef7277d24abc54d29285750a9, type: 3}
       propertyPath: m_LocalScale.x
@@ -23346,6 +23366,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 9fc97cfa4e772b84da8c611c58eb4f45, type: 3}
+      propertyPath: m_TagString
+      value: NPC
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9fc97cfa4e772b84da8c611c58eb4f45, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.475
@@ -24240,6 +24264,10 @@ PrefabInstance:
     - target: {fileID: 100116, guid: d755b99ef7277d24abc54d29285750a9, type: 3}
       propertyPath: m_Name
       value: trial (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100116, guid: d755b99ef7277d24abc54d29285750a9, type: 3}
+      propertyPath: m_TagString
+      value: NPC
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d755b99ef7277d24abc54d29285750a9, type: 3}
       propertyPath: m_LocalScale.x
@@ -26796,6 +26824,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sitting Happy
       objectReference: {fileID: 0}
+    - target: {fileID: 100116, guid: c0faa91ab34aa964894c37354f740e11, type: 3}
+      propertyPath: m_TagString
+      value: NPC
+      objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: c0faa91ab34aa964894c37354f740e11, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.405
@@ -27324,6 +27356,10 @@ PrefabInstance:
     - target: {fileID: 100116, guid: 55b0c1e4e9f199a498bfea3fc26cc1e3, type: 3}
       propertyPath: m_Name
       value: Sitting Laughing
+      objectReference: {fileID: 0}
+    - target: {fileID: 100116, guid: 55b0c1e4e9f199a498bfea3fc26cc1e3, type: 3}
+      propertyPath: m_TagString
+      value: NPC
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 55b0c1e4e9f199a498bfea3fc26cc1e3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -30154,6 +30190,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sitting Talking (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 100116, guid: 5720d96b0d1cc3f45940d5ef2607bbb3, type: 3}
+      propertyPath: m_TagString
+      value: NPC
+      objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: 5720d96b0d1cc3f45940d5ef2607bbb3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.13
@@ -32944,6 +32984,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Female_Walking_speed26
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 28104c4f64a838044996b32fad2275e5, type: 3}
+      propertyPath: m_TagString
+      value: NPC
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 28104c4f64a838044996b32fad2275e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -33161,6 +33205,10 @@ PrefabInstance:
     - target: {fileID: 100116, guid: 1bc8bd21c43e06445941cbe63833278d, type: 3}
       propertyPath: m_Name
       value: Walking
+      objectReference: {fileID: 0}
+    - target: {fileID: 100116, guid: 1bc8bd21c43e06445941cbe63833278d, type: 3}
+      propertyPath: m_TagString
+      value: NPC
       objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: 1bc8bd21c43e06445941cbe63833278d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -44769,6 +44817,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Walking (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 28104c4f64a838044996b32fad2275e5, type: 3}
+      propertyPath: m_TagString
+      value: NPC
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 28104c4f64a838044996b32fad2275e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -50960,6 +51012,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100116, guid: d755b99ef7277d24abc54d29285750a9, type: 3}
+      propertyPath: m_TagString
+      value: NPC
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d755b99ef7277d24abc54d29285750a9, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -51096,6 +51152,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 9fc97cfa4e772b84da8c611c58eb4f45, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 9fc97cfa4e772b84da8c611c58eb4f45, type: 3}
+      propertyPath: m_TagString
+      value: NPC
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9fc97cfa4e772b84da8c611c58eb4f45, type: 3}
       propertyPath: m_LocalPosition.x
