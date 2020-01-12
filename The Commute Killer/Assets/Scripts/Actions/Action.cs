@@ -12,7 +12,8 @@ public abstract class Action
         Stab,
         Sabotage,
         Use,
-        Insert
+        Insert,
+        Read
     }
 
     public IDs ID;
@@ -76,6 +77,9 @@ public abstract class Action
 
             case Action.IDs.Insert:
                 return new Insert(actor, target);
+
+            case Action.IDs.Read:
+                return new Read(actor, target);
         }
 
         return null;

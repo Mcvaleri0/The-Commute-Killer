@@ -11,7 +11,10 @@ public class Recticle : MonoBehaviour {
     {
         Circle,
         Point,
-        Grab
+        Grab,
+        Wrench,
+        Eye,
+        Insert
     }
 
     private Dictionary<Mode, Transform> ModeTransforms;
@@ -21,7 +24,7 @@ public class Recticle : MonoBehaviour {
     int State = 0;
 
     [Range(10f, 250f)]
-    public float Size = 20f;
+    public float DefaultSize = 25f;
 
     private Player Player;
     private Transform Selected;
@@ -34,7 +37,10 @@ public class Recticle : MonoBehaviour {
         {
             [Mode.Circle] = this.transform.Find("Circle"),
             [Mode.Point]  = this.transform.Find("Point"),
-            [Mode.Grab]   = this.transform.Find("Grab")
+            [Mode.Grab]   = this.transform.Find("Grab"),
+            [Mode.Wrench] = this.transform.Find("Wrench"),
+            [Mode.Eye]    = this.transform.Find("Eye"),
+            [Mode.Insert] = this.transform.Find("Insert")
         };
 
         this.Current = Mode.Circle;
@@ -53,7 +59,7 @@ public class Recticle : MonoBehaviour {
     private void Update() {
         var currentTransform = this.ModeTransforms[this.Current];
 
-        currentTransform.GetComponent<RectTransform>().sizeDelta = new Vector2(this.Size, this.Size);
+        var size = this.DefaultSize;
 
         var rectMode = Mode.Circle;
 
@@ -71,8 +77,28 @@ public class Recticle : MonoBehaviour {
                 break;
 
             // --- Grab
+
+            // --- Sabotage
+            case Action.IDs.Sabotage:
+                rectMode = Mode.Wrench;
+                size = 35;
+                break;
             
+            // --- Read
+            case Action.IDs.Read:
+                rectMode = Mode.Eye;
+                break;
+
+            // --- Insert
+            case Action.IDs.Insert:
+                rectMode = Mode.Insert;
+                size = 30;
+                break;
+
         }
+
+        currentTransform.GetComponent<RectTransform>().sizeDelta = new Vector2(size, size);
+
 
         if (this.Current != rectMode)
         {

@@ -26,7 +26,7 @@ public class Readable : Interactable
 
         this.PossibleActions = new List<Action.IDs>()
         {
-            Action.IDs.Use
+            Action.IDs.Read
         };
     }
 
@@ -76,8 +76,8 @@ public class Readable : Interactable
             default:
                 break;
 
-            case Action.IDs.Use:
-                Use();
+            case Action.IDs.Read:
+                Read();
                 return true;
         }
 
@@ -96,7 +96,7 @@ public class Readable : Interactable
     }
 
 
-    private void Use()
+    private void Read()
     {
         state = 1;
     }

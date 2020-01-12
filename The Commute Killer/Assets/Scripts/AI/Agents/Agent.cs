@@ -71,7 +71,8 @@ public class Agent : MonoBehaviour
         { 
             Action.IDs.PickUp,
             Action.IDs.Drop,
-            Action.IDs.Use
+            Action.IDs.Use,
+            Action.IDs.Read
         };
 
         this.PerformedActions = new List<Action>();
