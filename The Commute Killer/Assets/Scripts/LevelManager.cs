@@ -104,6 +104,24 @@ public class LevelManager : MonoBehaviour
     #endregion
 
     #region === Auxiliar Functions ===
+    public void TrainHasArrived()
+    {
+        Debug.Log("ARRIVED");
+        GameObject[] npcs = GameObject.FindGameObjectsWithTag("NPC");
+        foreach (GameObject obj in npcs)
+        {
+            //do something - tell npc train has arrived.
+        }
 
+    }
+    public void TrainGoingToDeparture()
+    {
+        Debug.Log("DEPARTURED");
+        GameObject[] npcs = GameObject.FindGameObjectsWithTag("NPC");
+        foreach (GameObject obj in npcs)
+        {
+            //do something - tell npc train has departured
+        }
+    }
     #endregion
 }

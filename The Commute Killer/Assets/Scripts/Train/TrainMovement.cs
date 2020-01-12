@@ -12,6 +12,8 @@ public class TrainMovement : MonoBehaviour
     private Vector3 speed;
     public GameObject train;
     private bool middle;
+    private EventManager EventManager;
+    private bool spreadedDeparture;
 
     // Start is called before the first frame update
     void Start()
@@ -21,8 +23,9 @@ public class TrainMovement : MonoBehaviour
         this.initialPosition = new Vector3(5.78f, -1.55f, 92.1f);
         this.middlePosition = new Vector3(5.78f, -1.55f, 45.6f);
         this.speed = new Vector3(0, 0, 10f);
-        this.middle = false; ;
-
+        this.middle = false;
+        this.EventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
+        this.spreadedDeparture = false;
     }
 
     // Update is called once per frame
@@ -31,6 +34,11 @@ public class TrainMovement : MonoBehaviour
         Vector3 currentPos = GetComponent<Transform>().position;
         if (this.move && (currentPos.z > finalPosition.z || currentPos.z > middlePosition.z))
         {
+            if(this.middle && !this.spreadedDeparture)
+            {
+                this.EventManager.TriggerEvent(Event.TrainDeparture);
+                this.spreadedDeparture = true;
+            }
             transform.Translate(- speed * Time.deltaTime);
         }
          if (this.move && currentPos.z <= finalPosition.z)
@@ -39,11 +47,13 @@ public class TrainMovement : MonoBehaviour
             transform.position = this.initialPosition;
             train.SetActive(false);
             this.middle = false;
+            this.spreadedDeparture = false;
         }
          if (this.move && !this.middle && currentPos.z <= middlePosition.z)
         {
             this.middle = true;
             this.move = false;
+            this.EventManager.TriggerEvent(Event.TrainArrival);
         }
     }
 }

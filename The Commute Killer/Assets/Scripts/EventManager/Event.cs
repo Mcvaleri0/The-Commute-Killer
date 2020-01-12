@@ -9,5 +9,5 @@ public enum Event
     VictimStartEnd, VictimEndStart, VictimAtGoal, VictimAtDumpster,
     InteractibleGardenGate_Close, InteractibleGardenGate_Open,
     InteractibleGardenGate_1_Close, InteractibleGardenGate_1_Open,
-    Killed
+    Killed, TrainArrival, TrainDeparture
 }
