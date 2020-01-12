@@ -14,14 +14,14 @@ public class TrainSchedule : MonoBehaviour
     private void Start()
     {
         this.arrivals = new DateTime[5];
-        this.arrivals[0] = new DateTime(1, 1, 1, 8, 30, 0);
+        this.arrivals[0] = new DateTime(1, 1, 1, 8, 40, 0);
         this.arrivals[1] = new DateTime(1, 1, 1, 10, 00, 0);
         this.arrivals[2] = new DateTime(1, 1, 1, 16, 30, 0);
         this.arrivals[3] = new DateTime(1, 1, 1, 18, 30, 0);
         this.arrivals[4] = new DateTime(1, 1, 1, 20, 30, 0);
 
         this.departures = new DateTime[5];
-        this.departures[0] = new DateTime(1, 1, 1, 8, 40, 0);
+        this.departures[0] = new DateTime(1, 1, 1, 8, 50, 0);
         this.departures[1] = new DateTime(1, 1, 1, 10, 10, 0);
         this.departures[2] = new DateTime(1, 1, 1, 16, 40, 0);
         this.departures[3] = new DateTime(1, 1, 1, 18, 40, 0);
