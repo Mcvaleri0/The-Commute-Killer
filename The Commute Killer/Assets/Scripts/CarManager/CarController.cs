@@ -131,7 +131,11 @@ public class CarController : MonoBehaviour
             {
                 angle = Vector3.Angle(diff, this.Direction);
 
-                if (angle == 0)
+                if (this.RightCar && angle == 0)
+                {
+                    return true;
+                }
+                else if (!this.RightCar && angle == 180)
                 {
                     return true;
                 }
