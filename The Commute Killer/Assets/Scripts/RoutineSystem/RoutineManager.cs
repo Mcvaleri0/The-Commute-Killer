@@ -37,7 +37,7 @@ public class RoutineManager : MonoBehaviour
         foreach (var routine in this.Routines)
         {
             // If a Routine can begin
-            if (routine.CanBegin(currentTime))
+            if (routine.CanBegin(currentTime) && !this.ActiveRoutines.Contains(routine))
             {
                 this.ActiveRoutines.Add(Instantiate(routine)); // Add it to the active list
                 continue;

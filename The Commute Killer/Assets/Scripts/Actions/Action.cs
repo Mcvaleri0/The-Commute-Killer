@@ -14,6 +14,7 @@ public abstract class Action
         Use,
         Read,
         Sleep,
+        Insert,
         Move
     }
 
