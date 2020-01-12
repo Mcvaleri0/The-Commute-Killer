@@ -180,7 +180,8 @@ public class CarManager : MonoBehaviour
 
     private bool ChooseLane()
     {
-        return Random.Range(0f, 1f) > 0.5;
+        //return Random.Range(0f, 1f) > 0.5;
+        return true;
     }
 
     private Vector3 CorrectPosition(int CarType, Vector3 DesiredPosition)

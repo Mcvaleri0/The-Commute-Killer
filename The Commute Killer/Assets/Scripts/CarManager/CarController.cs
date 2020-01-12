@@ -111,8 +111,32 @@ public class CarController : MonoBehaviour
                 {
                     return true;
                 }
-
             }
+        }
+
+        GameObject[] cars = GameObject.FindGameObjectsWithTag("Car");
+        Vector3 carPos;
+        Vector3 thisPos;
+
+        foreach (GameObject car in cars)
+        {
+            carPos  = car.transform.position;
+            thisPos = this.transform.position;
+
+            carPos.y = thisPos.y = 0;
+            
+            diff = carPos - thisPos;
+
+            if (diff != Vector3.zero && diff.sqrMagnitude <= 1.5 * this.LookAheadSQR)
+            {
+                angle = Vector3.Angle(diff, this.Direction);
+
+                if (angle == 0)
+                {
+                    return true;
+                }
+            }
+
         }
 
         return false;
