@@ -174,14 +174,19 @@ public class TimeManager : MonoBehaviour
                 this.CurrentTime.ToString("dd'-'MM'-'yy'\n'H':'mm"));
     }
 
-    private void FastFoward()
+    public void FastFoward()
     {
         this.TimeMultiplier = 2000;
     }
 
-    private void NormalSpeed()
+    public void SleepFastFoward()
     {
-        this.TimeMultiplier = 1;
+        this.TimeMultiplier = 10000;
+    }
+
+    public void NormalSpeed()
+    {
+        this.TimeMultiplier = 60;
     }
 
     #endregion

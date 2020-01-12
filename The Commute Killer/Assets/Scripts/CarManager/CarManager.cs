@@ -26,6 +26,9 @@ public class CarManager : MonoBehaviour
     /// </summary>
     private Transform Cars { get; set; }
 
+    public int N { get; set; }
+    public int Limit;
+
     public float MaxSpeed;
     public float LookAHeadDistance;
 
@@ -86,9 +89,10 @@ public class CarManager : MonoBehaviour
 
     private void Update()
     {
-        if (this.TimeToInstanciateCar())
+        if (this.N < this.Limit && this.TimeToInstanciateCar())
         {
             this.NewCar();
+            this.N++;
         }
     }
 
@@ -134,6 +138,7 @@ public class CarManager : MonoBehaviour
         body.isKinematic = true;
 
         var Controller = Car.AddComponent<CarController>();
+        Controller.Manager = this;
 
         if (this.RightLane)
         {
@@ -181,6 +186,7 @@ public class CarManager : MonoBehaviour
     private bool ChooseLane()
     {
         return Random.Range(0f, 1f) > 0.5;
+        //return false;
     }
 
     private Vector3 CorrectPosition(int CarType, Vector3 DesiredPosition)
