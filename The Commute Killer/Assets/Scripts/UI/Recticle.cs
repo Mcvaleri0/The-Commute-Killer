@@ -14,7 +14,8 @@ public class Recticle : MonoBehaviour {
         Grab,
         Wrench,
         Eye,
-        Insert
+        Insert,
+        Sleep
     }
 
     private Dictionary<Mode, Transform> ModeTransforms;
@@ -40,7 +41,8 @@ public class Recticle : MonoBehaviour {
             [Mode.Grab]   = this.transform.Find("Grab"),
             [Mode.Wrench] = this.transform.Find("Wrench"),
             [Mode.Eye]    = this.transform.Find("Eye"),
-            [Mode.Insert] = this.transform.Find("Insert")
+            [Mode.Insert] = this.transform.Find("Insert"),
+            [Mode.Sleep] = this.transform.Find("Sleep")
         };
 
         this.Current = Mode.Circle;
@@ -92,6 +94,12 @@ public class Recticle : MonoBehaviour {
             // --- Insert
             case Action.IDs.Insert:
                 rectMode = Mode.Insert;
+                size = 30;
+                break;
+
+            // --- Sleep
+            case Action.IDs.Sleep:
+                rectMode = Mode.Sleep;
                 size = 30;
                 break;
 

@@ -13,7 +13,8 @@ public abstract class Action
         Sabotage,
         Use,
         Insert,
-        Read
+        Read,
+        Sleep
     }
 
     public IDs ID;
@@ -80,6 +81,9 @@ public abstract class Action
 
             case Action.IDs.Read:
                 return new Read(actor, target);
+
+            case Action.IDs.Sleep:
+                return new Sleep(actor, target);
         }
 
         return null;

@@ -1,0 +1,190 @@
+fileFormatVersion: 2
+guid: cda35dbb0acf5be41ab8eb9ab849bfb6
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: alarm_clock
+    100004: alarm_clock_feet
+    100006: alarm_clock_rear_foot
+    100008: body
+    100010: Cap_1
+    100012: Cap_2
+    100014: clock_tab
+    100016: Cylinder
+    100018: cylinder
+    100020: Floor
+    100022: glass
+    100024: handle
+    100026: hour_hand
+    100028: minute_hand
+    100030: Oil_Tank
+    100032: ringer
+    100034: screw
+    100036: seconds_pointer
+    100038: Sky
+    100040: Vinteno_text
+    400000: //RootNode
+    400002: alarm_clock
+    400004: alarm_clock_feet
+    400006: alarm_clock_rear_foot
+    400008: body
+    400010: Cap_1
+    400012: Cap_2
+    400014: clock_tab
+    400016: Cylinder
+    400018: cylinder
+    400020: Floor
+    400022: glass
+    400024: handle
+    400026: hour_hand
+    400028: minute_hand
+    400030: Oil_Tank
+    400032: ringer
+    400034: screw
+    400036: seconds_pointer
+    400038: Sky
+    400040: Vinteno_text
+    2100000: Mat.2
+    2100002: Mat
+    2100004: No Name
+    2100006: Mat.5
+    2100008: glass
+    2100010: Mat.1
+    2300000: alarm_clock_feet
+    2300002: alarm_clock_rear_foot
+    2300004: body
+    2300006: Cap_1
+    2300008: Cap_2
+    2300010: clock_tab
+    2300012: Cylinder
+    2300014: cylinder
+    2300016: glass
+    2300018: handle
+    2300020: hour_hand
+    2300022: minute_hand
+    2300024: Oil_Tank
+    2300026: ringer
+    2300028: screw
+    2300030: seconds_pointer
+    2300032: Vinteno_text
+    3300000: alarm_clock_feet
+    3300002: alarm_clock_rear_foot
+    3300004: body
+    3300006: Cap_1
+    3300008: Cap_2
+    3300010: clock_tab
+    3300012: Cylinder
+    3300014: cylinder
+    3300016: glass
+    3300018: handle
+    3300020: hour_hand
+    3300022: minute_hand
+    3300024: Oil_Tank
+    3300026: ringer
+    3300028: screw
+    3300030: seconds_pointer
+    3300032: Vinteno_text
+    4300000: alarm_clock_feet
+    4300002: alarm_clock_rear_foot
+    4300004: minute_hand
+    4300006: hour_hand
+    4300008: seconds_pointer
+    4300010: screw
+    4300012: Oil_Tank
+    4300014: Cylinder
+    4300016: ringer
+    4300018: cylinder
+    4300020: handle
+    4300022: body
+    4300024: glass
+    4300026: clock_tab
+    4300028: Vinteno_text
+    4300030: Cap_1
+    4300032: Cap_2
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
