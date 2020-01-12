@@ -12,7 +12,8 @@ public abstract class Action
         Stab,
         Sabotage,
         Use,
-        Insert,
+        Read,
+        Sleep,
         Move
     }
 
@@ -77,6 +78,12 @@ public abstract class Action
 
             case Action.IDs.Insert:
                 return new Insert(actor, target);
+
+            case Action.IDs.Read:
+                return new Read(actor, target);
+
+            case Action.IDs.Sleep:
+                return new Sleep(actor, target);
 
             case Action.IDs.Move:
                 if (target != null) return new Move(actor, target.transform.position);

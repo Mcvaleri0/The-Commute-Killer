@@ -93,7 +93,15 @@ public class Hydrant : Interactable
     #region === Possible Action Methods ===
     private void Sabotage()
     {
-        Activate();
+        if(this.State == 0)
+        {
+            Activate();
+        }
+        else if(this.State == 1)
+        {
+            Deactivate();
+        }
+        
     }
     #endregion
 
