@@ -56,11 +56,11 @@ public class Agent : MonoBehaviour
     {
         this.Attributes = new Dictionary<Attribute, float>
         {
-            [Attribute.MaxHP] = 10,
-            [Attribute.HP]    = 10,
-            [Attribute.Speed] = 1,
+            [Attribute.MaxHP]        = 10,
+            [Attribute.HP]           = 10,
+            [Attribute.Speed]        = 1,
             [Attribute.Accelaration] = 1,
-            [Attribute.Drag]  = 0.1f
+            [Attribute.Drag]         = 0.1f
         };
         
         this.Inventory = new Item[this.InventorySize];
@@ -363,6 +363,9 @@ public class Agent : MonoBehaviour
         GameObject.Find("EventManager").GetComponent<EventManager>().TriggerEvent(Event.Killed);
 
         Destroy(this);
+        Destroy(transform.GetComponent<Collider>());
+        Destroy(transform.GetComponent<Rigidbody>());
+        Destroy(transform.GetComponent<Rigidbody>());
     }
 
     public void OnDrawGizmos()

@@ -13,7 +13,7 @@ public class Insert : Interaction
         if(this.Interactable == null) { return false; } // Target must be an interactable
 
         // Agent must have a Cadaver on hand
-        if (this.Agent.OnHand != null && this.Agent.OnHand.Name == "Cadaver") 
+        if (this.Agent.OnHand != null && this.Agent.OnHand.Name == "TrashBag") 
         {
             // Interactable has to allow Sabotage
             if (this.Interactable.CanInteract(this.Agent, Action.IDs.Insert))
