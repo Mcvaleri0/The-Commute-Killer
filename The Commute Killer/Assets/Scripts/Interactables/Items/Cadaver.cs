@@ -2,20 +2,65 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cadaver : Item
+public class Cadaver : Interactable
 {
-    new public void Start()
+
+    protected GameObject Bag;
+
+    private AudioSource AudioSource;
+
+    new void Start()
     {
         base.Start();
 
-        this.Name = "Cadaver";
-
-        this.EnabledActions = new List<Action.IDs>()
+        this.PossibleActions = new List<Action.IDs>()
         {
-            Action.IDs.Insert
+            Action.IDs.Use
         };
 
-        this.ActionSounds.Add(Action.IDs.PickUp, (AudioClip)Resources.Load("Audio/cadaver"));
-        this.ActionSounds.Add(Action.IDs.Drop, (AudioClip)Resources.Load("Audio/cadaver"));
+        //make new colision box
+        BoxCollider boxCollider = gameObject.AddComponent<BoxCollider>();
+        boxCollider.center = new Vector3(-0.0447044f, 0.02904758f, 0.5598322f);
+        boxCollider.size   = new Vector3( 0.5890946f, 0.3413701f, 0.9909107f);
+
+        this.Bag = Resources.Load<GameObject>("Items/TrashBag");
+
+    }
+
+
+    override public bool Interact(Action.IDs id)
+    {
+        switch (id)
+        {
+            default:
+                break;
+
+            case Action.IDs.Use:
+                Use();
+                return true;
+        }
+
+        return false;
+    }
+
+
+    override public bool CanInteract(Agent Interactor, Action.IDs id)
+    {
+        if (this.ActionAvailable(id))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public void Use()
+    {
+        //spawn trash bag item
+        var bag = Instantiate(Bag);
+        bag.transform.position = transform.position;
+
+        Destroy(gameObject);
+
     }
 }

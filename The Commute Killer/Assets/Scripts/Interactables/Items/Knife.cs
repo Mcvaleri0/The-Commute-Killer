@@ -40,13 +40,13 @@ public class Knife : Item
             if (this.CurrentAttackFrames > (this.nAttackFrames / 2))
             {
                 var pos = this.transform.localPosition;
-                this.transform.localPosition = new Vector3(pos.x, pos.y, pos.z + 0.5f);
+                this.transform.localPosition = new Vector3(pos.x, pos.y + 5, pos.z);
                 this.CurrentAttackFrames--;
             }
             else if (this.CurrentAttackFrames > 0)
             {
                 var pos = this.transform.localPosition;
-                this.transform.localPosition = new Vector3(pos.x, pos.y, pos.z - 0.5f);
+                this.transform.localPosition = new Vector3(pos.x, pos.y - 5, pos.z);
                 this.CurrentAttackFrames--;
             }
             else
