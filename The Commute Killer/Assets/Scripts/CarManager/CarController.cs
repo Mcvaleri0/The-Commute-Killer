@@ -30,6 +30,8 @@ public class CarController : MonoBehaviour
 
     #endregion
 
+    public CarManager Manager { get; set; }
+
     #region === Unity Events ===
 
     private void Update()
@@ -54,6 +56,7 @@ public class CarController : MonoBehaviour
         if (this.GoalReached())
         {
             Destroy(this.gameObject);
+            this.Manager.N--;
         }
         else if (this.CanMove())
         {

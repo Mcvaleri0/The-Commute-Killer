@@ -92,6 +92,7 @@ public class CarManager : MonoBehaviour
         if (this.N < this.Limit && this.TimeToInstanciateCar())
         {
             this.NewCar();
+            this.N++;
         }
     }
 
@@ -137,6 +138,7 @@ public class CarManager : MonoBehaviour
         body.isKinematic = true;
 
         var Controller = Car.AddComponent<CarController>();
+        Controller.Manager = this;
 
         if (this.RightLane)
         {
@@ -184,7 +186,7 @@ public class CarManager : MonoBehaviour
     private bool ChooseLane()
     {
         return Random.Range(0f, 1f) > 0.5;
-        //return true;
+        //return false;
     }
 
     private Vector3 CorrectPosition(int CarType, Vector3 DesiredPosition)
