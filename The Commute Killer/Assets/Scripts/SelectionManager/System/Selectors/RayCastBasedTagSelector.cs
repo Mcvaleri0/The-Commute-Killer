@@ -20,11 +20,6 @@ public class RayCastBasedTagSelector : MonoBehaviour, ISelector
         {
             var tr = hit.transform;
 
-            if(tr.CompareTag(this.Tag))
-            {
-                Debug.Log("Bin");
-            }
-
             if (tr != null && tr.CompareTag(this.Tag) && 
                 Vector3.Distance(tr.position, this.Player.transform.position) <= this.MaxDistance)
             {

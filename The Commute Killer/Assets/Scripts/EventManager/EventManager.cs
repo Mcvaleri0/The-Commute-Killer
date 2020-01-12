@@ -65,35 +65,35 @@ public class EventManager : MonoBehaviour
                 return true;
 
             case Event.Hydrant_ON:
-                //this.NavManager.CloseGateway(16);
+                this.NavManager.CloseGateway(14);
                 return true;
 
             case Event.Hydrant_OFF:
-                //this.NavManager.OpenGateway(16);
+                this.NavManager.OpenGateway(14);
                 return true;
 
             case Event.Hydrant_1_ON:
-                //this.NavManager.CloseGateway(11);
+                this.NavManager.CloseGateway(10);
                 return true;
 
             case Event.Hydrant_1_OFF:
-                //this.NavManager.OpenGateway(11);
+                this.NavManager.OpenGateway(10);
                 return true;
 
             case Event.InteractibleGardenGate_1_Close:
-                //this.NavManager.CloseGateway(4);
+                this.NavManager.CloseGateway(4);
                 return true;
 
             case Event.InteractibleGardenGate_1_Open:
-                //this.NavManager.OpenGateway(4);
+                this.NavManager.OpenGateway(4);
                 return true;
 
             case Event.InteractibleGardenGate_Close:
-                //this.NavManager.CloseGateway(5);
+                this.NavManager.CloseGateway(5);
                 return true;
             
             case Event.InteractibleGardenGate_Open:
-                //this.NavManager.OpenGateway(5);
+                this.NavManager.OpenGateway(5);
                 return true;
 
             case Event.Killed:

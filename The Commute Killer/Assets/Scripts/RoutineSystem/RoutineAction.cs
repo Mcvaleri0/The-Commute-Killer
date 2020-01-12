@@ -18,6 +18,8 @@ public class RoutineAction : ScriptableObject
 
     public String TargetName;
 
+    public Vector3 TargetPosition;
+
     // Time window
     [Range(0,23)]
     public int StartHour;
@@ -134,6 +136,13 @@ public class RoutineAction : ScriptableObject
 
     public Action GenerateAction()
     {
-        return Action.GetAction(ActionId, this.Agent, this.Target);
+        if(this.ActionId == Action.IDs.Move)
+        {
+            return Action.GetAction(ActionId, this.Agent, this.TargetPosition);
+        }
+        else
+        {
+            return Action.GetAction(ActionId, this.Agent, this.Target);
+        }
     }
 }

@@ -79,8 +79,6 @@ public class PathfindingManager : MonoBehaviour {
 
             if (finished)
             {
-                if (this.CurrentSolution != null) Debug.Log("Success - " + this.PathFinding.TotalExploredNodes);
-
                 this.PathFinding.InProgress = false;
             }
 

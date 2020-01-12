@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class NavCluster : ScriptableObject
 {
+    public int Id;
+
     public Vector3 Center { get; private set; }
 
     public Vector3 Min { get; private set; }
@@ -34,15 +36,22 @@ public class NavCluster : ScriptableObject
     }
 
 
-    public void Initialize(NavZone zone)
+    public void Initialize(int id, NavZone zone)
     {
         this.Gateways = new List<NavGateway>();
 
+        this.Id = id;
+
         this.Center = zone.GetCenter();
 
-        //clusters have a size of 10 multipled by the scale
-        this.Min = Vector3.Min(zone.StartPoint, zone.EndPoint);
-        this.Max = Vector3.Max(zone.StartPoint, zone.EndPoint);
+        var min = Vector3.Min(zone.StartPoint, zone.EndPoint);
+        var max = Vector3.Max(zone.StartPoint, zone.EndPoint);
+
+        zone.StartPoint = min;
+        zone.EndPoint   = max;
+
+        this.Min = zone.StartPoint;
+        this.Max = zone.EndPoint;
     }
 
 
@@ -52,10 +61,28 @@ public class NavCluster : ScriptableObject
     }
 
 
+    public bool Inside(Vector3 position)
+    {
+        if(this.Min.x <= position.x && position.x <= this.Max.x)
+        {
+            if(this.Min.z <= position.z && position.z <= this.Max.z)
+            {
+                if(this.Min.y <= position.y && position.y <= this.Max.y)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+
     public Vector3 GetSize()
     {
         return this.Max - this.Min;
     }
+
 
     public override bool Equals(object other)
     {
@@ -63,7 +90,7 @@ public class NavCluster : ScriptableObject
 
         if(oCluster != null)
         {
-            return oCluster.Center == this.Center;
+            return oCluster.Id == this.Id;
         }
 
         return false;

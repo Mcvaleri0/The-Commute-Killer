@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using UnityEditor;
 
 public class NavigationManager : MonoBehaviour
 {
@@ -14,15 +14,23 @@ public class NavigationManager : MonoBehaviour
 
     public GatewayDistanceTableRow[] GatewayDistanceTable;
 
+    public bool DebugGraph = true;
+
+    public bool DebugClusters = true;
+
+    public bool DebugGateways= true;
+
 
     // Use this for initialization
     void Start()
     {
         this.GatewayOpen = new Dictionary<int, bool>();
 
-        foreach(NavGateway gate in ClusterGraph.Gateways)
+        foreach(NavGateway gate in this.ClusterGraph.Gateways)
         {
-            this.GatewayOpen[gate.Id] = true;
+            this.GatewayOpen.Add(gate.Id, true);
+
+            gate.Open();
         }
 
         this.OGatewayDistanceTable = this.ClusterGraph.GatewayDistanceTable;
@@ -51,6 +59,11 @@ public class NavigationManager : MonoBehaviour
 
         var gate = FindConnectingGateway(startNode, endNode);
 
+        if(gate == null)
+        {
+            return false;
+        }
+
         return !this.GatewayOpen[gate.Id];
     }
 
@@ -68,7 +81,7 @@ public class NavigationManager : MonoBehaviour
 
         foreach(NavGateway gateway in startCluster.Gateways)
         {
-            if(gateway.Clusters.Contains(endCluster))
+            if(endCluster.Gateways.Contains(gateway))
             {
                 possible.Add(gateway);
             }
@@ -103,17 +116,7 @@ public class NavigationManager : MonoBehaviour
     {
         this.GatewayOpen[id] = false;
 
-        var or_row = this.GatewayDistanceTable[id];
-
-        foreach (GatewayDistanceTableEntry entry in or_row.entries)
-        {
-            entry.ShortestDistance = Mathf.Infinity;
-        }
-
-        foreach (GatewayDistanceTableRow row in this.GatewayDistanceTable)
-        {
-            row.entries[id].ShortestDistance = Mathf.Infinity;
-        }
+        this.ClusterGraph.Gateways[id].Close();
     }
 
 
@@ -121,35 +124,23 @@ public class NavigationManager : MonoBehaviour
     {
         this.GatewayOpen[id] = true;
 
-        var or_row = this.OGatewayDistanceTable[id];
-        var cl_row = this.GatewayDistanceTable[id];
-
-        for(var i = 0; i < or_row.entries.Length; i++)
-        {
-            cl_row.entries[i].ShortestDistance = or_row.entries[i].ShortestDistance;
-        }
-
-        for(var i = 0; i < this.GatewayDistanceTable.Length; i++)
-        {
-            or_row = this.OGatewayDistanceTable[i];
-            cl_row = this.GatewayDistanceTable[i];
-
-            for(var j = 0; j < or_row.entries.Length; i++)
-            {
-                or_row.entries[j].ShortestDistance = cl_row.entries[j].ShortestDistance;
-            }
-        }
+        this.ClusterGraph.Gateways[id].Open();
     }
 
 
     private void OnDrawGizmos()
     {
-        /*
-        if (this.Graph != null)
+        var up = new Vector3(0, 0.5f, 0);
+
+        if (this.DebugGraph && this.Graph != null)
         {
             foreach (NavNode n in this.Graph.Nodes)
             {
-                Gizmos.DrawSphere(n.Position, 0.1f);
+                Gizmos.DrawSphere(n.Position, 0.05f);
+
+                Handles.Label(n.Position + up, n.Id.ToString());
+
+                if (n.Cluster != null) Handles.Label(n.Position + up * 0.8f, n.Cluster.Id.ToString());
 
                 foreach (NavNode a in n.Adjacents)
                 {
@@ -157,39 +148,53 @@ public class NavigationManager : MonoBehaviour
                     {
                         Gizmos.color = Color.white;
 
-                        //if(a.Adjacents.Contains(n))
-                        //{
-                        //    Gizmos.color = Color.black;
-                        //}
-
                         Gizmos.DrawLine(n.Position, a.Position);
                     }
                 }
             }
         }
-        */
 
-        if(this.ClusterGraph != null)
+        if(this.DebugClusters && this.ClusterGraph != null)
         {
             foreach(var cluster in this.ClusterGraph.Clusters)
             {
                 Gizmos.color = Color.red;
-                Gizmos.DrawSphere(cluster.Center, 0.3f);
+                Gizmos.DrawSphere(cluster.Center, 0.2f);
+
+                Handles.Label(cluster.Center + up, cluster.Id.ToString());
 
                 Gizmos.color = Color.blue;
+
                 foreach(var gate in cluster.Gateways)
                 {
-                    Gizmos.DrawLine(cluster.Center, gate.Center);
+                    Gizmos.DrawLine(cluster.Center, gate.Center + up / 2);
                 }
             }
 
-            Gizmos.color = Color.green;
-
             foreach(var gateway in this.ClusterGraph.Gateways)
             {
+                Gizmos.color = Color.green;
+
                 if (this.GatewayOpen != null && !this.GatewayOpen[gateway.Id]) Gizmos.color = Color.yellow;
 
-                Gizmos.DrawSphere(gateway.Center, 0.1f);
+                Gizmos.DrawSphere(gateway.Center + up / 2, 0.1f);
+
+                Handles.Label(gateway.Center + up, gateway.Id.ToString());
+            }
+        }
+
+        if(this.DebugGateways && Application.isPlaying && this.ClusterGraph != null)
+        {
+            Gizmos.color = Color.cyan;
+
+            foreach(var gate in this.ClusterGraph.Gateways)
+            {
+                if (this.GatewayOpen[gate.Id]) continue;
+
+                foreach(var edge in gate.Edges)
+                {
+                    Gizmos.DrawLine(edge.Left.Position, edge.Right.Position);
+                }
             }
         }
     }

@@ -75,8 +75,6 @@ public class AStarPathfinding : PathfindingAlgorithm
         if (inOpen == null && inClosed == null)
         {
             Open.AddToOpen(childNode);
-
-            //Debug.Log(step + "Opened it.");
         }
 
         // If child is in Open
@@ -85,8 +83,6 @@ public class AStarPathfinding : PathfindingAlgorithm
             if (inOpen.fValue > childNode.fValue)
             {
                 Open.Replace(inOpen, childNode);
-
-                //Debug.Log(step + "Replaced in open.");
             }
         }
 
@@ -97,8 +93,6 @@ public class AStarPathfinding : PathfindingAlgorithm
             {
                 Closed.RemoveFromClosed(inClosed);
                 Open.AddToOpen(childNode);
-
-                //Debug.Log(step + "Removed from closed.");
             }
         }
     }
@@ -123,31 +117,22 @@ public class AStarPathfinding : PathfindingAlgorithm
 
         var bestNode = Open.GetBestAndRemove();
 
-        //Debug.Log(step + "Best Node:" + bestNode.node.Id.ToString());
-
         if (bestNode.node == GoalNode)
         {
             solution = CalculateSolution(bestNode, false);
             TotalProcessingTime = Time.time - StartProcessingTime;
-            //Debug.Log(step + "Success!!!");
             return true;
         }
 
         Closed.AddToClosed(bestNode);
 
-        var outConnections = bestNode.node.Adjacents.Count;
-
-        for (int i = 0; i < outConnections; i++)
+        foreach (var childNode in bestNode.node.Adjacents)
         {
-            //Debug.Log(step + "Connection - " + bestNode.node.Adjacents[i].Id);
-
-            this.ProcessChildNode(bestNode, bestNode.node.Adjacents[i]);
+            this.ProcessChildNode(bestNode, childNode);
         }
 
         TotalExploredNodes++;
 
-        //Debug.Log(step + "Open Nodes: " + Open.CountOpen().ToString());
-        //Debug.Log(step + "Total Explored: " + TotalExploredNodes);
         this.StepsSoFar++;
 
         solution = null;

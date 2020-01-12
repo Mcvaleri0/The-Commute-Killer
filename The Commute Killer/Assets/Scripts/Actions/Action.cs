@@ -12,7 +12,8 @@ public abstract class Action
         Stab,
         Sabotage,
         Use,
-        Insert
+        Insert,
+        Move
     }
 
     public IDs ID;
@@ -76,6 +77,24 @@ public abstract class Action
 
             case Action.IDs.Insert:
                 return new Insert(actor, target);
+
+            case Action.IDs.Move:
+                if (target != null) return new Move(actor, target.transform.position);
+                break;
+        }
+
+        return null;
+    }
+
+    public static Action GetAction(Action.IDs id, Agent actor, Vector3 targetPosition)
+    {
+        switch (id)
+        {
+            default:
+                break;
+
+            case Action.IDs.Move:
+                return new Move(actor, targetPosition);
         }
 
         return null;

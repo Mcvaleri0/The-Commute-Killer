@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
+using Assets.Scripts.IAJ.Unity.Utils;
 
 public class NavGateway : ScriptableObject
 {
     public int Id;
+
+    public GameObject GatewayObject;
 
     public Vector3 Center;
 
@@ -14,6 +17,8 @@ public class NavGateway : ScriptableObject
 
     public List<NavCluster> Clusters { get; set; }
 
+    public List<NavEdge> Edges { get; set; }
+
     public void Initialize()
     {
         this.Clusters = new List<NavCluster>();
@@ -22,6 +27,8 @@ public class NavGateway : ScriptableObject
     public void Initialize(int Id, GameObject gatewayObject)
     {
         this.Clusters = new List<NavCluster>();
+
+        this.GatewayObject = gatewayObject;
 
         this.Id = Id;
 
@@ -34,10 +41,28 @@ public class NavGateway : ScriptableObject
         //clusters have a size of 10 multipled by the scale
         this.Min = new Vector3(this.Center.x - halfLength, this.Center.y - halfHeight, this.Center.z - halfWidth);
         this.Max = new Vector3(this.Center.x + halfLength, this.Center.y + halfHeight, this.Center.z + halfWidth);
+
+        this.Edges = new List<NavEdge>();
     }
 
     public Vector3 Localize()
     {
         return this.Center;
+    }
+
+    public void Close()
+    {
+        foreach (var edge in this.Edges)
+        {
+            edge.Disconnect();
+        }
+    }
+
+    public void Open()
+    {
+        foreach (var edge in this.Edges)
+        {
+            edge.Connect();
+        }
     }
 }

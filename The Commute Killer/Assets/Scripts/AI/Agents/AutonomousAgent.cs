@@ -87,13 +87,12 @@ public class AutonomousAgent : Agent
         return this.DCharacter.KinematicData.velocity.magnitude;
     }
 
-
     private void MovementStateMachine()
     {
         switch (this.MovementState)
         {
             case 0: // Stopped
-                if (this.GoalPosition != null && Vector3.Distance(this.transform.position, this.GoalPosition) >= 1f)
+                if (this.GoalPosition != Vector3.positiveInfinity && Vector3.Distance(this.transform.position, this.GoalPosition) >= 1f)
                 {
                     InitializeMovement();
 
@@ -114,7 +113,7 @@ public class AutonomousAgent : Agent
                         MaxSpeed = this.Attributes[Attribute.Speed],
                         MaxAcceleration = this.Attributes[Attribute.Accelaration],
                         PathOffset = 1f,
-                        PathManager = this.PathfindingM.NavManager
+                        NavManager = this.PathfindingM.NavManager
                     };
 
                     this.MovementState = 2;
@@ -123,11 +122,7 @@ public class AutonomousAgent : Agent
 
             case 2: // Moving to Target
                 if (this.Path == null) {
-                    if (Vector3.Distance(this.transform.position, this.GoalPosition) < 1f)
-                    {
-                        this.MovementState = 0;
-                    }
-
+                    this.MovementState = 0;
                     break;
                 }
 
@@ -136,6 +131,8 @@ public class AutonomousAgent : Agent
                 if (Vector3.Distance(this.transform.position, this.GoalPosition) < 1f)
                 {
                     this.MovementState = 0; // Path completed -> Goal Reached
+
+                    this.GoalPosition = Vector3.positiveInfinity;
 
                     if (this.Target)
                     {

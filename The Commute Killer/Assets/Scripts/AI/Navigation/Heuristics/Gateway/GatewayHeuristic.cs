@@ -4,8 +4,6 @@ public class GatewayHeuristic : IHeuristic
 {
     private GatewayDistanceTableRow[] GatewayDistanceTable;
 
-    public System.Diagnostics.Stopwatch stopwatch;
-
     private NavNode LastGoal { get; set; }
 
     public NavCluster  CurrentCluster { get; set; }
@@ -17,15 +15,12 @@ public class GatewayHeuristic : IHeuristic
     public GatewayHeuristic(GatewayDistanceTableRow[] table)
     {
         this.GatewayDistanceTable = table;
-        this.stopwatch = new System.Diagnostics.Stopwatch();
     }
 
     public float H(NavNode node, NavNode goalNode)
     {
 
-        this.stopwatch.Start();
         NavCluster currentCluster = node.Cluster;
-        this.stopwatch.Stop();
 
         this.CurrentCluster = currentCluster;
 
@@ -34,7 +29,7 @@ public class GatewayHeuristic : IHeuristic
             return Mathf.Infinity;
         }
 
-        if(true)
+        if(goalNode != this.LastGoal)
         {
             UpdateGoal(goalNode);
         }
@@ -52,10 +47,13 @@ public class GatewayHeuristic : IHeuristic
 
                 var ih = EuclideanH(node.Position, outGateway.Center);
 
+                if (GatewayH(outGateway.Id, outGateway.Id) == Mathf.Infinity) continue;
+
                 for (var j = 0; j < this.Gate2GoalCosts.Length; j++) {
                     NavGateway inGateway = this.GoalCluster.Gateways[j];
 
                     var h = ih;
+
                     h += GatewayH(outGateway.Id, inGateway.Id);
                     h += this.Gate2GoalCosts[j];
 
@@ -74,9 +72,7 @@ public class GatewayHeuristic : IHeuristic
     {
         this.LastGoal = node;
 
-        this.stopwatch.Start();
         this.GoalCluster = this.LastGoal.Cluster;
-        this.stopwatch.Stop();
 
         var gateCount = this.GoalCluster.Gateways.Count;
 

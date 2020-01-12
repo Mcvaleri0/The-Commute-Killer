@@ -105,9 +105,7 @@ public class NavigationMenu : ScriptableObject
             
             if(node == null)
             {
-                node = InstantiateNode(nodeCounter, pos);
-
-                nodeCounter++;
+                node = InstantiateNode(nodeCounter++, pos);
 
                 graph.AddNode(node);
             }
@@ -121,13 +119,11 @@ public class NavigationMenu : ScriptableObject
         for (var i = 0; i < indexes.Length; i += 3)
         {
             // Foreach Vertex of the Triangle
-            for(var j = i; j < i + 3; j++)
+            for(var j = 0; j < 3; j++)
             {
-                var tInd = j - i; // Index in the triangle
+                var node = indToNode[indexes[i + j]];  // Get NavNode
 
-                var node = indToNode[indexes[j]];  // Get NavNode
-
-                triangleVertices[tInd] = node;
+                triangleVertices[j] = node;
             }
 
             var triangle = new Triangle(triangleVertices);
@@ -181,16 +177,18 @@ public class NavigationMenu : ScriptableObject
         }
 
         // Create NavCluster instances for each NavZone GameObject and check for connections through gateways
+        var ind = 0;
+
         foreach (var zone in zones)
         {
             cluster = CreateInstance<NavCluster>();
-            cluster.Initialize(zone.GetComponent<NavZone>());
+            cluster.Initialize(ind++, zone.GetComponent<NavZone>());
             clusterGraph.Clusters.Add(cluster);
 
-            //determine intersection between cluster and gateways and add connections when they intersect
+            // Determine intersection between cluster and gateways and add connections when they intersect
             foreach (var gate in clusterGraph.Gateways)
             {
-                if (MathHelper.BoundingBoxIntersection(cluster.Min, cluster.Max, gate.Min, gate.Max))
+                if (BoxIntersection(cluster.Min, cluster.Max, gate.Min, gate.Max))
                 {
                     cluster.Gateways.Add(gate);
                     gate.Clusters.Add(cluster);
@@ -205,7 +203,7 @@ public class NavigationMenu : ScriptableObject
 
             foreach (var c in clusterGraph.Clusters)
             {
-                if (MathHelper.PointInsideBoundingBox(node.Position, c.Min, c.Max))
+                if (c.Inside(node.Position))
                 {
                     node.Cluster = c;
 
@@ -221,7 +219,7 @@ public class NavigationMenu : ScriptableObject
             }
             else
             {
-                Debug.Log("No Cluster found for this Node: " + node.Id);
+                Debug.Log("No Cluster found for a Node");
             }
         }
 
@@ -305,7 +303,76 @@ public class NavigationMenu : ScriptableObject
 
         clusterGraph.GatewayDistanceTable = gateDistTable;
 
+        LinkNodes2Gates(clusterGraph, navGraph);
+
         //create a new asset that will contain the ClusterGraph and save it to disk (DO NOT REMOVE THIS LINE)
         clusterGraph.SaveToAssetDatabase(scene);
+    }
+
+    private static bool BoxIntersection(Vector3 b1Min, Vector3 b1Max, Vector3 b2Min, Vector3 b2Max)
+    {
+        if (!Overlap1D(b1Min.x, b1Max.x, b2Min.x, b2Max.x)) return false;
+        if (!Overlap1D(b1Min.z, b1Max.z, b2Min.z, b2Max.z)) return false;
+        if (!Overlap1D(b1Min.y, b1Max.y, b2Min.y, b2Max.y)) return false;
+
+        return true;
+    }
+
+    private static bool Overlap1D(float min1, float max1, float min2, float max2)
+    {
+        return max1 >= min2 && max2 >= min1;
+    }
+
+    private static void LinkNodes2Gates(NavClusterGraph clusterGraph, NavGraph graph)
+    {
+        var gates = clusterGraph.Gateways;
+
+        foreach(var node in graph.Nodes)
+        {
+            foreach(var adjacent in node.Adjacents)
+            {
+                if(node.Id < adjacent.Id)
+                {
+                    var gate = CrossesGateway(node.Position, adjacent.Position, gates);
+
+                    if (gate != null)
+                    {
+                        if (gate.Edges == null) gate.Edges = new List<NavEdge>();
+
+                        var edge = CreateInstance<NavEdge>();
+                        edge.Initialize(node, adjacent);
+
+                        gate.Edges.Add(edge);
+                    }
+                }
+            }
+        }
+    }
+
+    private static NavGateway FindGateway(GameObject oGate, List<NavGateway> Gates)
+    {
+        foreach(var gate in Gates)
+        {
+            if(gate.GatewayObject == oGate)
+            {
+                return gate;
+            }
+        }
+
+        return null;
+    }
+
+    private static NavGateway CrossesGateway(Vector3 p1, Vector3 p2, List<NavGateway> gates)
+    {
+        Vector3 direction = p2 - p1;
+
+        Physics.Raycast(p1, direction, out RaycastHit hit, direction.magnitude);
+
+        if(hit.transform != null && hit.transform.CompareTag("Gateway"))
+        {
+            return FindGateway(hit.transform.gameObject, gates);
+        }
+
+        return null;
     }
 }

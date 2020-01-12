@@ -18,22 +18,30 @@ public class NavNode : ScriptableObject
 
         this.Position = pos;
 
-        this.Adjacents = new List<NavNode>();
+        this.Adjacents  = new List<NavNode>();
     }
 
     public bool AddAdjacent(NavNode adjacent)
     {
-        foreach(NavNode n in this.Adjacents)
+        if(this.Adjacents.Contains(adjacent))
         {
-            if(n == adjacent)
-            {
-                return false;
-            }
+            return false;
         }
 
         this.Adjacents.Add(adjacent);
 
         return true;
+    }
+
+    public bool RemoveAdjacent(NavNode adjacent)
+    {
+        if(this.Adjacents.Contains(adjacent))
+        {
+            this.Adjacents.Remove(adjacent);
+            return true;
+        }
+
+        return false;
     }
 
     override public bool Equals(object other)
