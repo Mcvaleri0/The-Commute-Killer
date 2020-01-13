@@ -21,7 +21,7 @@ public class AnimationController : MonoBehaviour
 
     protected int State = (int) States.Walking;
 
-    void Start()
+    public void Start()
     {
         Anim      = gameObject.GetComponent<Animator>();
         AutoAgent = gameObject.GetComponent<AutonomousAgent>();

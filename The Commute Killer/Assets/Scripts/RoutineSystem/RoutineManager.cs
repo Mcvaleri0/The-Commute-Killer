@@ -22,13 +22,18 @@ public class RoutineManager : MonoBehaviour
     {
         this.ActiveRoutines = new List<Routine>();
 
+        var agent = GetComponent<AutonomousAgent>();
+
         for (var i = 0; i < this.Routines.Count; i++)
         {
-            this.Routines[i].Initialize();
+            var routine = Instantiate(this.Routines[i]); 
+            routine.Initialize(agent);
+
+            this.Routines[i] = routine;
         }
     }
 
-    void Start()
+    public void Start()
     {
         this.TimeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
 
@@ -36,7 +41,7 @@ public class RoutineManager : MonoBehaviour
     }
 
     // Update
-    public Action Update()
+    public void Update()
     {
         var currentTime = this.TimeManager.GetCurrentTime();
 
@@ -101,9 +106,5 @@ public class RoutineManager : MonoBehaviour
                 this.CurrentAction = null;
             }
         }
-
-        
-
-        return this.CurrentAction;
     }
 }

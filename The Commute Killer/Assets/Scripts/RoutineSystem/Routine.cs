@@ -27,7 +27,7 @@ public class Routine : ScriptableObject
     #endregion
 
 
-    public void Initialize()
+    public void Initialize(Agent agent)
     {
         #region Init Time Interval
         var sMinute = 59;
@@ -78,9 +78,12 @@ public class Routine : ScriptableObject
         this.EndMinute = eMinute;
         #endregion
 
-        foreach(var rAction in this.RoutineActions)
+        for(var i = 0; i < this.RoutineActions.Count; i++)
         {
-            rAction.Initialize();
+            var rAction = ScriptableObject.Instantiate(this.RoutineActions[i]);
+            rAction.Initialize(agent);
+
+            this.RoutineActions[i] = rAction;
         }
     }
 

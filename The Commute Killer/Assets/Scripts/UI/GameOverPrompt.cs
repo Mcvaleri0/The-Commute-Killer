@@ -29,6 +29,6 @@ public class GameOverPrompt : MonoBehaviour
     {
         this.Hide();
 
-        GameObject.Find("LevelManager").GetComponent<LevelManager>().Resart();
+        GameObject.Find("LevelManager").GetComponent<LevelManager>().Restart();
     }
 }

@@ -18,6 +18,10 @@ public class LevelManager : MonoBehaviour
 
     private int CurrentDay;
 
+    public List<Vector3> InitialPositions;
+
+    public List<GameObject> Prefabs;
+
     private List<AutonomousAgent> Agents;
     #endregion
 
@@ -49,17 +53,7 @@ public class LevelManager : MonoBehaviour
 
         this.Agents = new List<AutonomousAgent>();
 
-        var agents = GameObject.FindGameObjectsWithTag("NPC");
-
-        foreach(var agent in agents)
-        {
-            var aa = agent.GetComponent<AutonomousAgent>();
-
-            if(aa != null)
-            {
-                this.Agents.Add(aa);
-            }   
-        }
+        LoadNPCs();
     }
 
     // Update is called once per frame
@@ -79,7 +73,6 @@ public class LevelManager : MonoBehaviour
             }
         }
 
-        /*
         var currentTime = this.TimeManager.GetCurrentTime();
 
         if(this.CurrentDay != currentTime.Day)
@@ -88,12 +81,13 @@ public class LevelManager : MonoBehaviour
 
             foreach(var agent in this.Agents)
             {
-                var charController = agent.GetComponent<CharacterController>();
-
-                charController.Move(agent.StartPosition);
+                Destroy(agent);
             }
+
+            this.Agents.Clear();
+
+            LoadNPCs();
         }
-        */
     }
 
     #endregion
@@ -136,11 +130,27 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    public void Resart()
+    public void Restart()
     {
         SceneManager.LoadScene("City", LoadSceneMode.Single);
     }
 
+    private void LoadNPCs()
+    {
+        var i = 0;
+
+        foreach (var prefab in this.Prefabs)
+        {
+            this.Agents.Add(Instantiate(prefab, this.InitialPositions[i], Quaternion.identity).GetComponent<AutonomousAgent>());
+
+            foreach(MonoBehaviour comp in this.Agents[i].GetComponents<MonoBehaviour>())
+            {
+                comp.enabled = true;
+            }
+
+            i++;
+        }
+    }
     #endregion
 
     #region === Auxiliar Functions ===

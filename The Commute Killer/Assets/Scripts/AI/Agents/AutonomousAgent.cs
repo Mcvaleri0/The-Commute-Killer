@@ -50,7 +50,7 @@ public class AutonomousAgent : Agent
         this.GoalHome = false;
     }
 
-    new void Start()
+    new public void Start()
     {
         base.Start();
 
@@ -180,7 +180,9 @@ public class AutonomousAgent : Agent
         {
             case 0: // Idle
                 // Get next Action
-                var nextAction = this.RoutineM.Update();
+                this.RoutineM.Update();
+
+                var nextAction = this.RoutineM.CurrentAction;
 
                 // If there is an Action
                 if (nextAction != null)

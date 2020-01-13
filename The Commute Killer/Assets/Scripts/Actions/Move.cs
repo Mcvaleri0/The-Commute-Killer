@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Move : Action
 {
-
     public Move(Agent agent, Vector3 targetPosition) : base(agent) {
         this.ID = IDs.Move;
 
@@ -13,7 +12,7 @@ public class Move : Action
 
     public override void Update()
     {
-        var agent = (AutonomousAgent)this.Agent;
+        var agent = (AutonomousAgent) this.Agent;
 
         switch(this.State)
         {

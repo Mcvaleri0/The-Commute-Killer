@@ -11,8 +11,6 @@ public class RoutineAction : ScriptableObject
     #region Action Parameters
     public Action.IDs ActionId;
 
-    public String AgentName;
-
     public String TargetName;
 
     public Vector3 TargetPosition;
@@ -47,12 +45,9 @@ public class RoutineAction : ScriptableObject
     private GameObject Target;
 
 
-    public void Initialize()
+    public void Initialize(Agent agent)
     {
-        if(this.AgentName != null && this.AgentName != "")
-        {
-            this.Agent = GameObject.Find(this.AgentName).GetComponent<Agent>();
-        }
+        this.Agent = agent;
 
         if (this.TargetName != null && this.TargetName != "")
         {
@@ -149,15 +144,6 @@ public class RoutineAction : ScriptableObject
 
             default:
                 return Action.GetAction(ActionId, this.Agent, this.Target);
-        }
-
-        if(this.ActionId == Action.IDs.Move)
-        {
-            
-        }
-        else
-        {
-            
         }
     }
 }

@@ -25,7 +25,7 @@ public class DetectionController : MonoBehaviour
     }
 
    
-    void Update()
+    public void Update()
     {
         //see if player is within sight
         Vector3 direction = this.Player.transform.position - this.transform.position;
