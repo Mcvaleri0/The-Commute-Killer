@@ -226,7 +226,7 @@ public class TimeManager : MonoBehaviour
 
     private void TimeLimitOver()
     {
-        this.LevelManager.GameOver();
+        this.LevelManager.GameOver("The deadline has passed.");
     }
 
     public void ResetTime()

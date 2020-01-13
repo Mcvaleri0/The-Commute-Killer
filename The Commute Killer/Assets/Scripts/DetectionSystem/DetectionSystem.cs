@@ -33,7 +33,7 @@ public class DetectionSystem : MonoBehaviour
     {
         if(this.PlayerZone.AwarenessLevel == NavZone.Awareness.Surveiled)
         {
-            GameObject.Find("LevelManager").GetComponent<LevelManager>().GameOver();
+            GameObject.Find("LevelManager").GetComponent<LevelManager>().GameOver("You killed someone in a surveilled place.");
             return;
         }
     }

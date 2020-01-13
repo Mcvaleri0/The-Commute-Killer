@@ -109,7 +109,7 @@ public class EventManager : MonoBehaviour
                 return true;
 
             case Event.CaughtByNPC:
-                this.LevelManager.GameOver();
+                this.LevelManager.GameOver("You were caught by somebody while carrying a weapon.");
                 return true;
 
             case Event.TrainArrival:
