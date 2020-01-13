@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecd8358c1672bf46b89e49fa1ab8c32, type: 3}
-  m_Name: New Routine Action
+  m_Name: John_Walk2
   m_EditorClassIdentifier: 
   Executed: 0
   ActionId: 9
