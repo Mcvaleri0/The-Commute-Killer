@@ -21,16 +21,12 @@ public class CarController : MonoBehaviour
 
     #endregion
 
-    #region /* Collision */
+    #region /* Auxiliary */
 
-    private float LookAheadSQR { get; set; }
-    private float AngleVision { get; set; }
-
-    private bool RightCar { get; set; }
+    public CollisionDetector Detector { get; set; }
 
     #endregion
 
-    public CarManager Manager { get; set; }
 
     #region === Unity Events ===
 
@@ -56,7 +52,6 @@ public class CarController : MonoBehaviour
         if (this.GoalReached())
         {
             Destroy(this.gameObject);
-            this.Manager.N--;
         }
         else if (this.CanMove())
         {
@@ -76,87 +71,15 @@ public class CarController : MonoBehaviour
 
     private bool CanMove()
     {
-        return !this.DetectPossibleCollision();
-    }
-
-
-    #endregion
-
-    #region === Collision Methods ===
-
-    private void InitializeCollisionDetection(float LookAhead, float AngleVision, bool RightCar)
-    {
-        this.LookAheadSQR = LookAhead * LookAhead;
-        this.AngleVision  = AngleVision;
-        this.RightCar     = RightCar;
-    }
-
-    private bool DetectPossibleCollision()
-    {
-        GameObject[] npcs = GameObject.FindGameObjectsWithTag("NPC");
-
-        Vector3 diff;
-        float   angle;
-
-        foreach (GameObject npc in npcs)
-        {
-            diff = npc.transform.position - this.transform.position;
-
-            if (diff.sqrMagnitude <= this.LookAheadSQR)
-            {
-                angle = Vector3.Angle(diff, this.Direction);
-
-                if (this.RightCar && angle <= this.AngleVision)
-                {
-                    return true;
-                }
-                if (!this.RightCar && angle > this.AngleVision)
-                {
-                    return true;
-                }
-            }
-        }
-
-        GameObject[] cars = GameObject.FindGameObjectsWithTag("Car");
-        Vector3 carPos;
-        Vector3 thisPos;
-
-        foreach (GameObject car in cars)
-        {
-            carPos  = car.transform.position;
-            thisPos = this.transform.position;
-
-            carPos.y = thisPos.y = 0;
-            
-            diff = carPos - thisPos;
-
-            if (diff != Vector3.zero && diff.sqrMagnitude <= 1.5 * this.LookAheadSQR)
-            {
-                angle = Vector3.Angle(diff, this.Direction);
-
-                if (this.RightCar && angle == 0)
-                {
-                    return true;
-                }
-                else if (!this.RightCar && angle == 180)
-                {
-                    return true;
-                }
-            }
-
-        }
-
-        return false;
+        return !this.Detector.ImminentCollision();
     }
 
     #endregion
 
     #region === Auxiliary Functions ===
 
-    public void Initialize(float Speed, Vector3 GoalPosition, float LookAhead, float AngleVision, bool RightCar)
+    public void Initialize(float Speed, Vector3 GoalPosition)
     {
-        this.InitializeCollisionDetection(LookAhead, AngleVision, RightCar);
-
         this.InitializeMovement(Speed, GoalPosition);
     }
 

@@ -457,7 +457,7 @@ MeshCollider:
   m_GameObject: {fileID: 12288353}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -13335,7 +13335,7 @@ MeshCollider:
   m_GameObject: {fileID: 575878357}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -36980,11 +36980,29 @@ MonoBehaviour:
   - {fileID: 100000, guid: 43a74ef622c63d240b81a2a6f482fd36, type: 3}
   - {fileID: 100000, guid: 9a0e25e89a83a9c4483e40e54e5cf19a, type: 3}
   - {fileID: 100000, guid: 1b53c0f0b93c2a0409b59e0e8cfe3d56, type: 3}
+  ProperY:
+  - -0.35
+  - -0.35
+  - -0.33
+  - -0.33
+  - -0.15
+  - -0.42
+  ColliderCenter:
+  - -0.033
+  - -0.034
+  - -0.034
+  - -0.034
+  - -0.036
+  - -0.037
+  ColliderSize:
+  - 0.019
+  - 0.019
+  - 0.019
+  - 0.019
+  - 0.022
+  - 0.017
   Limit: 5
   MaxSpeed: 3
-  LookAHeadDistance: 3
-  VisionAngleRightCar: 21
-  VisionAngleLeftCar: 159
   InitialRightPosition: {x: 50, y: 0, z: 62}
   GoalRightPosition: {x: -40, y: 0, z: 62}
   InitialLeftPosition: {x: -40, y: 0, z: 59}
@@ -49804,7 +49822,7 @@ MeshCollider:
   m_GameObject: {fileID: 1184832360}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -50669,7 +50687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_TagString
-      value: NPC
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_LocalPosition.x

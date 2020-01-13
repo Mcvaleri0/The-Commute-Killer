@@ -19,21 +19,21 @@ public class CarManager : MonoBehaviour
     /// <summary>
     /// Proper Y values for each Car type
     /// </summary>
-    private float[] ProperY { get; set; }
+    public float[] ProperY;/*-0.19f, */
+
+    public float[] ColliderCenter;/*-0.038f,*/
+
+    public float[] ColliderSize;
 
     /// <summary>
     /// Parent to all instantiated cars
     /// </summary>
     private Transform Cars { get; set; }
 
-    public int N { get; set; }
-    public int Limit;
-
     public float MaxSpeed;
-    public float LookAHeadDistance;
 
-    public float VisionAngleRightCar;
-    public float VisionAngleLeftCar;
+    private bool RightFree { get; set; }
+    private bool LeftFree  { get; set; }
 
     #endregion
 
@@ -73,26 +73,36 @@ public class CarManager : MonoBehaviour
 
     private void Start()
     {
-        // This values were chosen empirically
-        this.ProperY = new float[] { -0.356f, -0.357f, -0.33f, -0.335f, /*-0.193f,*/ -0.164f, -0.424f };
-
-        if (this.Prefabs.Count != this.ProperY.Length)
+        if (this.Prefabs.Count != this.ProperY.Length || 
+            this.Prefabs.Count != this.ColliderCenter.Length ||
+            this.Prefabs.Count != this.ColliderSize.Length)
         {
-            throw new Exception("Each car type must have a proper y value");
+            throw new Exception("Each car type must have a proper y and collider values");
         }
 
         this.Cars = this.transform.Find("Cars");
         this.TimeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
+
+        this.RightFree = this.LeftFree = true;
 
         this.UpdateTimeNextCar(this.TimeManager.GetCurrentTime());
     }
 
     private void Update()
     {
-        if (this.N < this.Limit && this.TimeToInstanciateCar())
+        if (this.TimeToInstanciateCar())
         {
-            this.NewCar();
-            this.N++;
+            this.RightLane = this.ChooseLane();
+            if (this.RightLane && this.RightFree)
+            {
+                this.NewCar();
+                this.RightFree = false;
+            }
+            else if (!this.RightLane && this.LeftFree)
+            {
+                this.NewCar();
+                this.LeftFree = false;
+            }
         }
     }
 
@@ -108,7 +118,6 @@ public class CarManager : MonoBehaviour
         Vector3    Position;
         Quaternion Rotation;
 
-        this.RightLane = this.ChooseLane();
         if (this.RightLane)
         {
             Position = this.InitialRightPosition;
@@ -122,10 +131,10 @@ public class CarManager : MonoBehaviour
         Position = this.CorrectPosition(CarTypeIndex, Position);
 
         GameObject Car = Instantiate(CarType, Position, Rotation, this.Cars);
-        this.InitializeCar(Car);
+        this.InitializeCar(Car, CarTypeIndex);
     }
 
-    private void InitializeCar(GameObject Car)
+    private void InitializeCar(GameObject Car, int index)
     {
         Car.tag = "Car";
 
@@ -137,16 +146,26 @@ public class CarManager : MonoBehaviour
         Rigidbody body   = Car.AddComponent<Rigidbody>();
         body.isKinematic = true;
 
-        var Controller = Car.AddComponent<CarController>();
-        Controller.Manager = this;
+        Vector3 Position = new Vector3(this.ColliderCenter[index], 0, 0);
+        Vector3 Size     = new Vector3(0.02f, 0.03f, this.ColliderSize[index]);
+        CollisionDetector Detector = CollisionDetector.CreateCollisionDetector(Car.transform, Position, Size, this.RightLane);
+
+        AudioSource audio = Car.AddComponent<AudioSource>();
+        audio.clip = Resources.Load("Audio/car_engine") as AudioClip;
+        audio.spatialBlend = 1;
+        audio.loop = true;
+        audio.Play();
+
+        CarController Controller = Car.AddComponent<CarController>();
+        Controller.Detector = Detector;
 
         if (this.RightLane)
         {
-            Controller.Initialize(this.MaxSpeed, this.GoalRightPosition, this.LookAHeadDistance, this.VisionAngleRightCar, this.RightLane);
+            Controller.Initialize(this.MaxSpeed, this.GoalRightPosition);
         }
         else
         {
-            Controller.Initialize(this.MaxSpeed, this.GoalLeftPosition, this.LookAHeadDistance, this.VisionAngleLeftCar, this.RightLane);
+            Controller.Initialize(this.MaxSpeed, this.GoalLeftPosition);
         }
     }
 
@@ -186,7 +205,6 @@ public class CarManager : MonoBehaviour
     private bool ChooseLane()
     {
         return Random.Range(0f, 1f) > 0.5;
-        //return false;
     }
 
     private Vector3 CorrectPosition(int CarType, Vector3 DesiredPosition)
@@ -197,6 +215,23 @@ public class CarManager : MonoBehaviour
         Position.y += ProperY;
 
         return Position;
+    }
+
+    public void FreeLane(Event Lane)
+    {
+        switch(Lane)
+        {
+            case Event.RightLaneFree:
+                this.RightFree = true;
+                break;
+
+            case Event.LeftLaneFree:
+                this.LeftFree = true;
+                break;
+
+            default:
+                throw new NotImplementedException();
+        }
     }
 
     #endregion
