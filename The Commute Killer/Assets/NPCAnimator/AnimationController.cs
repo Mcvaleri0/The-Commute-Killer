@@ -32,6 +32,8 @@ public class AnimationController : MonoBehaviour
     void Update()
     {
         //pass params to animator
+
+        /*
         float speed = 0;
         if( Character != null)
         {
@@ -39,9 +41,11 @@ public class AnimationController : MonoBehaviour
             speed = velocity.magnitude;
         }
 
-        //float speed = AutoAgent.GetVelocity();
+        Debug.Log(speed);*/
 
-        //Debug.Log(speed);
+        float speed = AutoAgent.GetVelocity();
+
+        
         Anim.SetFloat("Speed", speed);
   
     }
@@ -57,4 +61,5 @@ public class AnimationController : MonoBehaviour
     {
         Anim.SetBool("IsAlert", a);
     }
+
 }

@@ -67,12 +67,13 @@ public class RoutineManager : MonoBehaviour
             }
 
             // Check for routines that have concluded
-            foreach (var routine in this.ActiveRoutines)
+            for (var i = 0; i < this.ActiveRoutines.Count; i++)
             {
+
                 // If a Routine has been concluded
-                if (routine.Finished(currentTime))
+                if (this.ActiveRoutines[i].Finished(currentTime))
                 {
-                    this.ActiveRoutines.Remove(routine); // Remove it from the active list
+                    this.ActiveRoutines.RemoveAt(i); // Remove it from the active list
                     continue;
                 }
             }
