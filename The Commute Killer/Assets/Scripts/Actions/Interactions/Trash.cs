@@ -2,21 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Insert : Interaction
+public class Trash : Interaction
 {
-    public Insert(Agent agent, GameObject target) : base(agent, target) {
-        this.ID = IDs.Insert;
+    public Trash(Agent agent, GameObject target) : base(agent, target) {
+        this.ID = IDs.Trash;
     }
 
     override public bool CanExecute()
     {
         if(this.Interactable == null) { return false; } // Target must be an interactable
 
+        #region Distance
+        if (Vector3.Distance(this.Interactable.transform.position, this.Agent.transform.position) > 2f)
+        {
+            return false;
+        }
+        #endregion
+
         // Agent must have a Cadaver on hand
         if (this.Agent.OnHand != null && this.Agent.OnHand.Name == "TrashBag") 
         {
             // Interactable has to allow Sabotage
-            if (this.Interactable.CanInteract(this.Agent, Action.IDs.Insert))
+            if (this.Interactable.CanInteract(this.Agent, Action.IDs.Trash))
             {
                 return true;
             }

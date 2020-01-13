@@ -20,7 +20,7 @@ public class DetectionController : MonoBehaviour
     void Start()
     {
         this.Player = GameObject.Find("PlayerCharacter").GetComponent<Player>();
-        this.Anim = Player.gameObject.GetComponent<AnimationController>();
+        this.Anim = GetComponent<AnimationController>();
         this.DetectMeter = GetComponentInChildren<DetectionMeterController>();
     }
 
@@ -46,9 +46,10 @@ public class DetectionController : MonoBehaviour
             //NPC sees nothing
             case 0:
 
-                if(InSight && Threat)
+                if (InSight && Threat)
                 {
                     DetectMeter.StartDetection();
+                    this.Anim.SetState(AnimationController.States.Alert);
                     this.State = 1;
                 }
 
@@ -67,6 +68,7 @@ public class DetectionController : MonoBehaviour
                 if (!InSight)
                 {
                     DetectMeter.EndDetection();
+                    this.Anim.SetState(AnimationController.States.Walking);
                     this.State = 0;
                 }
 
@@ -77,7 +79,7 @@ public class DetectionController : MonoBehaviour
             case 2:
 
                 GameObject.Find("EventManager").GetComponent<EventManager>().TriggerEvent(Event.CaughtByNPC);
-                this.State = 0;
+                //this.State = 0;
 
                 break;
         }
@@ -95,9 +97,11 @@ public class DetectionController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        /*
         if (this.InSight)
         {
             Gizmos.DrawSphere(transform.position, 0.4f);    
         }
+        */
     }
 }

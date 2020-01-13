@@ -62,17 +62,36 @@ public class Player : Agent
             DetermineAction();
 
             #region Player Controls
-            // Drop Item On Hand
-            if (Input.GetKeyDown(KeyCode.Q))
+            if(this.DeterminedAction != null)
             {
-                ExecuteAction(Action.GetAction(Action.IDs.Drop, this, this.DeterminedSelection));
-                return;
+                if(this.DeterminedAction.State == 0)
+                {
+                    // General Actions
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        ExecuteAction(this.DeterminedAction);
+                    }
+                }
+                else
+                {
+                    ExecuteAction(this.DeterminedAction);
+
+                    if (this.DeterminedAction.Finished())
+                    {
+                        this.DeterminedAction = null;
+                    }
+                }
+                
             }
 
-            // General Actions
-            if (Input.GetMouseButtonDown(0))
+            if(this.DeterminedAction == null || this.DeterminedAction.State == 0)
             {
-                ExecuteAction(this.DeterminedAction);
+                // Drop Item On Hand
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    ExecuteAction(Action.GetAction(Action.IDs.Drop, this, this.DeterminedSelection));
+                    return;
+                }
             }
             #endregion
         }
@@ -106,6 +125,11 @@ public class Player : Agent
 
     protected void DetermineAction()
     {
+        if(this.DeterminedAction != null && this.DeterminedAction.State == 1)
+        {
+            return;
+        }
+
         var target = this.DeterminedSelection;
 
        // Check Actions enabled by the On Hand Item

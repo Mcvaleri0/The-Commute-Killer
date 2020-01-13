@@ -17,6 +17,12 @@ public class Drop : Action
         if(target != null) this.Item = target.GetComponent<Item>();
     }
 
+    public override void Update()
+    {
+        Execute();
+        this.State = 2;
+    }
+
     override public bool CanExecute()
     {
         var target = this.Targets[0];
@@ -36,7 +42,6 @@ public class Drop : Action
 
     override public void Execute() 
     {
-
         this.Agent.OnHand.PlayActionSound(this.ID);
 
         this.Agent.Drop(this.Agent.InventorySize);

@@ -22,23 +22,35 @@ public class Stab : Action
         {
             case 0: // To Start
                 this.Instrument.Animate();
+                this.State = 1;
                 break;
 
             case 1: // In Progress
-                if(this.Instrument.AnimationState == 2)
+                if(this.Instrument.AnimationState == 0)
                 {
+                    this.Execute();
                     this.State = 2;
                 }
                 break;
 
             case 2: // Finished
-                this.Execute();
                 break;
         }
     }
 
     override public bool CanExecute()
     {
+        if(this.Instrument == null)
+        {
+            return false;
+        }
+
+        if(!this.Instrument.EnabledActions.Contains(Action.IDs.Stab) && 
+            this.Instrument.DefaultAction != Action.IDs.Stab)
+        {
+            return false;
+        }
+
         return true;
     }
 

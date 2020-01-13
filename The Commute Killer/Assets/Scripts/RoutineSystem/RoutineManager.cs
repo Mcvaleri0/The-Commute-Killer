@@ -16,6 +16,7 @@ public class RoutineManager : MonoBehaviour
 
     public Action CurrentAction { get; private set; }
 
+    private int CurrentDay = 1;
 
     private void Awake()
     {
@@ -30,12 +31,27 @@ public class RoutineManager : MonoBehaviour
     void Start()
     {
         this.TimeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
+
+        this.CurrentDay = this.TimeManager.GetCurrentTime().Day;
     }
 
     // Update
     public Action Update()
     {
         var currentTime = this.TimeManager.GetCurrentTime();
+
+        if(currentTime.Day != this.CurrentDay)
+        {
+            this.CurrentDay = currentTime.Day;
+
+            foreach(var routine in this.Routines)
+            {
+                foreach(var action in routine.RoutineActions)
+                {
+                    action.Executed = false;
+                }
+            }
+        }
 
         if(this.CurrentAction == null)
         {

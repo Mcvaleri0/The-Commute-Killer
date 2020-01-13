@@ -304,7 +304,6 @@ public class NavigationMenu : ScriptableObject
             }
         }
 
-
         // Second stage of the algorithm, calculation of the Gateway table
         GlobalPath solution;
 
@@ -381,6 +380,8 @@ public class NavigationMenu : ScriptableObject
                 }
             }
         }
+
+        EditorUtility.SetDirty(navGraph);
 
         clusterGraph.GatewayDistanceTable = gateDistTable;
 

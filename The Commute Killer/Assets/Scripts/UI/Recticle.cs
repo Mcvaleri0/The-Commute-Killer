@@ -42,7 +42,7 @@ public class Recticle : MonoBehaviour {
             [Mode.Wrench] = this.transform.Find("Wrench"),
             [Mode.Eye]    = this.transform.Find("Eye"),
             [Mode.Insert] = this.transform.Find("Insert"),
-            [Mode.Sleep] = this.transform.Find("Sleep")
+            [Mode.Sleep]  = this.transform.Find("Sleep")
         };
 
         this.Current = Mode.Circle;
@@ -91,8 +91,8 @@ public class Recticle : MonoBehaviour {
                 rectMode = Mode.Eye;
                 break;
 
-            // --- Insert
-            case Action.IDs.Insert:
+            // --- Trash
+            case Action.IDs.Trash:
                 rectMode = Mode.Insert;
                 size = 30;
                 break;

@@ -10,19 +10,28 @@ public class Sabotage : Interaction
 
     override public bool CanExecute()
     {
-        if(this.Interactable == null) { return false; } // Target must be an interactable
+        #region Interactable
+        if (this.Interactable == null) { return false; } // Target must be an interactable
 
-        // Agent must have a Wrench on hand
-        if (this.Agent.OnHand != null && this.Agent.OnHand.Name == "Wrench") 
+        #region Distance
+        if (Vector3.Distance(this.Interactable.transform.position, this.Agent.transform.position) > 2f)
         {
-            // Interactable has to allow Sabotage
-            if (this.Interactable.CanInteract(this.Agent, Action.IDs.Sabotage))
-            {
-                return true;
-            }
+            return false;
         }
+        #endregion
+        #endregion
 
-        return false;
+        #region Instrument
+        if (this.Instrument == null) { return false; } // There must be an instrument
+
+        // Instrument must enable Sabotage
+        if (!this.Instrument.EnabledActions.Contains(Action.IDs.Sabotage)) return false;
+        #endregion
+
+        // Interactable has to allow Sabotage
+        if (!this.Interactable.CanInteract(this.Agent, Action.IDs.Sabotage)) return false;
+
+        return true;
     }
 
     public override void Execute()

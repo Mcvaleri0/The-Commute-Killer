@@ -12,21 +12,27 @@ public class Use : Interaction
 
     public override void Update()
     {
-        
+        Execute();
+        this.State = 2;
     }
 
     override public bool CanExecute()
     {
-        var target = this.Targets[0];
-
+        #region Interactable
         // Target must be an interactable
         if (this.Interactable == null) { return false; }
 
-        if(this.Interactable.CanInteract(this.Agent, Action.IDs.Use))
+        #region Distance
+        if(Vector3.Distance(this.Interactable.transform.position,this.Agent.transform.position) > 2f)
         {
-            return true;
+            return false;
         }
+        #endregion
+        #endregion
 
-        return false;
+        // Interaction must be viable
+        if (!this.Interactable.CanInteract(this.Agent, Action.IDs.Use)) return false;
+
+        return true;
     }
 }
