@@ -234,4 +234,20 @@ public class AutonomousAgent : Agent
 
         Gizmos.DrawSphere(this.GoalPosition, 0.25f);
     }
+
+    public override void Die()
+    {
+
+        this.GetComponent<AnimationController>().SetState(AnimationController.States.Dead);
+
+        var cadaver = gameObject.AddComponent<Cadaver>();
+        if (this.Target) { cadaver.Target = true; }
+
+        GameObject.Find("EventManager").GetComponent<EventManager>().TriggerEvent(Event.Killed);
+
+        Destroy(this);
+        Destroy(transform.GetComponent<Collider>());
+        Destroy(transform.GetComponent<Rigidbody>());
+
+    }
 }

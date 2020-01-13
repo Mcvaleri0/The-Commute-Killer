@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.5815739, g: 0.6493114, b: 0.9096138, a: 1}
+  m_IndirectSpecularColor: {r: 0.60216755, g: 0.6722496, b: 0.93654436, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -58416,6 +58416,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 608e123fa2650ba4cb35b2f767040066,
         type: 2}
+    - target: {fileID: 9102185099573692547, guid: 8774d47b33455304b8f57532ed74613d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 40135599a4b44134689cbf07efbc4fcd, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8774d47b33455304b8f57532ed74613d, type: 3}
 --- !u!4 &1483138016 stripped
@@ -74553,7 +74558,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &2103008828
 SphereCollider:
   m_ObjectHideFlags: 0

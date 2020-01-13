@@ -348,19 +348,8 @@ public class Agent : MonoBehaviour
         return null;
     }
 
-    public void Die()
+    public virtual void Die()
     {
-       
-        this.GetComponent<AnimationController>().SetState(AnimationController.States.Dead);
-
-        gameObject.AddComponent<Cadaver>();
-
-        GameObject.Find("EventManager").GetComponent<EventManager>().TriggerEvent(Event.Killed);
-
-        Destroy(this);
-        Destroy(transform.GetComponent<Collider>());
-        Destroy(transform.GetComponent<Rigidbody>());
-        
     }
 
     public void OnDrawGizmos()
