@@ -249,10 +249,12 @@ public class NavigationMenu : ScriptableObject
         {
             var gatewayGO = gateways[i];
 
-            gateway = ScriptableObject.CreateInstance<NavGateway>();
+            gateway = CreateInstance<NavGateway>();
             gateway.Initialize(i, gatewayGO);
 
             clusterGraph.Gateways.Add(gateway);
+
+            LinkNodes2Gate(gateway, navGraph);
         }
 
         // Create NavCluster instances for each NavZone GameObject and check for connections through gateways
@@ -382,8 +384,6 @@ public class NavigationMenu : ScriptableObject
 
         clusterGraph.GatewayDistanceTable = gateDistTable;
 
-        LinkNodes2Gates(clusterGraph, navGraph);
-
         //create a new asset that will contain the ClusterGraph and save it to disk (DO NOT REMOVE THIS LINE)
         clusterGraph.SaveToAssetDatabase(scene);
     }
@@ -402,17 +402,15 @@ public class NavigationMenu : ScriptableObject
         return max1 >= min2 && max2 >= min1;
     }
 
-    private static void LinkNodes2Gates(NavClusterGraph clusterGraph, NavGraph graph)
+    private static void LinkNodes2Gate(NavGateway gate, NavGraph graph)
     {
-        var gates = clusterGraph.Gateways;
-
         foreach(var node in graph.Nodes)
         {
             foreach(var adjacent in node.Adjacents)
             {
-                var gate = CrossesGateway(node.Position, adjacent.Position, gates);
+                var gateCoords = CrossesGateway(node.Position, adjacent.Position);
 
-                if (gate != null)
+                if (gateCoords == gate.Center)
                 {
                     if (gate.Edges == null) gate.Edges = new List<NavEdge>();
 
@@ -428,20 +426,7 @@ public class NavigationMenu : ScriptableObject
         }
     }
 
-    private static NavGateway FindGateway(GameObject oGate, List<NavGateway> Gates)
-    {
-        foreach(var gate in Gates)
-        {
-            if(gate.GatewayObject == oGate)
-            {
-                return gate;
-            }
-        }
-
-        return null;
-    }
-
-    private static NavGateway CrossesGateway(Vector3 p1, Vector3 p2, List<NavGateway> gates)
+    private static Vector3 CrossesGateway(Vector3 p1, Vector3 p2)
     {
         Vector3 direction = p2 - p1;
 
@@ -449,9 +434,9 @@ public class NavigationMenu : ScriptableObject
 
         if(hit.transform != null && hit.transform.CompareTag("Gateway"))
         {
-            return FindGateway(hit.transform.gameObject, gates);
+            return hit.transform.position;
         }
 
-        return null;
+        return Vector3.positiveInfinity;
     }
 }

@@ -191,14 +191,12 @@ public class NavigationManager : MonoBehaviour
             }
         }
 
-        if(this.DebugGateways && Application.isPlaying && this.ClusterGraph != null)
+        if(this.DebugGateways && this.ClusterGraph != null)
         {
             Gizmos.color = Color.cyan;
 
             foreach(var gate in this.ClusterGraph.Gateways)
             {
-                if (!this.GatewayOpen[gate.Id]) continue;
-
                 foreach(var edge in gate.Edges)
                 {
                     Gizmos.DrawLine(edge.Left.Position, edge.Right.Position);
