@@ -25,8 +25,6 @@ public class CarController : MonoBehaviour
 
     public CollisionDetector Detector { get; set; }
 
-    public CarManager Manager { get; set; }
-
     #endregion
 
 
@@ -54,7 +52,6 @@ public class CarController : MonoBehaviour
         if (this.GoalReached())
         {
             Destroy(this.gameObject);
-            this.Manager.N--;
         }
         else if (this.CanMove())
         {

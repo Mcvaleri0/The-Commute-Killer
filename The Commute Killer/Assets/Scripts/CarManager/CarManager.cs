@@ -25,16 +25,15 @@ public class CarManager : MonoBehaviour
 
     public float[] ColliderSize;
 
-
     /// <summary>
     /// Parent to all instantiated cars
     /// </summary>
     private Transform Cars { get; set; }
 
-    public int N { get; set; }
-    public int Limit;
-
     public float MaxSpeed;
+
+    private bool RightFree { get; set; }
+    private bool LeftFree  { get; set; }
 
     #endregion
 
@@ -84,15 +83,26 @@ public class CarManager : MonoBehaviour
         this.Cars = this.transform.Find("Cars");
         this.TimeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
 
+        this.RightFree = this.LeftFree = true;
+
         this.UpdateTimeNextCar(this.TimeManager.GetCurrentTime());
     }
 
     private void Update()
     {
-        if (this.N < this.Limit && this.TimeToInstanciateCar())
+        if (this.TimeToInstanciateCar())
         {
-            this.NewCar();
-            this.N++;
+            this.RightLane = this.ChooseLane();
+            if (this.RightLane && this.RightFree)
+            {
+                this.NewCar();
+                this.RightFree = false;
+            }
+            else if (!this.RightLane && this.LeftFree)
+            {
+                this.NewCar();
+                this.LeftFree = false;
+            }
         }
     }
 
@@ -108,7 +118,6 @@ public class CarManager : MonoBehaviour
         Vector3    Position;
         Quaternion Rotation;
 
-        this.RightLane = this.ChooseLane();
         if (this.RightLane)
         {
             Position = this.InitialRightPosition;
@@ -139,7 +148,7 @@ public class CarManager : MonoBehaviour
 
         Vector3 Position = new Vector3(this.ColliderCenter[index], 0, 0);
         Vector3 Size     = new Vector3(0.02f, 0.03f, this.ColliderSize[index]);
-        CollisionDetector Detector = CollisionDetector.CreateCollisionDetector(Car.transform, Position, Size);
+        CollisionDetector Detector = CollisionDetector.CreateCollisionDetector(Car.transform, Position, Size, this.RightLane);
 
         AudioSource audio = Car.AddComponent<AudioSource>();
         audio.clip = Resources.Load("Audio/car_engine") as AudioClip;
@@ -148,7 +157,6 @@ public class CarManager : MonoBehaviour
         audio.Play();
 
         CarController Controller = Car.AddComponent<CarController>();
-        Controller.Manager = this;
         Controller.Detector = Detector;
 
         if (this.RightLane)
@@ -207,6 +215,23 @@ public class CarManager : MonoBehaviour
         Position.y += ProperY;
 
         return Position;
+    }
+
+    public void FreeLane(Event Lane)
+    {
+        switch(Lane)
+        {
+            case Event.RightLaneFree:
+                this.RightFree = true;
+                break;
+
+            case Event.LeftLaneFree:
+                this.LeftFree = true;
+                break;
+
+            default:
+                throw new NotImplementedException();
+        }
     }
 
     #endregion

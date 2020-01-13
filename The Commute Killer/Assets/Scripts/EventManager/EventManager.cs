@@ -18,6 +18,9 @@ public class EventManager : MonoBehaviour
 
     private LevelManager LevelManager;
 
+    private CarManager CarManager { get; set; }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +33,8 @@ public class EventManager : MonoBehaviour
         this.TimeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
 
         this.LevelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
+
+        this.CarManager = GameObject.Find("CarManager").GetComponent<CarManager>();
 
         this.VictimStartPosition = new Vector3(19.375f, 0.3f, -15.225f);
         this.VictimEndPosition   = new Vector3(11f, 0.3f, -45f);
@@ -118,6 +123,11 @@ public class EventManager : MonoBehaviour
 
             case Event.TrainDeparture:
                 this.LevelManager.TrainGoingToDeparture();
+                return true;
+
+            case Event.RightLaneFree:
+            case Event.LeftLaneFree:
+                this.CarManager.FreeLane(e);
                 return true;
         }
 
