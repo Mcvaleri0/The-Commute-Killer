@@ -108,6 +108,10 @@ public class EventManager : MonoBehaviour
                this.LevelManager.Win();
                 return true;
 
+            case Event.CaughtByNPC:
+                this.LevelManager.GameOver();
+                return true;
+
             case Event.TrainArrival:
                 this.LevelManager.TrainHasArrived();
                 return true;

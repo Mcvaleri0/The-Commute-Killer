@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class TrashBag : Item
 {
+
+    protected bool ContainsVictim = false;
+
     // Start is called before the first frame update
     new public void Start()
     {
@@ -19,7 +22,21 @@ public class TrashBag : Item
         this.ActionSounds.Add(Action.IDs.PickUp, (AudioClip)Resources.Load("Audio/cadaver_on"));
         this.ActionSounds.Add(Action.IDs.Drop, (AudioClip)Resources.Load("Audio/cadaver_off"));
 
-        var bagging_sound = (AudioClip)Resources.Load("Audio/bag");
-        this.AudioSource.PlayOneShot(bagging_sound);
+        if (this.ContainsVictim)
+        {
+            var bagging_sound = (AudioClip)Resources.Load("Audio/bag");
+            this.AudioSource.PlayOneShot(bagging_sound);
+        }
+    }
+
+
+    public void SetContainsVictim(bool a)
+    {
+        this.ContainsVictim = a;
+    }
+
+    public bool GetContainsVictim()
+    {
+        return this.ContainsVictim;
     }
 }
