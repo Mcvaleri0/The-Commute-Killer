@@ -7,28 +7,22 @@ public class NavGateway : ScriptableObject
 {
     public int Id;
 
-    public GameObject GatewayObject;
-
     public Vector3 Center;
 
-    public Vector3 Min { get; set; }
+    public Vector3 Min;
 
-    public Vector3 Max { get; set; }
+    public Vector3 Max;
 
-    public List<NavCluster> Clusters { get; set; }
+    public List<NavCluster> Clusters;
 
-    public List<NavEdge> Edges { get; set; }
+    public List<NavEdge> Edges;
 
-    public void Initialize()
-    {
-        this.Clusters = new List<NavCluster>();
-    }
 
     public void Initialize(int Id, GameObject gatewayObject)
     {
         this.Clusters = new List<NavCluster>();
 
-        this.GatewayObject = gatewayObject;
+        this.Edges = new List<NavEdge>();
 
         this.Id = Id;
 
@@ -41,19 +35,20 @@ public class NavGateway : ScriptableObject
         //clusters have a size of 10 multipled by the scale
         this.Min = new Vector3(this.Center.x - halfLength, this.Center.y - halfHeight, this.Center.z - halfWidth);
         this.Max = new Vector3(this.Center.x + halfLength, this.Center.y + halfHeight, this.Center.z + halfWidth);
-
-        this.Edges = new List<NavEdge>();
     }
 
+    
+    #region Methods
     public Vector3 Localize()
     {
         return this.Center;
     }
-
     public void Close()
     {
         foreach (var edge in this.Edges)
         {
+            if (edge == null) continue;
+
             edge.Disconnect();
         }
     }
@@ -62,7 +57,10 @@ public class NavGateway : ScriptableObject
     {
         foreach (var edge in this.Edges)
         {
+            if (edge == null) continue;
+
             edge.Connect();
         }
     }
+    #endregion
 }

@@ -59,6 +59,7 @@ public class Cadaver : Interactable
         //spawn trash bag item
         var bag = Instantiate(Bag);
         bag.transform.position = transform.position;
+        bag.GetComponent<TrashBag>().SetContainsVictim(true);
 
         Destroy(gameObject);
 

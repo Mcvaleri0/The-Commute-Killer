@@ -9,6 +9,7 @@ public class NavEdge : ScriptableObject
 
     public bool Connected;
 
+
     public void Initialize(NavNode left, NavNode right)
     {
         this.Left = left;
@@ -16,6 +17,8 @@ public class NavEdge : ScriptableObject
         this.Right = right;
     }
 
+
+    #region Methods
     public void Connect()
     {
         if (this.Connected) return;
@@ -35,8 +38,10 @@ public class NavEdge : ScriptableObject
 
         this.Connected = false;
     }
+    #endregion
 
-    // override object.Equals
+
+    #region Operators
     public override bool Equals(object obj)
     {
         if (obj == null || GetType() != obj.GetType())
@@ -48,10 +53,10 @@ public class NavEdge : ScriptableObject
 
         return this.Left == oEdge.Left && this.Right == oEdge.Right;
     }
-
-    // override object.GetHashCode
+    
     public override int GetHashCode()
     {
         return base.GetHashCode();
     }
+    #endregion
 }

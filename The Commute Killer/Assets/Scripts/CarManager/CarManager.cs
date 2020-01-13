@@ -19,9 +19,12 @@ public class CarManager : MonoBehaviour
     /// <summary>
     /// Proper Y values for each Car type
     /// </summary>
-    private float[] ProperY { get; set; }
+    public float[] ProperY;/*-0.19f, */
 
-    private float[] collidercenter;
+    public float[] ColliderCenter;/*-0.038f,*/
+
+    public float[] ColliderSize;
+
 
     /// <summary>
     /// Parent to all instantiated cars
@@ -32,10 +35,6 @@ public class CarManager : MonoBehaviour
     public int Limit;
 
     public float MaxSpeed;
-    public float LookAHeadDistance;
-
-    public float VisionAngleRightCar;
-    public float VisionAngleLeftCar;
 
     #endregion
 
@@ -75,13 +74,11 @@ public class CarManager : MonoBehaviour
 
     private void Start()
     {
-        // This values were chosen empirically
-        this.ProperY        = new float[] { -0.35f , -0.35f , -0.33f , -0.33f , /*-0.19f, */ -0.15f , -0.42f };
-        this.collidercenter = new float[] { -0.033f, -0.034f, -0.034f, -0.034f, /*-0.038f,*/ -0.036f, -0.037f };
-
-        if (this.Prefabs.Count != this.ProperY.Length)
+        if (this.Prefabs.Count != this.ProperY.Length || 
+            this.Prefabs.Count != this.ColliderCenter.Length ||
+            this.Prefabs.Count != this.ColliderSize.Length)
         {
-            throw new Exception("Each car type must have a proper y value");
+            throw new Exception("Each car type must have a proper y and collider values");
         }
 
         this.Cars = this.transform.Find("Cars");
@@ -140,9 +137,10 @@ public class CarManager : MonoBehaviour
         Rigidbody body   = Car.AddComponent<Rigidbody>();
         body.isKinematic = true;
 
-        Vector3 Position = new Vector3(this.collidercenter[index], 0, 0);
-        CollisionDetector Detector = CollisionDetector.CreateCollisionDetector(Car.transform, Position);
-
+        Vector3 Position = new Vector3(this.ColliderCenter[index], 0, 0);
+        Vector3 Size     = new Vector3(0.02f, 0.03f, this.ColliderSize[index]);
+        CollisionDetector Detector = CollisionDetector.CreateCollisionDetector(Car.transform, Position, Size);
+        
         var Controller = Car.AddComponent<CarController>();
         Controller.Manager = this;
         Controller.Detector = Detector;

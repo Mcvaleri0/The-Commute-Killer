@@ -15,60 +15,78 @@ public class RoutineManager : MonoBehaviour
     public Routine CurrentRoutine { get; private set; }
 
     public Action CurrentAction { get; private set; }
-    
-    void Start()
-    {
-        this.TimeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
 
+
+    private void Awake()
+    {
         this.ActiveRoutines = new List<Routine>();
 
-        foreach(var routine in this.Routines)
+        for (var i = 0; i < this.Routines.Count; i++)
         {
-            routine.Initialize();
+            this.Routines[i].Initialize();
         }
     }
 
-    // Return the next Action to be Executed
-    public Action NextAction()
+    void Start()
+    {
+        this.TimeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
+    }
+
+    // Update
+    public Action Update()
     {
         var currentTime = this.TimeManager.GetCurrentTime();
 
-        // Check for routines that can begin
-        foreach (var routine in this.Routines)
+        if(this.CurrentAction == null)
         {
-            // If a Routine can begin
-            if (routine.CanBegin(currentTime) && !this.ActiveRoutines.Contains(routine))
+            // Check for routines that can begin
+            foreach (var routine in this.Routines)
             {
-                this.ActiveRoutines.Add(Instantiate(routine)); // Add it to the active list
-                continue;
+                // If a Routine can begin
+                if (routine.CanBegin(currentTime) && !this.ActiveRoutines.Contains(routine))
+                {
+                    this.ActiveRoutines.Add(Instantiate(routine)); // Add it to the active list
+                    continue;
+                }
+            }
+
+            // Check for routines that have concluded
+            foreach (var routine in this.ActiveRoutines)
+            {
+                // If a Routine has been concluded
+                if (routine.Finished(currentTime))
+                {
+                    this.ActiveRoutines.Remove(routine); // Remove it from the active list
+                    continue;
+                }
+            }
+
+            // Foreach Active Routine
+            foreach (var routine in this.ActiveRoutines)
+            {
+                routine.Step(currentTime); // Poll the Routine at Current Time
+
+                // If an Action from the routine can be executed
+                if (routine.CurrentAction != null)
+                {
+                    this.CurrentRoutine = routine;
+
+                    this.CurrentAction = routine.CurrentAction;
+
+                    break;
+                }
+            }
+        }
+        else
+        {
+            // If Action has Finished
+            if(this.CurrentAction.Finished())
+            {
+                this.CurrentAction = null;
             }
         }
 
-        foreach(var routine in this.ActiveRoutines)
-        {
-            // If a Routine has been concluded
-            if (routine.Finished(currentTime))
-            {
-                this.ActiveRoutines.Remove(routine); // Remove it from the active list
-                continue;
-            }
-        }
-
-        // Foreach Active Routine
-        foreach (var routine in this.ActiveRoutines)
-        {
-            routine.Step(currentTime); // Poll the Routine at Current Time
-
-            // If an Action from the routine can be executed
-            if (routine.CurrentAction != null)
-            {
-                this.CurrentRoutine = routine;
-
-                this.CurrentAction  = routine.CurrentAction;
-
-                break;
-            }
-        }
+        
 
         return this.CurrentAction;
     }

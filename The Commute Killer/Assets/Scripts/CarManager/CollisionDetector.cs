@@ -11,7 +11,7 @@ public class CollisionDetector : MonoBehaviour
 
     #endregion
 
-    public static CollisionDetector CreateCollisionDetector(Transform Parent, Vector3 Position)
+    public static CollisionDetector CreateCollisionDetector(Transform Parent, Vector3 Position, Vector3 Size)
     {
         GameObject DetectorObj = new GameObject("Collision Detector");
 
@@ -21,7 +21,7 @@ public class CollisionDetector : MonoBehaviour
         DetectorObj.transform.localRotation = Quaternion.identity;
         
         BoxCollider Collider = DetectorObj.AddComponent<BoxCollider>();
-        Collider.size = new Vector3(0.02f, 0.03f, 0.019f);
+        Collider.size = Size;
         Collider.isTrigger = true;
 
         CollisionDetector Detector = DetectorObj.AddComponent<CollisionDetector>();
@@ -35,7 +35,9 @@ public class CollisionDetector : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name != "Wall colliders" && this.Passed)
+        if (!other.isTrigger &&
+            other.gameObject.name != "Wall colliders" && 
+            this.Passed)
         {
             this.PossibleCollisions++;
         }
@@ -43,15 +45,18 @@ public class CollisionDetector : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        var Walls = other.gameObject.name == "Wall colliders";
+        if (!other.isTrigger)
+        {
+            var Walls = other.gameObject.name == "Wall colliders";
 
-        if (!Walls && this.Passed)
-        {
-            this.PossibleCollisions--;
-        }
-        else if (Walls && !this.Passed)
-        {
-            this.Passed = true;
+            if (!Walls && this.Passed)
+            {
+                this.PossibleCollisions--;
+            }
+            else if (Walls && !this.Passed)
+            {
+                this.Passed = true;
+            }
         }
     }
 

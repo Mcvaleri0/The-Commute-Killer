@@ -8,9 +8,7 @@ public class NavigationManager : MonoBehaviour
 
     public NavClusterGraph ClusterGraph;
 
-    public Dictionary<int, bool> GatewayOpen { get; set; }
-
-    private GatewayDistanceTableRow[] OGatewayDistanceTable;
+    public Dictionary<int, bool> GatewayOpen;
 
     public GatewayDistanceTableRow[] GatewayDistanceTable;
 
@@ -22,7 +20,7 @@ public class NavigationManager : MonoBehaviour
 
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         this.GatewayOpen = new Dictionary<int, bool>();
 
@@ -33,14 +31,7 @@ public class NavigationManager : MonoBehaviour
             gate.Open();
         }
 
-        this.OGatewayDistanceTable = this.ClusterGraph.GatewayDistanceTable;
-
-        this.GatewayDistanceTable = new GatewayDistanceTableRow[this.OGatewayDistanceTable.Length];
-
-        for(var i = 0; i < this.OGatewayDistanceTable.Length; i++)
-        {
-            this.GatewayDistanceTable[i] = this.OGatewayDistanceTable[i].Clone();
-        }
+        this.GatewayDistanceTable = this.ClusterGraph.GatewayDistanceTable;
     }
 
 
@@ -49,6 +40,7 @@ public class NavigationManager : MonoBehaviour
     {
 
     }
+
 
     public bool PathBlocked(NavNode startNode, NavNode endNode)
     {
@@ -111,7 +103,7 @@ public class NavigationManager : MonoBehaviour
         return gate;
     }
 
-
+    
     public void CloseGateway(int id)
     {
         this.GatewayOpen[id] = false;
@@ -191,17 +183,19 @@ public class NavigationManager : MonoBehaviour
             }
         }
 
-        if(this.DebugGateways && Application.isPlaying && this.ClusterGraph != null)
+        if(this.DebugGateways && this.ClusterGraph != null)
         {
-            Gizmos.color = Color.cyan;
-
             foreach(var gate in this.ClusterGraph.Gateways)
             {
-                if (!this.GatewayOpen[gate.Id]) continue;
-
-                foreach(var edge in gate.Edges)
+                if(gate.Edges != null)
                 {
-                    Gizmos.DrawLine(edge.Left.Position, edge.Right.Position);
+                    foreach(var edge in gate.Edges)
+                    {
+                        if(edge != null)
+                        {
+                            Gizmos.DrawLine(edge.Left.Position, edge.Right.Position);
+                        }
+                    }
                 }
             }
         }

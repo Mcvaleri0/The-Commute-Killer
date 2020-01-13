@@ -57,15 +57,15 @@ public class EventManager : MonoBehaviour
         {
             //FIXME: estes dois primeiros sao para sair. estes eventos ja nao deviam de existir
             case Event.VictimStartEnd:
-                this.VictimMovement(this.VictimStartPosition, this.VictimEndPosition);
+                //this.VictimMovement(this.VictimStartPosition, this.VictimEndPosition);
                 return true;
 
             case Event.VictimEndStart:
-                this.VictimMovement(this.VictimEndPosition, this.VictimStartPosition);
+                //this.VictimMovement(this.VictimEndPosition, this.VictimStartPosition);
                 return true;
 
             case Event.VictimAtGoal:
-                this.VictimAtGoal();
+                //this.VictimAtGoal();
                 return true;
 
             case Event.Hydrant_ON:
@@ -106,6 +106,10 @@ public class EventManager : MonoBehaviour
 
             case Event.VictimAtDumpster:
                this.LevelManager.Win();
+                return true;
+
+            case Event.CaughtByNPC:
+                this.LevelManager.GameOver("You were caught by somebody while carrying a weapon.");
                 return true;
 
             case Event.TrainArrival:

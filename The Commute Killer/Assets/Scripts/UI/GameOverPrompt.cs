@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameOverPrompt : MonoBehaviour
 {
-    public void Draw()
+
+    public void Draw(string text)
     {
+        this.transform.Find("Description").GetComponent<Text>().text = text;
         this.gameObject.SetActive(true);
     }
 

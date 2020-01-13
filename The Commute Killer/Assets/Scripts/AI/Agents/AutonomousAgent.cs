@@ -17,8 +17,6 @@ public class AutonomousAgent : Agent
 
     private DynamicCharacter DCharacter;
 
-    public float speed;
-
     public bool Target = false;
 
     #region /* Movement Targets */
@@ -43,13 +41,16 @@ public class AutonomousAgent : Agent
 
 
     #region === Unity Events ===
+    public void Awake()
+    {
+        this.InitialGoalPosition = this.GoalPosition;
+        this.InitialPosition = this.transform.position;
+        this.GoalHome = false;
+    }
+
     new void Start()
     {
         base.Start();
-
-        this.PathfindingM = GetComponent<PathfindingManager>();
-
-        this.RoutineM = GetComponent<RoutineManager>();
 
         this.DCharacter = new DynamicCharacter(this.gameObject)
         {
@@ -58,11 +59,11 @@ public class AutonomousAgent : Agent
             Controller = GetComponent<CharacterController>()
         };
 
-        this.EventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
+        this.PathfindingM = GetComponent<PathfindingManager>();
 
-        this.InitialGoalPosition = this.GoalPosition;
-        this.InitialPosition     = this.transform.position;
-        this.GoalHome = false;
+        this.RoutineM = GetComponent<RoutineManager>();
+
+        this.EventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
     }
 
     new void Update()
@@ -92,7 +93,7 @@ public class AutonomousAgent : Agent
         switch (this.MovementState)
         {
             case 0: // Stopped
-                if (this.GoalPosition != Vector3.positiveInfinity && Vector3.Distance(this.transform.position, this.GoalPosition) >= 1f)
+                if (!this.GoalPosition.Equals(Vector3.positiveInfinity) && Vector3.Distance(this.transform.position, this.GoalPosition) >= 1f)
                 {
                     InitializeMovement();
 
@@ -134,17 +135,7 @@ public class AutonomousAgent : Agent
 
                     this.GoalPosition = Vector3.positiveInfinity;
 
-                    if (this.Target)
-                    {
-                        this.gameObject.SetActive(false);
-
-                        this.EventManager.TriggerEvent(Event.VictimAtGoal);
-                    }
-
-                    else
-                    {
-                        this.gameObject.GetComponent<Animator>().SetBool("isIdling", true);
-                    }
+                    
                 }
                 break;
 
@@ -175,22 +166,6 @@ public class AutonomousAgent : Agent
 
         return true;
     }
-
-    public void ToogleGoalPosition()
-    {
-        if (this.GoalHome)
-        {
-            this.GoalPosition = this.InitialGoalPosition;
-            this.GoalHome = false;
-        }
-        else
-        {
-            this.GoalPosition = this.InitialPosition;
-            this.GoalHome = true;
-        }
-
-        this.InitializeMovement();
-    }
     #endregion
 
 
@@ -203,7 +178,7 @@ public class AutonomousAgent : Agent
         {
             case 0: // Idle
                 // Get next Action
-                var nextAction = this.RoutineM.NextAction();
+                var nextAction = this.RoutineM.Update();
 
                 // If there is an Action
                 if (nextAction != null)
@@ -217,10 +192,12 @@ public class AutonomousAgent : Agent
                 break;
 
             case 1: // Acting
+                ExecuteAction(this.CurrentAction);
 
                 // If the current Action is finished
                 if(this.CurrentAction.Finished())
                 {
+                    this.PerformedActions.Add(this.CurrentAction);
                     this.RoutineState = 0; // Go to Idle
                 }
                 break;

@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class RoutineAction : ScriptableObject
 {
-    public bool Executed { get; private set; } = false;
+    public bool Executed = false;
 
     public Action.IDs ActionId;
 
@@ -49,6 +49,8 @@ public class RoutineAction : ScriptableObject
         {
             this.Target = GameObject.Find(this.TargetName);
         }
+
+        this.Executed = false;
     }
 
     // Check if action can be initiated
@@ -80,22 +82,10 @@ public class RoutineAction : ScriptableObject
             }
         }
 
-        // If there is a Target
-        if (this.Target != null)
-        {
-            var targeted = this.Agent.GetInFront();
-
-            // Check if Target is in front
-            if (targeted != this.Target)
-            {
-                return false;
-            }
-        }
-
         // Check if actions in dependency list were completed
         foreach (RoutineAction act in this.PrecedingActions)
         {
-            if(act.Executed != true)
+            if(act != null && act.Executed != true)
             {
                 return false;
             }
@@ -138,6 +128,11 @@ public class RoutineAction : ScriptableObject
     {
         if(this.ActionId == Action.IDs.Move)
         {
+            if(this.Target != null)
+            {
+                return Action.GetAction(ActionId, this.Agent, this.Target.transform.position);
+            }
+
             return Action.GetAction(ActionId, this.Agent, this.TargetPosition);
         }
         else

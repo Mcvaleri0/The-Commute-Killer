@@ -24,7 +24,7 @@ public class Move : Action
                 break;
 
             case 1: // In Progress
-                if(agent.GoalPosition == Vector3.positiveInfinity)
+                if(agent.GoalPosition.Equals(Vector3.positiveInfinity))
                 {
                     this.State = 2;
                 }

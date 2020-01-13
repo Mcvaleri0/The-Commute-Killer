@@ -38,6 +38,12 @@ public class Routine : ScriptableObject
 
         foreach(var a in RoutineActions)
         {
+            if (a == null)
+            {
+                this.RoutineActions.Remove(a);
+                continue;
+            }
+
             if(a.StartHour < sHour)
             {
                 sHour   = a.StartHour;
