@@ -196,4 +196,10 @@ public class Player : Agent
     {
         reactivateController = true;
     }
+
+    public void Die()
+    {
+
+
+    }
 }
