@@ -28,9 +28,12 @@ public class CarController : MonoBehaviour
 
     private bool RightCar { get; set; }
 
+    private int PossibleCollision { get; set; }
+
     #endregion
 
     public CarManager Manager { get; set; }
+    private bool passed { get; set; }
 
     #region === Unity Events ===
 
@@ -38,6 +41,31 @@ public class CarController : MonoBehaviour
     {
         this.UpdateMovement();
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(this.gameObject.name + " collision enter");
+
+        if (!this.passed)
+        {
+            this.passed = true;
+        }
+        else
+        {
+            this.PossibleCollision++;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log(this.gameObject.name + " collision exit");
+        if (this.passed)
+        {
+            this.PossibleCollision--;
+        }
+    }
+
+
 
     #endregion
 
@@ -76,7 +104,8 @@ public class CarController : MonoBehaviour
 
     private bool CanMove()
     {
-        return !this.DetectPossibleCollision();
+        //return !this.DetectPossibleCollision();
+        return this.PossibleCollision == 0;
     }
 
 
@@ -158,6 +187,8 @@ public class CarController : MonoBehaviour
         this.InitializeCollisionDetection(LookAhead, AngleVision, RightCar);
 
         this.InitializeMovement(Speed, GoalPosition);
+
+        this.passed = false;
     }
 
     #endregion

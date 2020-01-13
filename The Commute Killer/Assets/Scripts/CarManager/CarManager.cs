@@ -21,6 +21,8 @@ public class CarManager : MonoBehaviour
     /// </summary>
     private float[] ProperY { get; set; }
 
+    private float[] collidercenter;
+
     /// <summary>
     /// Parent to all instantiated cars
     /// </summary>
@@ -74,7 +76,8 @@ public class CarManager : MonoBehaviour
     private void Start()
     {
         // This values were chosen empirically
-        this.ProperY = new float[] { -0.356f, -0.357f, -0.33f, -0.335f, /*-0.193f,*/ -0.164f, -0.424f };
+        this.ProperY        = new float[] { -0.35f , -0.35f , -0.33f , -0.33f , /*-0.19f, */ -0.15f , -0.42f };
+        this.collidercenter = new float[] { -0.033f, -0.034f, -0.034f, -0.334f, /*-0.038f,*/ -0.036f, -0.037f };
 
         if (this.Prefabs.Count != this.ProperY.Length)
         {
@@ -122,10 +125,10 @@ public class CarManager : MonoBehaviour
         Position = this.CorrectPosition(CarTypeIndex, Position);
 
         GameObject Car = Instantiate(CarType, Position, Rotation, this.Cars);
-        this.InitializeCar(Car);
+        this.InitializeCar(Car, CarTypeIndex);
     }
 
-    private void InitializeCar(GameObject Car)
+    private void InitializeCar(GameObject Car, int index)
     {
         Car.tag = "Car";
 
@@ -136,6 +139,11 @@ public class CarManager : MonoBehaviour
 
         Rigidbody body   = Car.AddComponent<Rigidbody>();
         body.isKinematic = true;
+
+        BoxCollider CollisionDetector = Car.AddComponent<BoxCollider>();
+        CollisionDetector.isTrigger   = true;
+        CollisionDetector.center = new Vector3(this.collidercenter[index], 0, 0);
+        CollisionDetector.size = new Vector3(0.02f, 0.02f, CollisionDetector.size.z);
 
         var Controller = Car.AddComponent<CarController>();
         Controller.Manager = this;
@@ -185,8 +193,8 @@ public class CarManager : MonoBehaviour
 
     private bool ChooseLane()
     {
-        return Random.Range(0f, 1f) > 0.5;
-        //return false;
+        //return Random.Range(0f, 1f) > 0.5;
+        return true;
     }
 
     private Vector3 CorrectPosition(int CarType, Vector3 DesiredPosition)
