@@ -77,7 +77,7 @@ public class CarManager : MonoBehaviour
     {
         // This values were chosen empirically
         this.ProperY        = new float[] { -0.35f , -0.35f , -0.33f , -0.33f , /*-0.19f, */ -0.15f , -0.42f };
-        this.collidercenter = new float[] { -0.033f, -0.034f, -0.034f, -0.334f, /*-0.038f,*/ -0.036f, -0.037f };
+        this.collidercenter = new float[] { -0.033f, -0.034f, -0.034f, -0.034f, /*-0.038f,*/ -0.036f, -0.037f };
 
         if (this.Prefabs.Count != this.ProperY.Length)
         {
@@ -143,7 +143,7 @@ public class CarManager : MonoBehaviour
         BoxCollider CollisionDetector = Car.AddComponent<BoxCollider>();
         CollisionDetector.isTrigger   = true;
         CollisionDetector.center = new Vector3(this.collidercenter[index], 0, 0);
-        CollisionDetector.size = new Vector3(0.02f, 0.02f, CollisionDetector.size.z);
+        CollisionDetector.size = new Vector3(0.02f, 0.03f, 0.019f);
 
         var Controller = Car.AddComponent<CarController>();
         Controller.Manager = this;
@@ -193,8 +193,7 @@ public class CarManager : MonoBehaviour
 
     private bool ChooseLane()
     {
-        //return Random.Range(0f, 1f) > 0.5;
-        return true;
+        return Random.Range(0f, 1f) > 0.5;
     }
 
     private Vector3 CorrectPosition(int CarType, Vector3 DesiredPosition)

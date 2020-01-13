@@ -44,13 +44,7 @@ public class CarController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(this.gameObject.name + " collision enter");
-
-        if (!this.passed)
-        {
-            this.passed = true;
-        }
-        else
+        if (other.gameObject.name != "Wall colliders" && this.passed)
         {
             this.PossibleCollision++;
         }
@@ -58,14 +52,17 @@ public class CarController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log(this.gameObject.name + " collision exit");
-        if (this.passed)
+        var Walls = other.gameObject.name == "Wall colliders";
+
+        if (!Walls && this.passed)
         {
             this.PossibleCollision--;
         }
+        else if (Walls && !this.passed)
+        {
+            this.passed = true;
+        }
     }
-
-
 
     #endregion
 
@@ -104,7 +101,6 @@ public class CarController : MonoBehaviour
 
     private bool CanMove()
     {
-        //return !this.DetectPossibleCollision();
         return this.PossibleCollision == 0;
     }
 
@@ -118,64 +114,6 @@ public class CarController : MonoBehaviour
         this.LookAheadSQR = LookAhead * LookAhead;
         this.AngleVision  = AngleVision;
         this.RightCar     = RightCar;
-    }
-
-    private bool DetectPossibleCollision()
-    {
-        GameObject[] npcs = GameObject.FindGameObjectsWithTag("NPC");
-
-        Vector3 diff;
-        float   angle;
-
-        foreach (GameObject npc in npcs)
-        {
-            diff = npc.transform.position - this.transform.position;
-
-            if (diff.sqrMagnitude <= this.LookAheadSQR)
-            {
-                angle = Vector3.Angle(diff, this.Direction);
-
-                if (this.RightCar && angle <= this.AngleVision)
-                {
-                    return true;
-                }
-                if (!this.RightCar && angle > this.AngleVision)
-                {
-                    return true;
-                }
-            }
-        }
-
-        GameObject[] cars = GameObject.FindGameObjectsWithTag("Car");
-        Vector3 carPos;
-        Vector3 thisPos;
-
-        foreach (GameObject car in cars)
-        {
-            carPos  = car.transform.position;
-            thisPos = this.transform.position;
-
-            carPos.y = thisPos.y = 0;
-            
-            diff = carPos - thisPos;
-
-            if (diff != Vector3.zero && diff.sqrMagnitude <= 1.5 * this.LookAheadSQR)
-            {
-                angle = Vector3.Angle(diff, this.Direction);
-
-                if (this.RightCar && angle == 0)
-                {
-                    return true;
-                }
-                else if (!this.RightCar && angle == 180)
-                {
-                    return true;
-                }
-            }
-
-        }
-
-        return false;
     }
 
     #endregion
