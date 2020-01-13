@@ -9,13 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb066e065f67d543a3ff9a650597be3, type: 3}
-  m_Name: John
+  m_Script: {fileID: 11500000, guid: fecd8358c1672bf46b89e49fa1ab8c32, type: 3}
+  m_Name: John_Walk_stand
   m_EditorClassIdentifier: 
-  Id: 1
-  RoutineActions:
-  - {fileID: 11400000, guid: 813b5e5e961650348830aa2f8dffa9ed, type: 2}
+  Executed: 1
+  ActionId: 9
+  AgentName: John
+  TargetName: 
+  TargetPosition: {x: 6.76, y: -0.8, z: 50.311}
+  Duration: 0
+  Expression: 0
   StartHour: 7
   StartMinute: 30
-  EndHour: 22
+  EndHour: 12
   EndMinute: 0
+  ExecutePosition: {x: 0, y: 0, z: 0}
+  Distance: 0
+  PrecedingActions: []
