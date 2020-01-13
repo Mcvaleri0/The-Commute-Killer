@@ -140,21 +140,20 @@ public class CarManager : MonoBehaviour
         Rigidbody body   = Car.AddComponent<Rigidbody>();
         body.isKinematic = true;
 
-        BoxCollider CollisionDetector = Car.AddComponent<BoxCollider>();
-        CollisionDetector.isTrigger   = true;
-        CollisionDetector.center = new Vector3(this.collidercenter[index], 0, 0);
-        CollisionDetector.size = new Vector3(0.02f, 0.03f, 0.019f);
+        Vector3 Position = new Vector3(this.collidercenter[index], 0, 0);
+        CollisionDetector Detector = CollisionDetector.CreateCollisionDetector(Car.transform, Position);
 
         var Controller = Car.AddComponent<CarController>();
         Controller.Manager = this;
+        Controller.Detector = Detector;
 
         if (this.RightLane)
         {
-            Controller.Initialize(this.MaxSpeed, this.GoalRightPosition, this.LookAHeadDistance, this.VisionAngleRightCar, this.RightLane);
+            Controller.Initialize(this.MaxSpeed, this.GoalRightPosition);
         }
         else
         {
-            Controller.Initialize(this.MaxSpeed, this.GoalLeftPosition, this.LookAHeadDistance, this.VisionAngleLeftCar, this.RightLane);
+            Controller.Initialize(this.MaxSpeed, this.GoalLeftPosition);
         }
     }
 

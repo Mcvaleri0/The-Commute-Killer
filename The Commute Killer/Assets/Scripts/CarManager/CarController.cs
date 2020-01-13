@@ -21,47 +21,20 @@ public class CarController : MonoBehaviour
 
     #endregion
 
-    #region /* Collision */
+    #region /* Auxiliary */
 
-    private float LookAheadSQR { get; set; }
-    private float AngleVision { get; set; }
+    public CollisionDetector Detector { get; set; }
 
-    private bool RightCar { get; set; }
-
-    private int PossibleCollision { get; set; }
+    public CarManager Manager { get; set; }
 
     #endregion
 
-    public CarManager Manager { get; set; }
-    private bool passed { get; set; }
 
     #region === Unity Events ===
 
     private void Update()
     {
         this.UpdateMovement();
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.name != "Wall colliders" && this.passed)
-        {
-            this.PossibleCollision++;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        var Walls = other.gameObject.name == "Wall colliders";
-
-        if (!Walls && this.passed)
-        {
-            this.PossibleCollision--;
-        }
-        else if (Walls && !this.passed)
-        {
-            this.passed = true;
-        }
     }
 
     #endregion
@@ -101,32 +74,16 @@ public class CarController : MonoBehaviour
 
     private bool CanMove()
     {
-        return this.PossibleCollision == 0;
-    }
-
-
-    #endregion
-
-    #region === Collision Methods ===
-
-    private void InitializeCollisionDetection(float LookAhead, float AngleVision, bool RightCar)
-    {
-        this.LookAheadSQR = LookAhead * LookAhead;
-        this.AngleVision  = AngleVision;
-        this.RightCar     = RightCar;
+        return !this.Detector.ImminentCollision();
     }
 
     #endregion
 
     #region === Auxiliary Functions ===
 
-    public void Initialize(float Speed, Vector3 GoalPosition, float LookAhead, float AngleVision, bool RightCar)
+    public void Initialize(float Speed, Vector3 GoalPosition)
     {
-        this.InitializeCollisionDetection(LookAhead, AngleVision, RightCar);
-
         this.InitializeMovement(Speed, GoalPosition);
-
-        this.passed = false;
     }
 
     #endregion
