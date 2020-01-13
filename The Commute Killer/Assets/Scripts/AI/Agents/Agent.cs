@@ -58,8 +58,8 @@ public class Agent : MonoBehaviour
         {
             [Attribute.MaxHP]        = 10,
             [Attribute.HP]           = 10,
-            [Attribute.Speed]        = 1,
-            [Attribute.Accelaration] = 1,
+            [Attribute.Speed]        = 3,
+            [Attribute.Accelaration] = 2,
             [Attribute.Drag]         = 0.1f
         };
         
@@ -336,7 +336,6 @@ public class Agent : MonoBehaviour
         {
             action.Execute();
 
-            this.PerformedActions.Add(action);
         }
 
         return false;
@@ -367,7 +366,7 @@ public class Agent : MonoBehaviour
         Destroy(this);
         Destroy(transform.GetComponent<Collider>());
         Destroy(transform.GetComponent<Rigidbody>());
-        Destroy(transform.GetComponent<Rigidbody>());
+        
     }
 
     public void OnDrawGizmos()

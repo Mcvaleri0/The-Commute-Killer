@@ -240,7 +240,6 @@ public class TimeManager : MonoBehaviour
     {
         //this.NormalSpeed();
         this.TimeForVictimToMove = DateTime.MaxValue;
-        this.VictimController.ToogleGoalPosition();
     }
 
     #endregion

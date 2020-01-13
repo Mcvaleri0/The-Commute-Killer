@@ -17,8 +17,6 @@ public class AutonomousAgent : Agent
 
     private DynamicCharacter DCharacter;
 
-    public float speed;
-
     public bool Target = false;
 
     #region /* Movement Targets */
@@ -92,7 +90,7 @@ public class AutonomousAgent : Agent
         switch (this.MovementState)
         {
             case 0: // Stopped
-                if (this.GoalPosition != Vector3.positiveInfinity && Vector3.Distance(this.transform.position, this.GoalPosition) >= 1f)
+                if (!this.GoalPosition.Equals(Vector3.positiveInfinity) && Vector3.Distance(this.transform.position, this.GoalPosition) >= 1f)
                 {
                     InitializeMovement();
 
@@ -134,17 +132,7 @@ public class AutonomousAgent : Agent
 
                     this.GoalPosition = Vector3.positiveInfinity;
 
-                    if (this.Target)
-                    {
-                        this.gameObject.SetActive(false);
-
-                        this.EventManager.TriggerEvent(Event.VictimAtGoal);
-                    }
-
-                    else
-                    {
-                        this.gameObject.GetComponent<Animator>().SetBool("isIdling", true);
-                    }
+                    
                 }
                 break;
 
@@ -175,22 +163,6 @@ public class AutonomousAgent : Agent
 
         return true;
     }
-
-    public void ToogleGoalPosition()
-    {
-        if (this.GoalHome)
-        {
-            this.GoalPosition = this.InitialGoalPosition;
-            this.GoalHome = false;
-        }
-        else
-        {
-            this.GoalPosition = this.InitialPosition;
-            this.GoalHome = true;
-        }
-
-        this.InitializeMovement();
-    }
     #endregion
 
 
@@ -218,9 +190,12 @@ public class AutonomousAgent : Agent
 
             case 1: // Acting
 
+                ExecuteAction(this.CurrentAction);
+
                 // If the current Action is finished
                 if(this.CurrentAction.Finished())
                 {
+                    this.PerformedActions.Add(this.CurrentAction);
                     this.RoutineState = 0; // Go to Idle
                 }
                 break;

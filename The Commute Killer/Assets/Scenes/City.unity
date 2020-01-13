@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.6128602, g: 0.6846319, b: 0.95130146, a: 1}
+  m_IndirectSpecularColor: {r: 0.6042291, g: 0.6745249, b: 0.9391818, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4989,7 +4989,6 @@ MonoBehaviour:
   HandPivot: {fileID: 0}
   AvailableActions: 
   GoalPosition: {x: 12.68, y: -0.539, z: 75.28}
-  speed: 0
   Target: 0
 --- !u!54 &252896048
 Rigidbody:
@@ -6004,7 +6003,6 @@ MonoBehaviour:
   HandPivot: {fileID: 69054983}
   AvailableActions: 
   GoalPosition: {x: 24.95, y: -0.81, z: 52.46}
-  speed: 0
   Target: 1
 --- !u!143 &315715878
 CharacterController:
@@ -6082,7 +6080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Routines:
-  - {fileID: 11400000, guid: fe33c500d0d3606469f2018fb2e6e7dc, type: 2}
+  - {fileID: 11400000, guid: 2536d162760dbaf409e8c92295536743, type: 2}
 --- !u!1 &326718208
 GameObject:
   m_ObjectHideFlags: 0
@@ -6190,7 +6188,6 @@ MonoBehaviour:
   HandPivot: {fileID: 0}
   AvailableActions: 
   GoalPosition: {x: -5.783, y: -5.726, z: 58.22}
-  speed: 0
   Target: 0
 --- !u!114 &330191157
 MonoBehaviour:
@@ -37647,7 +37644,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: 0
+  m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 0
@@ -44244,7 +44241,6 @@ MonoBehaviour:
   HandPivot: {fileID: 0}
   AvailableActions: 
   GoalPosition: {x: 14.92, y: -0.701, z: 52.377}
-  speed: 0
   Target: 0
 --- !u!143 &1014035588
 CharacterController:
@@ -51481,7 +51477,6 @@ MonoBehaviour:
   HandPivot: {fileID: 0}
   AvailableActions: 
   GoalPosition: {x: -5.741, y: -5.726, z: 51.74}
-  speed: 0
   Target: 0
 --- !u!114 &1356745518
 MonoBehaviour:
@@ -55777,7 +55772,6 @@ MonoBehaviour:
   HandPivot: {fileID: 0}
   AvailableActions: 
   GoalPosition: {x: -15.88, y: -0.79, z: 57.3}
-  speed: 0
   Target: 0
 --- !u!1 &1469108281
 GameObject:
@@ -55963,7 +55957,6 @@ MonoBehaviour:
   HandPivot: {fileID: 0}
   AvailableActions: 
   GoalPosition: {x: -18.823, y: -0.779, z: 67.18}
-  speed: 0
   Target: 0
 --- !u!114 &1472436557
 MonoBehaviour:
@@ -61117,7 +61110,6 @@ MonoBehaviour:
   HandPivot: {fileID: 0}
   AvailableActions: 
   GoalPosition: {x: -6.248, y: -5.726, z: 52.683}
-  speed: 0
   Target: 0
 --- !u!143 &1733137969
 CharacterController:
@@ -61988,7 +61980,6 @@ MonoBehaviour:
   HandPivot: {fileID: 0}
   AvailableActions: 
   GoalPosition: {x: 25.14, y: -0.82, z: 64.51}
-  speed: 0
   Target: 0
 --- !u!143 &1764958264
 CharacterController:
@@ -64169,6 +64160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05df1c1fde0c2584a8ecc962dcc0796f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxRotation: 0
+  RotationSpeed: 0
 --- !u!4 &1875755586 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4488567837450824, guid: 80c5916b9606ce646be16611d9a06d13,
@@ -66235,7 +66228,6 @@ MonoBehaviour:
   HandPivot: {fileID: 0}
   AvailableActions: 
   GoalPosition: {x: 3.222, y: -0.813, z: 79}
-  speed: 0
   Target: 0
 --- !u!114 &2011721558
 MonoBehaviour:
@@ -72220,6 +72212,97 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9366b8b480a8fe499f85e08b96caf79, type: 3}
+--- !u!1 &2103008827
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2103008831}
+  - component: {fileID: 2103008830}
+  - component: {fileID: 2103008829}
+  - component: {fileID: 2103008828}
+  m_Layer: 0
+  m_Name: UseThisToGetCoords
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!135 &2103008828
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103008827}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &2103008829
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103008827}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &2103008830
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103008827}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &2103008831
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103008827}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.95, y: -0.57, z: 73.36}
+  m_LocalScale: {x: 0.59683, y: 0.59683, z: 0.59683}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2108652067
 GameObject:
   m_ObjectHideFlags: 0
@@ -72690,7 +72773,6 @@ MonoBehaviour:
   HandPivot: {fileID: 0}
   AvailableActions: 
   GoalPosition: {x: -5.475, y: -5.767, z: 56.547}
-  speed: 0
   Target: 0
 --- !u!114 &2125582954
 MonoBehaviour:
@@ -75395,7 +75477,6 @@ MonoBehaviour:
   HandPivot: {fileID: 0}
   AvailableActions: 
   GoalPosition: {x: 0, y: 0, z: 0}
-  speed: 0
   Target: 0
 --- !u!64 &2528167686395856864
 MeshCollider:
@@ -77626,7 +77707,6 @@ MonoBehaviour:
   HandPivot: {fileID: 0}
   AvailableActions: 
   GoalPosition: {x: -10.84, y: -0.7760334, z: 53.24}
-  speed: 0
   Target: 0
 --- !u!1001 &3260482873732150053
 PrefabInstance:
@@ -78980,7 +79060,6 @@ MonoBehaviour:
   HandPivot: {fileID: 0}
   AvailableActions: 
   GoalPosition: {x: -5.717, y: -5.684, z: 54.379}
-  speed: 0
   Target: 0
 --- !u!64 &8515633469648141488
 MeshCollider:

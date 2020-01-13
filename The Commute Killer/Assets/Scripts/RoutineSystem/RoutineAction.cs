@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class RoutineAction : ScriptableObject
 {
-    public bool Executed { get; private set; } = false;
+    public bool Executed = false;
 
     public Action.IDs ActionId;
 
@@ -49,6 +49,8 @@ public class RoutineAction : ScriptableObject
         {
             this.Target = GameObject.Find(this.TargetName);
         }
+
+        this.Executed = false;
     }
 
     // Check if action can be initiated
