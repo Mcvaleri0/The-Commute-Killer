@@ -126,35 +126,35 @@ public class NavGraph : ScriptableObject
         return node;
     }
 
-    public void SaveToAssetDatabase(int id = 0)
-    {
-        string path = AssetDatabase.GetAssetPath(Selection.activeObject);
+    //public void SaveToAssetDatabase(int id = 0)
+    //{
+    //    string path = AssetDatabase.GetAssetPath(Selection.activeObject);
 
-        if (path == "")
-        {
-            path = "Assets/Navigation";
-        }
-        else if (System.IO.Path.GetExtension(path) != "")
-        {
-            path = path.Replace(System.IO.Path.GetFileName(AssetDatabase.GetAssetPath(Selection.activeObject)), "");
-        }
+    //    if (path == "")
+    //    {
+    //        path = "Assets/Navigation";
+    //    }
+    //    else if (System.IO.Path.GetExtension(path) != "")
+    //    {
+    //        path = path.Replace(System.IO.Path.GetFileName(AssetDatabase.GetAssetPath(Selection.activeObject)), "");
+    //    }
 
-        string assetPathAndName = AssetDatabase.GenerateUniqueAssetPath(path + "/" + typeof(NavGraph).Name.ToString() + "_" + id.ToString() + ".asset");
+    //    string assetPathAndName = AssetDatabase.GenerateUniqueAssetPath(path + "/" + typeof(NavGraph).Name.ToString() + "_" + id.ToString() + ".asset");
 
-        AssetDatabase.CreateAsset(this, assetPathAndName);
-        EditorUtility.SetDirty(this);
+    //    AssetDatabase.CreateAsset(this, assetPathAndName);
+    //    EditorUtility.SetDirty(this);
 
-        // Save the Nodes
-        foreach (var node in this.Nodes)
-        {
-            if (node == null) continue;
+    //    // Save the Nodes
+    //    foreach (var node in this.Nodes)
+    //    {
+    //        if (node == null) continue;
 
-            AssetDatabase.AddObjectToAsset(node, assetPathAndName);
-        }
+    //        AssetDatabase.AddObjectToAsset(node, assetPathAndName);
+    //    }
 
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
-        EditorUtility.FocusProjectWindow();
-        Selection.activeObject = this;
-    }
+    //    AssetDatabase.SaveAssets();
+    //    AssetDatabase.Refresh();
+    //    EditorUtility.FocusProjectWindow();
+    //    Selection.activeObject = this;
+    //}
 }
