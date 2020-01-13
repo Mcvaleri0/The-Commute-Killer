@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.6008297, g: 0.6714785, b: 0.9363573, a: 1}
+  m_IndirectSpecularColor: {r: 0.6001303, g: 0.67068315, b: 0.9354269, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -37009,9 +37009,6 @@ MonoBehaviour:
   - 0.017
   Limit: 5
   MaxSpeed: 3
-  LookAHeadDistance: 3
-  VisionAngleRightCar: 21
-  VisionAngleLeftCar: 159
   InitialRightPosition: {x: 50, y: 0, z: 62}
   GoalRightPosition: {x: -40, y: 0, z: 62}
   InitialLeftPosition: {x: -40, y: 0, z: 59}

@@ -140,8 +140,14 @@ public class CarManager : MonoBehaviour
         Vector3 Position = new Vector3(this.ColliderCenter[index], 0, 0);
         Vector3 Size     = new Vector3(0.02f, 0.03f, this.ColliderSize[index]);
         CollisionDetector Detector = CollisionDetector.CreateCollisionDetector(Car.transform, Position, Size);
-        
-        var Controller = Car.AddComponent<CarController>();
+
+        AudioSource audio = Car.AddComponent<AudioSource>();
+        audio.clip = Resources.Load("Audio/car_engine") as AudioClip;
+        audio.spatialBlend = 1;
+        audio.loop = true;
+        audio.Play();
+
+        CarController Controller = Car.AddComponent<CarController>();
         Controller.Manager = this;
         Controller.Detector = Detector;
 
@@ -190,7 +196,8 @@ public class CarManager : MonoBehaviour
 
     private bool ChooseLane()
     {
-        return Random.Range(0f, 1f) > 0.5;
+        //return Random.Range(0f, 1f) > 0.5;
+        return true;
     }
 
     private Vector3 CorrectPosition(int CarType, Vector3 DesiredPosition)
