@@ -10,6 +10,10 @@ public class AlarmClock : Interactable
     private AudioClip SoundRinging;
     private AudioClip SoundDeactivate;
 
+    public float MaxRotation;
+    public float RotationSpeed;
+    Quaternion InitialRotation;
+
     #region === MonoBehaviour Methods ===
     new void Start()
     {
@@ -30,6 +34,11 @@ public class AlarmClock : Interactable
         this.SoundRinging    = (AudioClip)Resources.Load("Audio/clock_ringing");
         this.SoundDeactivate = (AudioClip)Resources.Load("Audio/button_click");
 
+        this.MaxRotation   = 180;
+        this.RotationSpeed = 60;
+
+        this.InitialRotation = transform.localRotation;
+
 }
 
     // Update is called once per frame
@@ -38,10 +47,13 @@ public class AlarmClock : Interactable
         switch (State)
         {
             case 0: // Normal
-
+                transform.localRotation = this.InitialRotation;
                 break;
 
             case 1: // Ringing
+
+                var inc = this.MaxRotation * Mathf.Sin(Time.time * this.RotationSpeed) * Time.deltaTime;
+                transform.localRotation = transform.localRotation * Quaternion.Euler(inc, 0f, 0f);
 
                 break;
         }

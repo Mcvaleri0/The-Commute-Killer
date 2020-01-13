@@ -161,6 +161,15 @@ public class Player : Agent
         Controller.enabled = false;
         this.transform.position = targetPos;
         reactivateController = true;
+    }
 
+    public void LockMovement()
+    {
+        Controller.enabled = false;
+    }
+
+    public void UnlockMovement()
+    {
+        reactivateController = true;
     }
 }

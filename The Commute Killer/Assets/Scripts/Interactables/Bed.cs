@@ -18,6 +18,8 @@ public class Bed : Interactable
 
     public GameObject AlarmClock;
 
+    private Player Player;
+
     #region === MonoBehaviour Methods ===
     new void Start()
     {
@@ -31,6 +33,8 @@ public class Bed : Interactable
         this.Group = this.SleepTransition.GetComponent<CanvasGroup>();
 
         this.TimeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
+
+        this.Player = GameObject.Find("PlayerCharacter").GetComponent<Player>();
 
     }
 
@@ -48,6 +52,7 @@ public class Bed : Interactable
             case 1:
                 StartCoroutine(DoFade(1, 4));
                 this.State = 3;
+
                 break;
             
             //fade to normal
@@ -70,11 +75,9 @@ public class Bed : Interactable
 
                 if(day != this.StartingDay && hour == this.WakeUpHour)
                 {
-                    this.TimeManager.NormalSpeed();
                     this.State = 2;
 
-                    var clock = this.AlarmClock.GetComponent<AlarmClock>();
-                    clock.StartRinging();
+                    this.Wake();
                 }
                 
                 break;
@@ -114,7 +117,7 @@ public class Bed : Interactable
 
     override public bool CanInteract(Agent Interactor, Action.IDs id)
     {
-        if (this.ActionAvailable(id))
+        if (this.State == 0 && this.ActionAvailable(id))
         {
 
             return true;
@@ -137,6 +140,20 @@ public class Bed : Interactable
 
         var clock = this.AlarmClock.GetComponent<AlarmClock>();
         clock.StartTicking();
+
+        //lock player 
+        this.Player.LockMovement();
     }
+
+    private void Wake()
+    {
+        this.TimeManager.NormalSpeed();
+        var clock = this.AlarmClock.GetComponent<AlarmClock>();
+        clock.StartRinging();
+
+        //unlock player
+        this.Player.UnlockMovement();
+    }
+
     #endregion
 }
