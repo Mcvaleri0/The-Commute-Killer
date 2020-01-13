@@ -22,7 +22,7 @@ public class Dumpster : Interactable
 
         this.PossibleActions = new List<Action.IDs>()
         {
-            Action.IDs.Insert,
+            Action.IDs.Trash,
             Action.IDs.Use
         };
 
@@ -69,8 +69,8 @@ public class Dumpster : Interactable
                 Use();
                 return true;
 
-            case Action.IDs.Insert:
-                Insert();
+            case Action.IDs.Trash:
+                Trash();
                 return true;
         }
 
@@ -89,7 +89,7 @@ public class Dumpster : Interactable
                 case Action.IDs.Use:
                     return true;
 
-                case Action.IDs.Insert:
+                case Action.IDs.Trash:
                     if(this.State == 1)
                     {
                         return true;
@@ -117,7 +117,7 @@ public class Dumpster : Interactable
         }
     }
 
-    private void Insert()
+    private void Trash()
     {
         this.AudioSource.PlayOneShot(InsertSound);
     }

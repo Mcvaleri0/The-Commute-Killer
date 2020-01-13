@@ -330,15 +330,9 @@ public class Agent : MonoBehaviour
         return Action.IDs.None;
     }
 
-    public bool ExecuteAction(Action action)
+    public void ExecuteAction(Action action)
     {
-        if(action != null)
-        {
-            action.Execute();
-
-        }
-
-        return false;
+        if(action != null) action.Update();
     }
     #endregion
 

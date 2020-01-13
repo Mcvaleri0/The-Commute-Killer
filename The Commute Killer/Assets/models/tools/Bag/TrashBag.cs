@@ -13,7 +13,7 @@ public class TrashBag : Item
 
         this.EnabledActions = new List<Action.IDs>()
         {
-            Action.IDs.Insert
+            Action.IDs.Trash
         };
 
         this.ActionSounds.Add(Action.IDs.PickUp, (AudioClip)Resources.Load("Audio/cadaver_on"));

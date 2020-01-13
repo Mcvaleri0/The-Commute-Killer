@@ -8,11 +8,8 @@ public class RoutineAction : ScriptableObject
 {
     public bool Executed = false;
 
+    #region Action Parameters
     public Action.IDs ActionId;
-
-    private Agent Agent;
-
-    private GameObject Target;
 
     public String AgentName;
 
@@ -20,23 +17,35 @@ public class RoutineAction : ScriptableObject
 
     public Vector3 TargetPosition;
 
-    // Time window
-    [Range(0,23)]
+    public float Duration;
+
+    public SpeechBubbleController.Expressions Expression;
+    #endregion
+
+    #region Time window
+    [Range(0, 23)]
     public int StartHour;
-    [Range(0,59)]
+    [Range(0, 59)]
     public int StartMinute;
 
-    [Range(0,23)]
+    [Range(0, 23)]
     public int EndHour;
-    [Range(0,59)]
+    [Range(0, 59)]
     public int EndMinute;
+    #endregion
 
-    // Dependencies
+    #region Conditions to Execute
     public Vector3 ExecutePosition;
 
     public float Distance;
 
     public List<RoutineAction> PrecedingActions;
+    #endregion
+
+    private Agent Agent;
+
+    private GameObject Target;
+
 
     public void Initialize()
     {
@@ -105,7 +114,7 @@ public class RoutineAction : ScriptableObject
         return true;
     }
 
-
+    // Returns true if it's within the action's time interval
     private bool InTime(DateTime currentTime)
     {
         float current = currentTime.Hour + currentTime.Minute / 60f;
@@ -117,7 +126,6 @@ public class RoutineAction : ScriptableObject
         return start <= current && current < end;
     }
 
-
     // Set the Routine Action as having concluded
     public void Concluded()
     {
@@ -126,18 +134,30 @@ public class RoutineAction : ScriptableObject
 
     public Action GenerateAction()
     {
+        switch(this.ActionId)
+        {
+            case Action.IDs.Move:
+                if (this.Target != null)
+                {
+                    return Action.GetAction(ActionId, this.Agent, this.Target.transform.position);
+                }
+
+                return Action.GetAction(ActionId, this.Agent, this.TargetPosition);
+
+            case Action.IDs.Emote:
+                return Action.GetEmoteAction(this.Agent, this.Expression, this.Duration, this.Target);
+
+            default:
+                return Action.GetAction(ActionId, this.Agent, this.Target);
+        }
+
         if(this.ActionId == Action.IDs.Move)
         {
-            if(this.Target != null)
-            {
-                return Action.GetAction(ActionId, this.Agent, this.Target.transform.position);
-            }
-
-            return Action.GetAction(ActionId, this.Agent, this.TargetPosition);
+            
         }
         else
         {
-            return Action.GetAction(ActionId, this.Agent, this.Target);
+            
         }
     }
 }

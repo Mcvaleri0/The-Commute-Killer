@@ -19,7 +19,6 @@ public class Move : Action
         {
             case 0: // To Start
                 agent.GoalPosition = this.TargetPosition;
-
                 this.State = 1;
                 break;
 

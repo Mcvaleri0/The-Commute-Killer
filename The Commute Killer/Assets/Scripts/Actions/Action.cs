@@ -14,8 +14,9 @@ public abstract class Action
         Use,
         Read,
         Sleep,
-        Insert,
-        Move
+        Trash,
+        Move,
+        Emote
     }
 
     public IDs ID;
@@ -77,8 +78,8 @@ public abstract class Action
             case Action.IDs.Use:
                 return new Use(actor, target);
 
-            case Action.IDs.Insert:
-                return new Insert(actor, target);
+            case Action.IDs.Trash:
+                return new Trash(actor, target);
 
             case Action.IDs.Read:
                 return new Read(actor, target);
@@ -106,5 +107,10 @@ public abstract class Action
         }
 
         return null;
+    }
+
+    public static Action GetEmoteAction(Agent actor, SpeechBubbleController.Expressions expression, float duration, GameObject target = null)
+    {
+        return new Emote(actor, expression, duration, target);
     }
 }
