@@ -23,6 +23,9 @@ public class LevelManager : MonoBehaviour
     public List<GameObject> Prefabs;
 
     private List<AutonomousAgent> Agents;
+
+    private List<float> StartTime;
+    private List<float> EndTime;
     #endregion
 
     #region /* Auxiliar */
@@ -53,6 +56,9 @@ public class LevelManager : MonoBehaviour
 
         this.Agents = new List<AutonomousAgent>();
 
+        this.StartTime = new List<float>();
+        this.EndTime = new List<float>();
+
         LoadNPCs();
     }
 
@@ -74,6 +80,25 @@ public class LevelManager : MonoBehaviour
         }
 
         var currentTime = this.TimeManager.GetCurrentTime();
+
+        var time = currentTime.Hour + currentTime.Minute / 59f;
+
+        for(var i = 0; i < this.Agents.Count; i++)
+        {
+            var obj = this.Agents[i].gameObject;
+
+            if (this.EndTime[i] <= time)
+            {
+                obj.SetActive(false);
+
+                continue;
+            }
+
+            if (this.StartTime[i] <= time)
+            {
+                obj.SetActive(true);
+            }
+        }
 
         if(this.CurrentDay != currentTime.Day)
         {
@@ -141,12 +166,22 @@ public class LevelManager : MonoBehaviour
 
         foreach (var prefab in this.Prefabs)
         {
-            this.Agents.Add(Instantiate(prefab, this.InitialPositions[i], Quaternion.identity).GetComponent<AutonomousAgent>());
+            var obj = Instantiate(prefab, this.InitialPositions[i], Quaternion.identity);
 
-            foreach(MonoBehaviour comp in this.Agents[i].GetComponents<MonoBehaviour>())
+            this.Agents.Add(obj.GetComponent<AutonomousAgent>());
+
+            foreach(MonoBehaviour comp in obj.GetComponents<MonoBehaviour>())
             {
                 comp.enabled = true;
             }
+
+            var rm = obj.GetComponent<RoutineManager>();
+
+            this.StartTime.Add(rm.StartTime());
+
+            this.EndTime.Add(rm.EndTime());
+
+            obj.SetActive(false);
 
             i++;
         }

@@ -18,6 +18,10 @@ public class RoutineManager : MonoBehaviour
 
     private int CurrentDay = 1;
 
+    private float startTime = 23.99f;
+
+    private float endTime = 0f;
+
     private void Awake()
     {
         this.ActiveRoutines = new List<Routine>();
@@ -107,5 +111,41 @@ public class RoutineManager : MonoBehaviour
                 this.CurrentAction = null;
             }
         }
+    }
+
+    public float StartTime()
+    {
+        if(this.startTime == 23.99f) 
+        {
+            foreach (var routine in this.Routines)
+            {
+                var time = routine.StartHour + routine.StartMinute / 59f;
+
+                if (time < this.startTime)
+                {
+                    this.startTime = time;
+                }
+            }
+        }
+
+        return this.startTime;
+    }
+
+    public float EndTime()
+    {
+        if (this.endTime == 0f)
+        {
+            foreach (var routine in this.Routines)
+            {
+                var time = routine.EndHour + routine.EndMinute / 59f;
+
+                if (time > this.endTime)
+                {
+                    this.endTime = time;
+                }
+            }
+        }
+
+        return this.endTime;
     }
 }
