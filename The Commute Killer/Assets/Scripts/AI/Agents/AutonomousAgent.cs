@@ -41,13 +41,16 @@ public class AutonomousAgent : Agent
 
 
     #region === Unity Events ===
+    public void Awake()
+    {
+        this.InitialGoalPosition = this.GoalPosition;
+        this.InitialPosition = this.transform.position;
+        this.GoalHome = false;
+    }
+
     new void Start()
     {
         base.Start();
-
-        this.PathfindingM = GetComponent<PathfindingManager>();
-
-        this.RoutineM = GetComponent<RoutineManager>();
 
         this.DCharacter = new DynamicCharacter(this.gameObject)
         {
@@ -56,11 +59,11 @@ public class AutonomousAgent : Agent
             Controller = GetComponent<CharacterController>()
         };
 
-        this.EventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
+        this.PathfindingM = GetComponent<PathfindingManager>();
 
-        this.InitialGoalPosition = this.GoalPosition;
-        this.InitialPosition     = this.transform.position;
-        this.GoalHome = false;
+        this.RoutineM = GetComponent<RoutineManager>();
+
+        this.EventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
     }
 
     new void Update()
@@ -175,7 +178,7 @@ public class AutonomousAgent : Agent
         {
             case 0: // Idle
                 // Get next Action
-                var nextAction = this.RoutineM.NextAction();
+                var nextAction = this.RoutineM.Update();
 
                 // If there is an Action
                 if (nextAction != null)
@@ -189,7 +192,6 @@ public class AutonomousAgent : Agent
                 break;
 
             case 1: // Acting
-
                 ExecuteAction(this.CurrentAction);
 
                 // If the current Action is finished

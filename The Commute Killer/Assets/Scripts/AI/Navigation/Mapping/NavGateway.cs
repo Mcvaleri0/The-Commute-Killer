@@ -47,6 +47,8 @@ public class NavGateway : ScriptableObject
     {
         foreach (var edge in this.Edges)
         {
+            if (edge == null) continue;
+
             edge.Disconnect();
         }
     }
@@ -55,6 +57,8 @@ public class NavGateway : ScriptableObject
     {
         foreach (var edge in this.Edges)
         {
+            if (edge == null) continue;
+
             edge.Connect();
         }
     }

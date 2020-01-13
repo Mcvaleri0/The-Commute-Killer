@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb066e065f67d543a3ff9a650597be3, type: 3}
   m_Name: WalkTalk
   m_EditorClassIdentifier: 
-  Id: 2
+  Id: 3
   RoutineActions:
-  - {fileID: 11400000, guid: e43a88670b92a0e459b0c23685441a38, type: 2}
   - {fileID: 11400000, guid: d58bb35e9080d8541a11659a43802722, type: 2}
   - {fileID: 11400000, guid: d75e4d493c613604cb41c57792b40932, type: 2}
   StartHour: 8
-  StartMinute: 0
+  StartMinute: 30
   EndHour: 20
   EndMinute: 0

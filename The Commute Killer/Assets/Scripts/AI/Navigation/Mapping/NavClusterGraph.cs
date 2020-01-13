@@ -51,6 +51,11 @@ public class NavClusterGraph : ScriptableObject
         foreach (var gateway in this.Gateways)
         {
             AssetDatabase.AddObjectToAsset(gateway, assetPathAndName);
+
+            foreach (var edge in gateway.Edges)
+            {
+                AssetDatabase.AddObjectToAsset(edge, assetPathAndName);
+            }
         }
 
         //save the gatewayTableRows and tableEntries

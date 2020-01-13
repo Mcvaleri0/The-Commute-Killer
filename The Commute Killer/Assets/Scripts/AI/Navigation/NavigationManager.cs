@@ -8,9 +8,7 @@ public class NavigationManager : MonoBehaviour
 
     public NavClusterGraph ClusterGraph;
 
-    public Dictionary<int, bool> GatewayOpen { get; set; }
-
-    private GatewayDistanceTableRow[] OGatewayDistanceTable;
+    public Dictionary<int, bool> GatewayOpen;
 
     public GatewayDistanceTableRow[] GatewayDistanceTable;
 
@@ -22,7 +20,7 @@ public class NavigationManager : MonoBehaviour
 
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         this.GatewayOpen = new Dictionary<int, bool>();
 
@@ -30,17 +28,10 @@ public class NavigationManager : MonoBehaviour
         {
             this.GatewayOpen.Add(gate.Id, true);
 
-            //gate.Open();
+            gate.Open();
         }
 
-        this.OGatewayDistanceTable = this.ClusterGraph.GatewayDistanceTable;
-
-        this.GatewayDistanceTable = new GatewayDistanceTableRow[this.OGatewayDistanceTable.Length];
-
-        for(var i = 0; i < this.OGatewayDistanceTable.Length; i++)
-        {
-            this.GatewayDistanceTable[i] = this.OGatewayDistanceTable[i].Clone();
-        }
+        this.GatewayDistanceTable = this.ClusterGraph.GatewayDistanceTable;
     }
 
 
@@ -49,6 +40,7 @@ public class NavigationManager : MonoBehaviour
     {
 
     }
+
 
     public bool PathBlocked(NavNode startNode, NavNode endNode)
     {

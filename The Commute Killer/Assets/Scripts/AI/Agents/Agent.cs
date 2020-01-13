@@ -42,7 +42,7 @@ public class Agent : MonoBehaviour
     #region /* Movement */
     private DynamicCharacter DynamicC;
 
-    public Vector3 GoalPosition;
+    public Vector3 GoalPosition = Vector3.positiveInfinity;
 
     public Vector3 GetPosition()
     {
