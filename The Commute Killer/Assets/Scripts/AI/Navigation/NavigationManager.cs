@@ -120,84 +120,84 @@ public class NavigationManager : MonoBehaviour
     }
 
 
-    private void OnDrawGizmos()
-    {
-        var up = new Vector3(0, 0.5f, 0);
+    //private void OnDrawGizmos()
+    //{
+    //    var up = new Vector3(0, 0.5f, 0);
 
-        if (this.DebugGraph && this.Graph != null)
-        {
-            foreach (NavNode n in this.Graph.Nodes)
-            {
-                Gizmos.color = Color.red;
+    //    if (this.DebugGraph && this.Graph != null)
+    //    {
+    //        foreach (NavNode n in this.Graph.Nodes)
+    //        {
+    //            Gizmos.color = Color.red;
 
-                if (n.Cluster != null)
-                {
-                    Gizmos.color = Color.white;
-                    Handles.Label(n.Position + up * 0.8f, n.Cluster.Id.ToString());
-                }
+    //            if (n.Cluster != null)
+    //            {
+    //                Gizmos.color = Color.white;
+    //                Handles.Label(n.Position + up * 0.8f, n.Cluster.Id.ToString());
+    //            }
 
-                Gizmos.DrawSphere(n.Position, 0.05f);
+    //            Gizmos.DrawSphere(n.Position, 0.05f);
 
-                Handles.Label(n.Position + up, n.Id.ToString());
+    //            Handles.Label(n.Position + up, n.Id.ToString());
 
                 
 
-                foreach (NavNode a in n.Adjacents)
-                {
-                    if (a.Id > n.Id)
-                    {
-                        Gizmos.color = Color.white;
+    //            foreach (NavNode a in n.Adjacents)
+    //            {
+    //                if (a.Id > n.Id)
+    //                {
+    //                    Gizmos.color = Color.white;
 
-                        Gizmos.DrawLine(n.Position, a.Position);
-                    }
-                }
-            }
-        }
+    //                    Gizmos.DrawLine(n.Position, a.Position);
+    //                }
+    //            }
+    //        }
+    //    }
 
-        if(this.DebugClusters && this.ClusterGraph != null)
-        {
-            foreach(var cluster in this.ClusterGraph.Clusters)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawSphere(cluster.Center, 0.2f);
+    //    if(this.DebugClusters && this.ClusterGraph != null)
+    //    {
+    //        foreach(var cluster in this.ClusterGraph.Clusters)
+    //        {
+    //            Gizmos.color = Color.red;
+    //            Gizmos.DrawSphere(cluster.Center, 0.2f);
 
-                Handles.Label(cluster.Center + up, cluster.Id.ToString());
+    //            Handles.Label(cluster.Center + up, cluster.Id.ToString());
 
-                Gizmos.color = Color.blue;
+    //            Gizmos.color = Color.blue;
 
-                foreach(var gate in cluster.Gateways)
-                {
-                    Gizmos.DrawLine(cluster.Center, gate.Center + up / 2);
-                }
-            }
+    //            foreach(var gate in cluster.Gateways)
+    //            {
+    //                Gizmos.DrawLine(cluster.Center, gate.Center + up / 2);
+    //            }
+    //        }
 
-            foreach(var gateway in this.ClusterGraph.Gateways)
-            {
-                Gizmos.color = Color.green;
+    //        foreach(var gateway in this.ClusterGraph.Gateways)
+    //        {
+    //            Gizmos.color = Color.green;
 
-                if (this.GatewayOpen != null && !this.GatewayOpen[gateway.Id]) Gizmos.color = Color.yellow;
+    //            if (this.GatewayOpen != null && !this.GatewayOpen[gateway.Id]) Gizmos.color = Color.yellow;
 
-                Gizmos.DrawSphere(gateway.Center + up / 2, 0.1f);
+    //            Gizmos.DrawSphere(gateway.Center + up / 2, 0.1f);
 
-                Handles.Label(gateway.Center + up, gateway.Id.ToString());
-            }
-        }
+    //            Handles.Label(gateway.Center + up, gateway.Id.ToString());
+    //        }
+    //    }
 
-        if(this.DebugGateways && this.ClusterGraph != null)
-        {
-            foreach(var gate in this.ClusterGraph.Gateways)
-            {
-                if(gate.Edges != null)
-                {
-                    foreach(var edge in gate.Edges)
-                    {
-                        if(edge != null)
-                        {
-                            Gizmos.DrawLine(edge.Left.Position, edge.Right.Position);
-                        }
-                    }
-                }
-            }
-        }
-    }
+    //    if(this.DebugGateways && this.ClusterGraph != null)
+    //    {
+    //        foreach(var gate in this.ClusterGraph.Gateways)
+    //        {
+    //            if(gate.Edges != null)
+    //            {
+    //                foreach(var edge in gate.Edges)
+    //                {
+    //                    if(edge != null)
+    //                    {
+    //                        Gizmos.DrawLine(edge.Left.Position, edge.Right.Position);
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 }
