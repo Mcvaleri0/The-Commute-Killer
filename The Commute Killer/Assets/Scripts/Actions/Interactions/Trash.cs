@@ -36,10 +36,16 @@ public class Trash : Interaction
     {
         base.Execute();
 
+        if(this.Agent.OnHand.Name == "TrashBag")
+        {
+            var hasVicitim = this.Instrument.GetComponent<TrashBag>().GetContainsVictim();
+            if (hasVicitim)
+            {
+                GameObject.Find("EventManager").GetComponent<EventManager>().TriggerEvent(Event.VictimAtDumpster);
+            }
+        }
+
         this.Agent.OnHand = null;
-
         Object.Destroy(this.Instrument.gameObject);
-
-        GameObject.Find("EventManager").GetComponent<EventManager>().TriggerEvent(Event.VictimAtDumpster);
     }
 }

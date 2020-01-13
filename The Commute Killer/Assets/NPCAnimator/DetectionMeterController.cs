@@ -31,6 +31,11 @@ public class DetectionMeterController : LerpScaleElement
         base.Update();
 
         this.Meter.localScale = new Vector3(this.Progress, this.Progress, this.Progress);
+
+        if(this.Progress != 0)
+        {
+            DetectionMeter.localScale = Vector3.one + new Vector3(this.Progress, this.Progress, this.Progress);
+        }
     }
 
     public bool IsDetected()

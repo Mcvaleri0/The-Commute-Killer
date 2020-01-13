@@ -60,12 +60,12 @@ public class LevelManager : MonoBehaviour
 
     #region === Game Control Functions ===
 
-    public void GameOver()
+    public void GameOver(string text)
     {
         this.GameFinished = true;
         this.Pause();
 
-        this.GameOverPrompt.Draw();
+        this.GameOverPrompt.Draw(text);
     }
 
     public void Win()
