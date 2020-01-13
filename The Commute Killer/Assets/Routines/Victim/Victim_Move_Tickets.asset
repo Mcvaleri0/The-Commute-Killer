@@ -10,15 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecd8358c1672bf46b89e49fa1ab8c32, type: 3}
-  m_Name: MoveToPlatform
+  m_Name: Victim_Move_Tickets
   m_EditorClassIdentifier: 
+  Executed: 1
   ActionId: 9
   AgentName: Victim
   TargetName: 
-  TargetPosition: {x: -28.84, y: -1.23, z: -0.7}
-  StartHour: 8
-  StartMinute: 30
-  EndHour: 12
+  TargetPosition: {x: -15.356, y: -0.714, z: 73.679}
+  Duration: 0
+  Expression: 0
+  StartHour: 9
+  StartMinute: 0
+  EndHour: 11
   EndMinute: 30
   ExecutePosition: {x: 0, y: 0, z: 0}
   Distance: 0

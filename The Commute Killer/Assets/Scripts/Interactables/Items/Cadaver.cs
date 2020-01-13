@@ -5,6 +5,8 @@ using UnityEngine;
 public class Cadaver : Interactable
 {
 
+    public bool Target = false;
+
     protected GameObject Bag;
 
     private AudioSource AudioSource;
@@ -59,7 +61,11 @@ public class Cadaver : Interactable
         //spawn trash bag item
         var bag = Instantiate(Bag);
         bag.transform.position = transform.position;
-        bag.GetComponent<TrashBag>().SetContainsVictim(true);
+
+        if (this.Target)
+        {
+            bag.GetComponent<TrashBag>().SetContainsVictim(true);
+        }        
 
         Destroy(gameObject);
 
