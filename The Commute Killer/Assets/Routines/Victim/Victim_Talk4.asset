@@ -10,15 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecd8358c1672bf46b89e49fa1ab8c32, type: 3}
-  m_Name: Stab
+  m_Name: Victim_Talk4
   m_EditorClassIdentifier: 
-  ActionId: 3
+  Executed: 1
+  ActionId: 10
   AgentName: Victim
-  TargetName: PlayerCharacter
-  StartHour: 8
-  StartMinute: 40
-  EndHour: 14
+  TargetName: 
+  TargetPosition: {x: 0, y: 0, z: 0}
+  Duration: 3
+  Expression: 6
+  StartHour: 9
+  StartMinute: 10
+  EndHour: 12
   EndMinute: 0
   ExecutePosition: {x: 0, y: 0, z: 0}
   Distance: 0
-  PrecedingActions: []
+  PrecedingActions:
+  - {fileID: 11400000, guid: daf58ae3a895de74d8356d2e4318e4ec, type: 2}
+  - {fileID: 11400000, guid: f9d28083664cbf64b8b9fd5b8355daff, type: 2}

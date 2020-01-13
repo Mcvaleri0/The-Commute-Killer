@@ -9,13 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb066e065f67d543a3ff9a650597be3, type: 3}
-  m_Name: TestRoutine
+  m_Script: {fileID: 11500000, guid: fecd8358c1672bf46b89e49fa1ab8c32, type: 3}
+  m_Name: Victim_Move_FoodStand
   m_EditorClassIdentifier: 
-  Id: 0
-  RoutineActions:
-  - {fileID: 11400000, guid: 0740dc66e9f00b64799bb1be55930e31, type: 2}
+  Executed: 1
+  ActionId: 9
+  AgentName: Victim
+  TargetName: 
+  TargetPosition: {x: 9.45, y: -0.714, z: 50.4}
+  Duration: 0
+  Expression: 0
   StartHour: 8
   StartMinute: 30
-  EndHour: 12
+  EndHour: 9
   EndMinute: 30
+  ExecutePosition: {x: 0, y: 0, z: 0}
+  Distance: 0
+  PrecedingActions: []

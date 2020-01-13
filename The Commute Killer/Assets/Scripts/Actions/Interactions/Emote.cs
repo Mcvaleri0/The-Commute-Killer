@@ -29,12 +29,14 @@ public class Emote : Interaction
             case 0: // To Start
                 this.Execute();
                 this.State = 1;
+                this.Agent.GetComponent<AnimationController>().SetState(AnimationController.States.Talking);
                 break;
 
             case 1: // In Progress
                 if (!this.SpeechBubbleController.Visible)
                 {
                     this.State = 2;
+                    this.Agent.GetComponent<AnimationController>().SetState(AnimationController.States.Walking);
                 }
                 break;
 

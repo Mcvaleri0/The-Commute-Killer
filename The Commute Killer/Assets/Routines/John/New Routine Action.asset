@@ -10,15 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecd8358c1672bf46b89e49fa1ab8c32, type: 3}
-  m_Name: NewMove2
+  m_Name: New Routine Action
   m_EditorClassIdentifier: 
+  Executed: 0
   ActionId: 9
-  AgentName: Victim
+  AgentName: John
   TargetName: 
-  TargetPosition: {x: 17.7, y: 0.45, z: 48.08}
-  StartHour: 12
+  TargetPosition: {x: 19.87, y: -0.8, z: 50.311}
+  Duration: 0
+  Expression: 0
+  StartHour: 17
   StartMinute: 0
-  EndHour: 4
+  EndHour: 22
   EndMinute: 0
   ExecutePosition: {x: 0, y: 0, z: 0}
   Distance: 0

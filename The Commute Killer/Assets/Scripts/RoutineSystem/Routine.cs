@@ -74,8 +74,8 @@ public class Routine : ScriptableObject
         this.StartHour   = sHour;
         this.StartMinute = sMinute;
 
-        this.EndHour   = eHour;
-        this.EndMinute = eMinute;
+        //this.EndHour   = eHour;
+        //this.EndMinute = eMinute;
         #endregion
 
         for(var i = 0; i < this.RoutineActions.Count; i++)

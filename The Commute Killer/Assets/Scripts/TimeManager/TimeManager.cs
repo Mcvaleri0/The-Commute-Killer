@@ -88,7 +88,7 @@ public class TimeManager : MonoBehaviour
 
     private void InitializeTime()
     {
-        this.InitialTime = new DateTime(this.StoryYear, this.StoryMonth, this.StoryDay, 8, 30, 0);    // 6/9/1989  8:30
+        this.InitialTime = new DateTime(this.StoryYear, this.StoryMonth, this.StoryDay, 8, 0, 0);    // 6/9/1989  8:30
 
         this.CurrentTime = this.InitialTime;
         this.UpdateNextDay();

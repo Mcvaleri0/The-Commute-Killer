@@ -10,16 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecd8358c1672bf46b89e49fa1ab8c32, type: 3}
-  m_Name: NewMove
+  m_Name: Victim_Talk2
   m_EditorClassIdentifier: 
-  ActionId: 9
+  Executed: 1
+  ActionId: 10
   AgentName: Victim
   TargetName: 
-  TargetPosition: {x: -15, y: 0, z: 74}
+  TargetPosition: {x: 0, y: 0, z: 0}
+  Duration: 5
+  Expression: 3
   StartHour: 8
-  StartMinute: 0
-  EndHour: 18
-  EndMinute: 0
+  StartMinute: 32
+  EndHour: 9
+  EndMinute: 30
   ExecutePosition: {x: 0, y: 0, z: 0}
   Distance: 0
-  PrecedingActions: []
+  PrecedingActions:
+  - {fileID: 11400000, guid: 85930884a05fc7a4f8afbaded6bd1cc1, type: 2}
+  - {fileID: 11400000, guid: 71db44ae83b51df46adab437cc641022, type: 2}
