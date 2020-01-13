@@ -6,18 +6,14 @@ public class NavCluster : ScriptableObject
 {
     public int Id;
 
-    public Vector3 Center { get; private set; }
+    public Vector3 Center;
 
-    public Vector3 Min { get; private set; }
+    public Vector3 Min;
 
-    public Vector3 Max { get; private set; }
+    public Vector3 Max;
 
-    public List<NavGateway> Gateways { get; private set; }
+    public List<NavGateway> Gateways;
 
-    public void Initialize()
-    {
-        this.Gateways = new List<NavGateway>();
-    }
 
     [System.Obsolete]
     public void Initialize(GameObject clusterObject)
@@ -55,6 +51,7 @@ public class NavCluster : ScriptableObject
     }
 
 
+    #region Methods
     public Vector3 Localize()
     {
         return this.Center;
@@ -82,8 +79,9 @@ public class NavCluster : ScriptableObject
     {
         return this.Max - this.Min;
     }
+    #endregion
 
-
+    #region Operators
     public override bool Equals(object other)
     {
         var oCluster = other as NavCluster;
@@ -100,4 +98,5 @@ public class NavCluster : ScriptableObject
     {
         return base.GetHashCode();
     }
+    #endregion
 }

@@ -13,6 +13,7 @@ public class NavClusterGraph : ScriptableObject
 
     public Dictionary<int, int> Node2Cluster;
 
+
     public void Initialize()
     {
         this.Clusters = new List<NavCluster>();
@@ -20,6 +21,7 @@ public class NavClusterGraph : ScriptableObject
 
         this.Node2Cluster = new Dictionary<int, int>();
     }
+
 
     public void SaveToAssetDatabase(int id = 0)
     {
@@ -49,17 +51,13 @@ public class NavClusterGraph : ScriptableObject
         foreach (var gateway in this.Gateways)
         {
             AssetDatabase.AddObjectToAsset(gateway, assetPathAndName);
-
-            foreach(var edge in gateway.Edges)
-            {
-                AssetDatabase.AddObjectToAsset(edge, assetPathAndName);
-            }
         }
 
         //save the gatewayTableRows and tableEntries
         foreach (var tableRow in this.GatewayDistanceTable)
         {
             AssetDatabase.AddObjectToAsset(tableRow, assetPathAndName);
+
             foreach (var tableEntry in tableRow.entries)
             {
                 AssetDatabase.AddObjectToAsset(tableEntry, assetPathAndName);
