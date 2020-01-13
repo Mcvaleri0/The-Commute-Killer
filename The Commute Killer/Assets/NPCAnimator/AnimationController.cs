@@ -23,7 +23,7 @@ public class AnimationController : MonoBehaviour
 
     void Start()
     {
-        Anim = gameObject.GetComponent<Animator>();
+        Anim      = gameObject.GetComponent<Animator>();
         AutoAgent = gameObject.GetComponent<AutonomousAgent>();
         Character = gameObject.GetComponent<CharacterController>();
         
@@ -32,12 +32,12 @@ public class AnimationController : MonoBehaviour
     void Update()
     {
         //pass params to animator
-        /*
+        
         Vector3 velocity = Character.velocity;
         float speed = velocity.magnitude;
-        */
+        
 
-        float speed = AutoAgent.GetVelocity();
+        //float speed = AutoAgent.GetVelocity();
 
         //Debug.Log(speed);
         Anim.SetFloat("Speed", speed);
