@@ -35,4 +35,23 @@ public class NavEdge : ScriptableObject
 
         this.Connected = false;
     }
+
+    // override object.Equals
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        var oEdge = (NavEdge) obj;
+
+        return this.Left == oEdge.Left && this.Right == oEdge.Right;
+    }
+
+    // override object.GetHashCode
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
 }

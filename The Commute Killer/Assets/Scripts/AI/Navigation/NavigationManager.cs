@@ -136,11 +136,19 @@ public class NavigationManager : MonoBehaviour
         {
             foreach (NavNode n in this.Graph.Nodes)
             {
+                Gizmos.color = Color.red;
+
+                if (n.Cluster != null)
+                {
+                    Gizmos.color = Color.white;
+                    Handles.Label(n.Position + up * 0.8f, n.Cluster.Id.ToString());
+                }
+
                 Gizmos.DrawSphere(n.Position, 0.05f);
 
                 Handles.Label(n.Position + up, n.Id.ToString());
 
-                if (n.Cluster != null) Handles.Label(n.Position + up * 0.8f, n.Cluster.Id.ToString());
+                
 
                 foreach (NavNode a in n.Adjacents)
                 {
@@ -189,7 +197,7 @@ public class NavigationManager : MonoBehaviour
 
             foreach(var gate in this.ClusterGraph.Gateways)
             {
-                if (this.GatewayOpen[gate.Id]) continue;
+                if (!this.GatewayOpen[gate.Id]) continue;
 
                 foreach(var edge in gate.Edges)
                 {

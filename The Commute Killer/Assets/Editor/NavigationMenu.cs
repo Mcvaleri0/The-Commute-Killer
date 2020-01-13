@@ -4,6 +4,7 @@ using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using Assets.Scripts.IAJ.Unity.Utils;
 using System.Collections.Generic;
+using UnityEngine.ProBuilder;
 
 public class NavigationMenu : ScriptableObject
 {
@@ -81,6 +82,29 @@ public class NavigationMenu : ScriptableObject
         }
     }
 
+    struct Face
+    {
+        public NavNode[] Nodes;
+
+        public Face(NavNode[] nodes)
+        {
+            this.Nodes = nodes;
+        }
+
+        public void ConnectVertices()
+        {
+            var prev = this.Nodes[0];
+
+            for (var k = 1; k < this.Nodes.Length; k++)
+            {
+                var node = this.Nodes[k];
+
+                prev.AddAdjacent(node);
+                node.AddAdjacent(prev);
+            }
+        }
+    }
+
     [MenuItem("Tools/AI/Navigation/Generate Graph")]
     private static void GenerateGraph()
     {
@@ -120,6 +144,61 @@ public class NavigationMenu : ScriptableObject
         {
             // Foreach Vertex of the Triangle
             for(var j = 0; j < 3; j++)
+            {
+                var node = indToNode[indexes[i + j]];  // Get NavNode
+
+                triangleVertices[j] = node;
+            }
+
+            var triangle = new Triangle(triangleVertices);
+            triangle.ConnectVertices();
+            //nodeCounter = triangle.Subdivide(graph, nodeCounter); // Subdivide Triangle and update Node Count
+        }
+
+        int scene = SceneManager.GetActiveScene().buildIndex;
+
+        graph.SaveToAssetDatabase(scene);
+    }
+
+    [MenuItem("Tools/AI/Navigation/Generate Graph from Custom")]
+    private static void GenerateGraphCustom()
+    {
+        // Get NavMesh Triangles
+        Mesh mesh = GameObject.Find("CustomNavMesh").GetComponent<MeshFilter>().sharedMesh;
+
+        var indexes   = mesh.GetIndices(0); // Indices of each triangle's vertices
+        var positions = mesh.vertices;      // Vertex's positions
+
+        NavGraph graph = CreateInstance<NavGraph>(); // NabGraph
+        graph.Initialize();
+
+        var nodeCounter = 0; // To attribute each Node its Id
+        Dictionary<int, NavNode> indToNode = new Dictionary<int, NavNode>(); // Map NavNodes to original position array
+
+        // Create NavNodes and populate NavGraph
+        for (var i = 0; i < positions.Length; i++)
+        {
+            Vector3 pos = positions[i];
+
+            var node = graph.QuantizeToNode(pos, 0.3f);
+
+            if (node == null)
+            {
+                node = InstantiateNode(nodeCounter++, pos);
+
+                graph.AddNode(node);
+            }
+
+            indToNode.Add(i, node);
+        }
+
+        var triangleVertices = new NavNode[3]; // Temporary array to hold each triangle's NavNodes
+
+        // Foreach Triangle in the NavMesh
+        for (var i = 0; i < indexes.Length; i += 3)
+        {
+            // Foreach Vertex of the Triangle
+            for (var j = 0; j < 3; j++)
             {
                 var node = indToNode[indexes[i + j]];  // Get NavNode
 
@@ -331,17 +410,17 @@ public class NavigationMenu : ScriptableObject
         {
             foreach(var adjacent in node.Adjacents)
             {
-                if(node.Id < adjacent.Id)
+                var gate = CrossesGateway(node.Position, adjacent.Position, gates);
+
+                if (gate != null)
                 {
-                    var gate = CrossesGateway(node.Position, adjacent.Position, gates);
+                    if (gate.Edges == null) gate.Edges = new List<NavEdge>();
 
-                    if (gate != null)
+                    var edge = CreateInstance<NavEdge>();
+                    edge.Initialize(node, adjacent);
+
+                    if(!gate.Edges.Contains(edge))
                     {
-                        if (gate.Edges == null) gate.Edges = new List<NavEdge>();
-
-                        var edge = CreateInstance<NavEdge>();
-                        edge.Initialize(node, adjacent);
-
                         gate.Edges.Add(edge);
                     }
                 }
