@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class LevelManager : MonoBehaviour
     private WinPrompt WinPrompt { get; set; }
     private ExitPrompt ExitPrompt { get; set; }
 
+    private TimeManager TimeManager;
+
+    private int CurrentDay;
+
+    private List<AutonomousAgent> Agents;
     #endregion
 
     #region /* Auxiliar */
@@ -36,6 +42,24 @@ public class LevelManager : MonoBehaviour
         this.GameOverPrompt = GameObject.Find("Canvas").transform.Find("GameOverPrompt").GetComponent<GameOverPrompt>();
         this.WinPrompt = GameObject.Find("Canvas").transform.Find("WinPrompt").GetComponent<WinPrompt>();
         this.ExitPrompt = GameObject.Find("Canvas").transform.Find("ExitPrompt").GetComponent<ExitPrompt>();
+
+        this.TimeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
+
+        this.CurrentDay = this.TimeManager.GetCurrentTime().Day;
+
+        this.Agents = new List<AutonomousAgent>();
+
+        var agents = GameObject.FindGameObjectsWithTag("NPC");
+
+        foreach(var agent in agents)
+        {
+            var aa = agent.GetComponent<AutonomousAgent>();
+
+            if(aa != null)
+            {
+                this.Agents.Add(aa);
+            }   
+        }
     }
 
     // Update is called once per frame
@@ -54,6 +78,22 @@ public class LevelManager : MonoBehaviour
                 this.ExitPrompt.Draw();
             }
         }
+
+        /*
+        var currentTime = this.TimeManager.GetCurrentTime();
+
+        if(this.CurrentDay != currentTime.Day)
+        {
+            this.CurrentDay = currentTime.Day;
+
+            foreach(var agent in this.Agents)
+            {
+                var charController = agent.GetComponent<CharacterController>();
+
+                charController.Move(agent.StartPosition);
+            }
+        }
+        */
     }
 
     #endregion

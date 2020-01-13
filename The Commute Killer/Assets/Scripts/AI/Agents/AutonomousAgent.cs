@@ -13,6 +13,8 @@ public class AutonomousAgent : Agent
 
 
     #region /* Movement */
+    public Vector3 StartPosition { get; private set; }
+
     private int MovementState = 0; //[ 0 - Stopped | 1 - Moving | 2 - Stopped at Goal ]
 
     private DynamicCharacter DCharacter;
