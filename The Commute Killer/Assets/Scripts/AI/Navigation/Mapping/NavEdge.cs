@@ -9,6 +9,7 @@ public class NavEdge : ScriptableObject
 
     public bool Connected;
 
+
     public void Initialize(NavNode left, NavNode right)
     {
         this.Left = left;

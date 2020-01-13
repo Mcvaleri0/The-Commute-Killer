@@ -18,12 +18,6 @@ public class NavGateway : ScriptableObject
     public List<NavEdge> Edges;
 
 
-    public void Initialize()
-    {
-        this.Clusters = new List<NavCluster>();
-    }
-
-
     public void Initialize(int Id, GameObject gatewayObject)
     {
         this.Clusters = new List<NavCluster>();
@@ -49,8 +43,6 @@ public class NavGateway : ScriptableObject
     {
         return this.Center;
     }
-
-
     public void Close()
     {
         foreach (var edge in this.Edges)

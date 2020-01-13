@@ -30,7 +30,7 @@ public class NavigationManager : MonoBehaviour
         {
             this.GatewayOpen.Add(gate.Id, true);
 
-            gate.Open();
+            //gate.Open();
         }
 
         this.OGatewayDistanceTable = this.ClusterGraph.GatewayDistanceTable;
@@ -111,7 +111,7 @@ public class NavigationManager : MonoBehaviour
         return gate;
     }
 
-
+    
     public void CloseGateway(int id)
     {
         this.GatewayOpen[id] = false;
@@ -193,13 +193,17 @@ public class NavigationManager : MonoBehaviour
 
         if(this.DebugGateways && this.ClusterGraph != null)
         {
-            Gizmos.color = Color.cyan;
-
             foreach(var gate in this.ClusterGraph.Gateways)
             {
-                foreach(var edge in gate.Edges)
+                if(gate.Edges != null)
                 {
-                    Gizmos.DrawLine(edge.Left.Position, edge.Right.Position);
+                    foreach(var edge in gate.Edges)
+                    {
+                        if(edge != null)
+                        {
+                            Gizmos.DrawLine(edge.Left.Position, edge.Right.Position);
+                        }
+                    }
                 }
             }
         }
