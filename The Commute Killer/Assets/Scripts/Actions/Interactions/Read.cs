@@ -23,7 +23,7 @@ public class Read : Interaction
         if (this.Interactable == null) { return false; }
 
         #region Distance
-        if (Vector3.Distance(this.Interactable.transform.position, this.Agent.transform.position) > 2f)
+        if (Vector3.Distance(this.Interactable.transform.position, this.Agent.transform.position) > 5f)
         {
             return false;
         }

@@ -154,6 +154,7 @@ public class CarManager : MonoBehaviour
         audio.clip = Resources.Load("Audio/car_engine") as AudioClip;
         audio.spatialBlend = 1;
         audio.loop = true;
+        audio.volume = 0.5f;
         audio.Play();
 
         CarController Controller = Car.AddComponent<CarController>();

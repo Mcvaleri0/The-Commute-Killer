@@ -28,7 +28,7 @@ public class PickUp : Action
         if (this.Item == null) { return false; } // Target must be an item
 
         #region Distance
-        if (Vector3.Distance(this.Item.transform.position, this.Agent.transform.position) > 2f)
+        if (Vector3.Distance(this.Item.transform.position, this.Agent.transform.position) > 5f)
         {
             return false;
         }

@@ -52,7 +52,7 @@ public class Emote : Interaction
         if (this.Interactable != null)
         {
             #region Distance
-            if (Vector3.Distance(this.Interactable.transform.position, this.Agent.transform.position) > 1f)
+            if (Vector3.Distance(this.Interactable.transform.position, this.Agent.transform.position) > 5f)
             {
                 return false;
             }
