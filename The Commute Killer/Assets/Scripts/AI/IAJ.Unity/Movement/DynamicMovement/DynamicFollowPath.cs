@@ -62,11 +62,7 @@ public class DynamicFollowPath : DynamicArrive
         //        be part of the same cluster.
         //        Without the smoth this is not a problem because, in that case,
         //        the last node and the goal position are always in the same cluster
-        if (index + 1 == global.PathNodes.Count)
-        {
-            return true;
-        }
-
+        if (index + 1 >= global.PathNodes.Count) return true;
 
         NavNode TargetNode = global.PathNodes[index + 1];
 
@@ -74,6 +70,8 @@ public class DynamicFollowPath : DynamicArrive
         {
             index = Mathf.FloorToInt(this.CurrentParam);
         }
+
+        if (index >= global.PathNodes.Count) return true;
 
         NavNode CurrentNode = global.PathNodes[index];
 
