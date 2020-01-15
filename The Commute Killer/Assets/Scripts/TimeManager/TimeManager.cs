@@ -69,6 +69,15 @@ public class TimeManager : MonoBehaviour
 
             this.VerifyEvents();
         }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            this.FastFoward();
+        }
+        if (Input.GetKeyUp(KeyCode.K))
+        {
+            this.NormalSpeed();
+        }
     }
 
     private void OnGUI()

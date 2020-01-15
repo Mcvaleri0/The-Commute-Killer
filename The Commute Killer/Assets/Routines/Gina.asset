@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb066e065f67d543a3ff9a650597be3, type: 3}
+  m_Name: Gina
+  m_EditorClassIdentifier: 
+  Id: 3
+  RoutineActions:
+  - {fileID: 11400000, guid: 36f8334f3b9911b48888e219a92c2fdb, type: 2}
+  - {fileID: 11400000, guid: c2ca627e43a3d4346940bf95543f5e5f, type: 2}
+  - {fileID: 11400000, guid: 743750ead01152d42b6924be1e468351, type: 2}
+  StartHour: 8
+  StartMinute: 35
+  EndHour: 20
+  EndMinute: 0
