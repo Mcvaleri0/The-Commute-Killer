@@ -19,5 +19,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2bbab7aa11c3c3445a1cd2fcf4164827, type: 2}
   StartHour: 9
   StartMinute: 30
-  EndHour: 16
-  EndMinute: 0
+  EndHour: 11
+  EndMinute: 5

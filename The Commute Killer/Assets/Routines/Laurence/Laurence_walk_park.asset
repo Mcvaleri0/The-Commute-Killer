@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecd8358c1672bf46b89e49fa1ab8c32, type: 3}
-  m_Name: Mike_Tickets
+  m_Name: Laurence_walk_park
   m_EditorClassIdentifier: 
   Executed: 0
   ActionId: 9
-  TargetName: TicketsOffice
+  TargetName: ParkCenter
   TargetPosition: {x: 0, y: 0, z: 0}
   Duration: 0
   Expression: 0
-  StartHour: 9
-  StartMinute: 30
-  EndHour: 14
+  StartHour: 8
+  StartMinute: 15
+  EndHour: 12
   EndMinute: 0
   ExecutePosition: {x: 0, y: 0, z: 0}
   Distance: 0

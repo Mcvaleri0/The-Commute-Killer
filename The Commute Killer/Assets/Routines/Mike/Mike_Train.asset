@@ -18,10 +18,11 @@ MonoBehaviour:
   TargetPosition: {x: 0, y: 0, z: 0}
   Duration: 0
   Expression: 0
-  StartHour: 9
-  StartMinute: 20
+  StartHour: 10
+  StartMinute: 0
   EndHour: 16
   EndMinute: 0
   ExecutePosition: {x: 0, y: 0, z: 0}
   Distance: 0
-  PrecedingActions: []
+  PrecedingActions:
+  - {fileID: 11400000, guid: fbfbbb7b37ec9cf43993e7688b8e1b95, type: 2}

@@ -16,6 +16,7 @@ MonoBehaviour:
   RoutineActions:
   - {fileID: 11400000, guid: 813b5e5e961650348830aa2f8dffa9ed, type: 2}
   - {fileID: 11400000, guid: 946f1a98180da8e49b301e48a14473d9, type: 2}
+  - {fileID: 11400000, guid: 946f1a98180da8e49b301e48a14473d9, type: 2}
   StartHour: 7
   StartMinute: 30
   EndHour: 14
