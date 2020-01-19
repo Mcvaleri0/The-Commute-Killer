@@ -27,6 +27,7 @@ public class AutonomousAgent : Agent
     public bool Target = false;
 
     public bool UsingRVO { get; set; }
+    public float LookAHeadNPC { get; set; }
 
     #region /* Movement Targets */
     private Vector3 InitialGoalPosition { get; set; }
@@ -134,9 +135,9 @@ public class AutonomousAgent : Agent
                         {
                             Character = this.DCharacter.KinematicData,
                             MaxAcceleration = this.Attributes[Attribute.Accelaration],
-                            MaxSpeed = this.Attributes[Attribute.Speed]
-                            //CharacterSize = 1.0f,
-                            //IgnoreDistance = 15f,
+                            MaxSpeed = this.Attributes[Attribute.Speed],
+                            CharacterSize = this.DCharacter.Controller.radius,
+                            IgnoreDistance = this.LookAHeadNPC,
                             //ObstacleSize = 4f
                         };
                     }

@@ -81,8 +81,8 @@ namespace Assets.Scripts.IAJ.Unity.Movement.VO
             Samples = Samples.Concat(genRangeSamples(desiredVelocity, NUM_SAMPLES / 4, MathConstants.MATH_PI_4)).ToList();
 
             // --- Evaluate and get best sample ---
-            //base.Target.velocity = GetBestSample(desiredVelocity, Samples);
-            base.TargetVelocity.velocity = desiredVelocity;
+            base.TargetVelocity.velocity = GetBestSample(desiredVelocity, Samples);
+            //base.TargetVelocity.velocity = desiredVelocity;
 
             // --- let the base class take care of achieving the final velocity
             return base.GetMovement();

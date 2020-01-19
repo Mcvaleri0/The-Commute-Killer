@@ -24,6 +24,7 @@ public class LevelManager : MonoBehaviour
 
     private List<AutonomousAgent> Agents;
     public bool AgentsUsingRVO;
+    public float AgentLookAHead;
 
     private List<float> StartTime;
     private List<float> EndTime;
@@ -172,6 +173,7 @@ public class LevelManager : MonoBehaviour
 
             var auto = obj.GetComponent<AutonomousAgent>();
             auto.UsingRVO = this.AgentsUsingRVO;
+            auto.LookAHeadNPC = this.AgentLookAHead;
             this.Agents.Add(auto);
 
             foreach(MonoBehaviour comp in obj.GetComponents<MonoBehaviour>())
@@ -188,7 +190,7 @@ public class LevelManager : MonoBehaviour
             obj.SetActive(false);
 
             i++;
-            break;
+            //break;
         }
     }
 
