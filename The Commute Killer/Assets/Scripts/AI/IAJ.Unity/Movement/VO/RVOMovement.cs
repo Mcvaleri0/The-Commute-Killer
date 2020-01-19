@@ -44,16 +44,21 @@ namespace Assets.Scripts.IAJ.Unity.Movement.VO
             DesiredMovement = goalMovement;
             Characters      = movingCharacters;
             Obstacles       = obstacles;
-            base.Target     = new KinematicData();
+            //base.Target     = new KinematicData();
+            base.Target     = goalMovement.Target;
         }
 
 
+        #region === Movement ===
         public override MovementOutput GetMovement()
         {
-            OBSTACLE_SIZE_SQR = ObstacleSize * ObstacleSize;
+
+            //OBSTACLE_SIZE_SQR = ObstacleSize * ObstacleSize;
 
             // --- Calculate desired velocity ---
             MovementOutput desiredOutput = this.DesiredMovement.GetMovement();
+
+            //return desiredOutput;
 
             // if movementOutput is accelarating we need to convert it to velocity
             Vector3 desiredVelocity = this.Character.velocity + desiredOutput.linear;
@@ -76,12 +81,23 @@ namespace Assets.Scripts.IAJ.Unity.Movement.VO
             Samples = Samples.Concat(genRangeSamples(desiredVelocity, NUM_SAMPLES / 4, MathConstants.MATH_PI_4)).ToList();
 
             // --- Evaluate and get best sample ---
-            base.Target.velocity = GetBestSample(desiredVelocity, Samples);
-                
+            //base.Target.velocity = GetBestSample(desiredVelocity, Samples);
+            base.TargetVelocity.velocity = desiredVelocity;
+
             // --- let the base class take care of achieving the final velocity
             return base.GetMovement();
         }
 
+
+        public override bool Possible()
+        {
+            return this.DesiredMovement.Possible();
+        }
+
+        #endregion
+
+
+        #region === Samples ===
 
         private Vector3 GetBestSample(Vector3 desiredVelocity, List<Vector3> samples)
         {
@@ -225,7 +241,9 @@ namespace Assets.Scripts.IAJ.Unity.Movement.VO
             return samples;
         }
 
+        #endregion
 
+        #region === Penalties ===
         private float characterPenalty(KinematicData enemy, Vector3 sample)
         {
             float timePenalty = 0f; // default value for no collision
@@ -318,5 +336,8 @@ namespace Assets.Scripts.IAJ.Unity.Movement.VO
             
             return timePenalty;
         }
+
+        #endregion
+
     }
 }

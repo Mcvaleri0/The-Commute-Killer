@@ -23,9 +23,11 @@ public class LevelManager : MonoBehaviour
     public List<GameObject> Prefabs;
 
     private List<AutonomousAgent> Agents;
+    public bool AgentsUsingRVO;
 
     private List<float> StartTime;
     private List<float> EndTime;
+
     #endregion
 
     #region /* Auxiliar */
@@ -168,7 +170,9 @@ public class LevelManager : MonoBehaviour
         {
             var obj = Instantiate(prefab, this.InitialPositions[i], Quaternion.identity);
 
-            this.Agents.Add(obj.GetComponent<AutonomousAgent>());
+            var auto = obj.GetComponent<AutonomousAgent>();
+            auto.UsingRVO = this.AgentsUsingRVO;
+            this.Agents.Add(auto);
 
             foreach(MonoBehaviour comp in obj.GetComponents<MonoBehaviour>())
             {
@@ -184,11 +188,14 @@ public class LevelManager : MonoBehaviour
             obj.SetActive(false);
 
             i++;
+            break;
         }
     }
+
     #endregion
 
     #region === Auxiliar Functions ===
+
     public void TrainHasArrived()
     {
         Debug.Log("ARRIVED");
@@ -208,5 +215,6 @@ public class LevelManager : MonoBehaviour
             //do something - tell npc train has departured
         }
     }
+
     #endregion
 }

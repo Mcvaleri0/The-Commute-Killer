@@ -43,9 +43,9 @@ namespace Assets.Scripts.IAJ.Unity.Movement.DynamicMovement
 
             if (this.Movement != null)
             {
-                MovementOutput steering = this.Movement.GetMovement();
-
                 this.KinematicData.position = this.GameObject.transform.position;
+
+                MovementOutput steering = this.Movement.GetMovement();
 
                 this.KinematicData.Integrate(steering, this.Drag, Time.deltaTime);
                 this.KinematicData.SetOrientationFromVelocity();

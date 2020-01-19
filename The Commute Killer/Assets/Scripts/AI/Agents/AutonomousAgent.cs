@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.IAJ.Unity.Movement.DynamicMovement;
+using Assets.Scripts.IAJ.Unity.Movement.VO;
+using Assets.Scripts.IAJ.Unity.Movement;
+
+
 
 public class AutonomousAgent : Agent
 {
@@ -13,6 +17,7 @@ public class AutonomousAgent : Agent
 
 
     #region /* Movement */
+
     public Vector3 StartPosition { get; private set; }
 
     private int MovementState = 0; //[ 0 - Stopped | 1 - Moving | 2 - Stopped at Goal ]
@@ -20,6 +25,8 @@ public class AutonomousAgent : Agent
     private DynamicCharacter DCharacter;
 
     public bool Target = false;
+
+    public bool UsingRVO { get; set; }
 
     #region /* Movement Targets */
     private Vector3 InitialGoalPosition { get; set; }
@@ -30,6 +37,7 @@ public class AutonomousAgent : Agent
 
     private EventManager EventManager { get; set; }
     #endregion
+
     #endregion
 
 
@@ -110,14 +118,30 @@ public class AutonomousAgent : Agent
                 {
                     this.Path = solution;
 
-                    this.DCharacter.Movement = new DynamicFollowPath()
+                    DynamicMovement movement = new DynamicFollowPath()
                     {
+                        Character = this.DCharacter.KinematicData,
                         Path = this.Path,
                         MaxSpeed = this.Attributes[Attribute.Speed],
                         MaxAcceleration = this.Attributes[Attribute.Accelaration],
                         PathOffset = 1f,
                         NavManager = this.PathfindingM.NavManager
-                    };
+                    }; 
+                    
+                    if (this.UsingRVO)
+                    {
+                        movement = new RVOMovement(movement, new List<KinematicData>(), new List<StaticData>())
+                        {
+                            Character = this.DCharacter.KinematicData,
+                            MaxAcceleration = this.Attributes[Attribute.Accelaration],
+                            MaxSpeed = this.Attributes[Attribute.Speed]
+                            //CharacterSize = 1.0f,
+                            //IgnoreDistance = 15f,
+                            //ObstacleSize = 4f
+                        };
+                    }
+
+                    this.DCharacter.Movement = movement;
 
                     this.MovementState = 2;
                 }
@@ -168,6 +192,7 @@ public class AutonomousAgent : Agent
 
         return true;
     }
+
     #endregion
 
 
