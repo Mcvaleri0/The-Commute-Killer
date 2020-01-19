@@ -22,7 +22,7 @@ public class AutonomousAgent : Agent
 
     private int MovementState = 0; //[ 0 - Stopped | 1 - Moving | 2 - Stopped at Goal ]
 
-    private DynamicCharacter DCharacter;
+    public DynamicCharacter DCharacter { get; private set; }
 
     public bool Target = false;
 
@@ -131,7 +131,9 @@ public class AutonomousAgent : Agent
                     
                     if (this.UsingRVO)
                     {
-                        movement = new RVOMovement(movement, new List<KinematicData>(), new List<StaticData>())
+                        ObstaclesDetector Detector = ObstaclesDetector.CreateObstaclesDetector(this.transform, this.LookAHeadNPC);
+
+                        movement = new RVOMovement(movement, Detector /*new List<KinematicData>(), new List<StaticData>()*/)
                         {
                             Character = this.DCharacter.KinematicData,
                             MaxAcceleration = this.Attributes[Attribute.Accelaration],

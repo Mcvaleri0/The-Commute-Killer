@@ -21,8 +21,11 @@ namespace Assets.Scripts.IAJ.Unity.Movement.VO
             get { return "RVO"; }
         }
 
-        protected List<KinematicData> Characters { get; set; }
-        protected List<StaticData> Obstacles { get; set; }
+        //protected List<KinematicData> Characters { get; set; }
+        //protected List<StaticData> Obstacles { get; set; }
+
+        private ObstaclesDetector Detector { get; set; }
+
         public float CharacterSize { get; set; }
         public float IgnoreDistance { get; set; }
         public float MaxSpeed { get; set; }
@@ -39,12 +42,12 @@ namespace Assets.Scripts.IAJ.Unity.Movement.VO
         protected DynamicMovement.DynamicMovement DesiredMovement { get; set; }
 
 
-        public RVOMovement(DynamicMovement.DynamicMovement goalMovement, List<KinematicData> movingCharacters, List<StaticData> obstacles)
+        public RVOMovement(DynamicMovement.DynamicMovement goalMovement, ObstaclesDetector Detector /*List<KinematicData> movingCharacters, List<StaticData> obstacles*/)
         {
             DesiredMovement = goalMovement;
-            Characters      = movingCharacters;
-            Obstacles       = obstacles;
-            //base.Target     = new KinematicData();
+            this.Detector = Detector;
+            //Characters      = movingCharacters;
+            //Obstacles       = obstacles;
             base.Target     = goalMovement.Target;
         }
 
@@ -52,13 +55,10 @@ namespace Assets.Scripts.IAJ.Unity.Movement.VO
         #region === Movement ===
         public override MovementOutput GetMovement()
         {
-
             //OBSTACLE_SIZE_SQR = ObstacleSize * ObstacleSize;
 
             // --- Calculate desired velocity ---
             MovementOutput desiredOutput = this.DesiredMovement.GetMovement();
-
-            //return desiredOutput;
 
             // if movementOutput is accelarating we need to convert it to velocity
             Vector3 desiredVelocity = this.Character.velocity + desiredOutput.linear;
@@ -117,7 +117,7 @@ namespace Assets.Scripts.IAJ.Unity.Movement.VO
                     continue;
                 }
 
-                foreach (var enemy in this.Characters)
+                foreach (var enemy in this.Detector.Characters.Values /*this.Characters*/)
                 {
                     if(sample == desiredVelocity)
                     {
@@ -145,7 +145,7 @@ namespace Assets.Scripts.IAJ.Unity.Movement.VO
                 }
 
 
-                foreach (var obstacle in this.Obstacles)
+                foreach (var obstacle in this.Detector.Obstacles.Values)
                 {
                     var timePenalty = obstaclePenalty(obstacle, sample);
 
