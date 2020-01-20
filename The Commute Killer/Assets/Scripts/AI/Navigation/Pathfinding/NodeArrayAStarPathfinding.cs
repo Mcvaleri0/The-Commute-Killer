@@ -45,6 +45,7 @@ public class NodeArrayAStarPathFinding : AStarPathfinding
             childNodeRecord.Update(bestNode, g, h, f);
             childNodeRecord.status = NodeStatus.Open;
             this.NodeRecordArray.AddToOpen(childNodeRecord);
+            this.TotalOpenedNodes++;
         }
         // If it is Open or Closed and the new found F is better
         else if(childNodeRecord.fValue > f)
@@ -56,6 +57,7 @@ public class NodeArrayAStarPathFinding : AStarPathfinding
             if (childNodeRecord.status == NodeStatus.Closed)
             {
                 this.NodeRecordArray.AddToOpen(childNodeRecord);
+                this.TotalOpenedNodes++;
             }
         }
     }

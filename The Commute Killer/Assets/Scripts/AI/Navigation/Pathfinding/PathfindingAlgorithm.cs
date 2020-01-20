@@ -39,6 +39,8 @@ public abstract class PathfindingAlgorithm
 
     public int TotalExploredNodes { get; protected set; }
 
+    public int TotalOpenedNodes { get; protected set; }
+
     public int MaxConcurrentOpenNodes { get; protected set; }
 
     protected float StartProcessingTime;

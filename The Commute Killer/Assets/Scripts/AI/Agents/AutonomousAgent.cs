@@ -117,6 +117,11 @@ public class AutonomousAgent : Agent
 
                 if(solution != null)
                 {
+                    Debug.Log("Open: " + this.PathfindingM.PathFinding.TotalOpenedNodes + "\n" +
+                              "Explored: " + this.PathfindingM.PathFinding.TotalExploredNodes + "\n" +
+                               "Fill: " + (this.PathfindingM.PathFinding.TotalOpenedNodes - solution.NumberNodes) + "\n" + 
+                               "Time: " + this.PathfindingM.PathFinding.TotalProcessingTime);
+
                     this.Path = solution;
 
                     DynamicMovement movement = new DynamicFollowPath()

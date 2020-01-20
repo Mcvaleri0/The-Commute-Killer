@@ -2,7 +2,7 @@
 
 public class AStarPathfinding : PathfindingAlgorithm
 {
-    private int StepsSoFar = 0;
+    private int StepsSoFar { get; set; } = 0;
 
     public AStarPathfinding(NavGraph graph, IOpenSet open, IClosedSet closed, IHeuristic heuristic)
     {
@@ -42,6 +42,7 @@ public class AStarPathfinding : PathfindingAlgorithm
         this.InProgress = true; // Set On-Going Flag
 
         // Debugging
+        this.TotalOpenedNodes = 0;
         this.TotalExploredNodes = 0;
         this.TotalProcessingTime = 0.0f;
         this.StartProcessingTime = Time.time;
@@ -58,6 +59,7 @@ public class AStarPathfinding : PathfindingAlgorithm
 
         this.Open.Initialize(); 
         this.Open.AddToOpen(initialNode);
+        this.TotalOpenedNodes++;
         this.Closed.Initialize();
     }
 
@@ -75,6 +77,7 @@ public class AStarPathfinding : PathfindingAlgorithm
         if (inOpen == null && inClosed == null)
         {
             Open.AddToOpen(childNode);
+            this.TotalOpenedNodes++;
         }
 
         // If child is in Open
@@ -93,6 +96,7 @@ public class AStarPathfinding : PathfindingAlgorithm
             {
                 Closed.RemoveFromClosed(inClosed);
                 Open.AddToOpen(childNode);
+                this.TotalOpenedNodes++;
             }
         }
     }
